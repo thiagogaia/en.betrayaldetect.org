@@ -9,4 +9,8 @@ services:
     volumes:
       - ./html:/usr/share/nginx/html
     restart: always
-    command: ["nginx", "-g", "daemon off;"]
+    networks:
+      - overspelnet
+networks:
+  overspelnet:
+    external: true
