@@ -2,10 +2,9 @@ version: '3'
 
 services:
   web:
-    image: nginx:alpine
-    container_name: simple-html-site
+    build: .
     ports:
-      - "8080:80"
-    volumes:
-      - ./html:/usr/share/nginx/html
+      - "80:80"
     restart: always
+    volumes:
+      - ./site:/usr/share/nginx/html
