@@ -1,42 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CheatfinderPRO</title>
-
-<script
-  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-  data-utmify-prevent-subids
-  data-utmify-ignore-iframe
-  async
-  defer
-></script>
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '970676507858955');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=970676507858955&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-<script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "rmsonuav4u");
-</script>
-
+    
+    <script
+        src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+        data-utmify-prevent-xcod-sck
+        data-utmify-prevent-subids
+        async
+        defer
+    ></script>
     
     <style>
         * {
@@ -83,7 +58,7 @@ src="https://www.facebook.com/tr?id=970676507858955&ev=PageView&noscript=1"
         }
 
         .warning-bar {
-            background: #ff4444;
+            background: #25D366;
             color: white;
             padding: 15px 20px;
             margin: 20px;
@@ -469,42 +444,20 @@ src="https://www.facebook.com/tr?id=970676507858955&ev=PageView&noscript=1"
         }
 
         .pricing-section .cta-button {
-    background: linear-gradient(135deg, #00e676, #00c853);
-    color: #FFFFFF;
-    text-align: center;
-    padding: 15px 25px;
-    border-radius: 12px;
-    font-size: 30px;
-    font-weight: 900;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    text-decoration: none;
-    margin-bottom: 30px;
-    box-shadow: 0 8px 20px rgba(0, 230, 118, 0.3);
-    transition: all 0.3s ease;
-    animation: pulse 2s infinite;
-}
-
-.cta-button:hover {
-    transform: scale(1.05);
-    background: linear-gradient(135deg, #00ff88, #00c853);
-    box-shadow: 0 12px 30px rgba(0, 230, 118, 0.5);
-}
-
-/* Animação pulsante */
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(0, 230, 118, 0.4);
-    }
-    70% {
-        box-shadow: 0 0 0 15px rgba(0, 230, 118, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(0, 230, 118, 0);
-    }
-}
+            background: #00E676;
+            color: #0F3325;
+            text-align: center;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 18px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            text-decoration: none;
+            margin-bottom: 30px;
+        }
 
         .guarantee-section {
             margin: 20px;
@@ -587,22 +540,19 @@ src="https://www.facebook.com/tr?id=970676507858955&ev=PageView&noscript=1"
             margin-top: 5px;
         }
     </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 <body>
     <div class="top-bar">
-        ⚠ Do not leave this page, otherwise you will lose access to the report
+        ⚠️ Do not leave this page, otherwise you will lose access to the report
     </div>
 
     <div class="analysis-section">
-        <h2 class="analysis-title">Complete Analysis</h2>
-        <p class="analysis-subtitle">LIMITED-TIME PREVIEW</p>
+        <img src="../assets/images/placeholder-profile.png" alt="Profile Picture" id="whatsappProfilePicStep3" style="width: 80px; height: 80px; border-radius: 50%; margin-bottom: 15px; object-fit: cover; border: 3px solid #006B54;">
+        <div class="analysis-title">Analysis Complete</div>
+        <div class="analysis-subtitle">PREVIEW OF DATA FOUND</div>
     </div>
-    <!-- Adicionado container para a foto do perfil -->
-<div class="profile-image" style="width: 100px; height: 100px; border-radius: 50%; background: #e0e0e0; overflow: hidden; margin: 15px auto; border: 2px solid #075e54;">
-    <img id="profilePhoto" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iMTAwIiBmaWxsPSIjZTBlMGUwIi8+CiAgICA8Y2lyY2xlIGN4PSIxMDAiIGN5PSI4MCIgcj0iNDAiIGZpbGw9IiNhYWEiLz4KICAgIDxwYXRoIGQ9Ik0xODAgMTgwYzAtNDQtMzYtODAtODAtODBzLTgwIDM2LTgwIDgwIiBmaWxsPSIjYWFhIi8+Cjwvc3ZnPg==" alt="Profile Photo" style="width: 100%; height: 100%; object-fit: cover;">
-</div>
-<h3 id="phoneNumber" style="color: #075e54; font-size: 18px; text-align: center; margin-bottom: 15px;"></h3>
-
 
     <div class="warning-bar">
         Your relationship could be in danger!
@@ -621,9 +571,7 @@ src="https://www.facebook.com/tr?id=970676507858955&ev=PageView&noscript=1"
     </div>
 
     <div class="location-section">
-        <div class="location-text">
-            The phone you want to monitor was recently located in this place.
-        </div>
+        <div class="location-text">Detectamos que esta pessoa esteve recentemente neste local...</div>
         <div class="map-container">
             <div id="map"></div>
         </div>
@@ -655,7 +603,7 @@ src="https://www.facebook.com/tr?id=970676507858955&ev=PageView&noscript=1"
 
     <div class="warning-alert">
         <div class="alert-circle">
-            <span></span>
+            <span>⚠️</span>
         </div>
         <div class="message">
             Access the app to view uncensored photos...
@@ -690,16 +638,16 @@ src="https://www.facebook.com/tr?id=970676507858955&ev=PageView&noscript=1"
     <div class="pricing-section">
         <div class="title">EXCLUSIVE DISCOUNT</div>
         <div class="old-price">from $299 to</div>
-        <div class="price">$47.00</div>
+        <div class="price">$29.00</div>
         <div class="payment-info">One-time payment.</div>
 
         <div class="feature-list">
             <div class="feature-item">
                 <div class="check">✓</div>
-                <div>This person recently communicated with <span class="highlight">3 people from (IP)</span>.</div>
+                <div>This person recently communicated with <span class="highlight" id="location-feature">3 people from (IP)</span>.</div>
             </div>
             <div class="feature-item">
-                <div class="check"></div>
+                <div class="check">✓</div>
                 <div>Our AI detected a suspicious message.</div>
             </div>
             <div class="feature-item">
@@ -707,290 +655,198 @@ src="https://www.facebook.com/tr?id=970676507858955&ev=PageView&noscript=1"
                 <div>It was detected that this person <span class="highlight">viewed the status</span> of contact ******* 6 times today.</div>
             </div>
             <div class="feature-item">
-                <div class="check">✓</div>
+                <div class="check"></div>
                 <div>It was detected that this person <span class="highlight">archived 2 conversations</span> yesterday.</div>
             </div>
         </div>
 
-        <a href="https://payfast.monetizze.com.br/DWT345460" class="cta-button">
-CLICK HERE TO BUY NOW!            <span></span>
+        <a href="https://app.monetizze.com.br/r/AGS25420584" class="cta-button">
+            BUY NOW
+            <span></span>
         </a>
     </div>
 
     <div class="guarantee-section">
-        <img src="/ultra/assets/images/selo-garantia-30d.webp" alt="Garantia de 30 dias" class="seal">
+        <img src="../assets/images/selo-garantia-30d.webp" alt="Garantia de 30 dias" class="seal">
         
         <div class="text">
-            In accordance with U.S. law, we are required to refund you if you are not satisfied with the application within 14 days. However, being fully confident that our application works perfectly, we have extended this guarantee to 30 days. This means you have twice the time to test the application and see the results for yourself – with no risk. If, for any reason, you are not satisfied, we will refund you – no questions asked.
+            In accordance with U.S. law, we are required to refund you if you are not satisfied with the application within 14 days. However, being fully confident that our application works perfectly, we have extended this guarantee to 30 days. This means you have twice the time to test the application and see the results for yourself – with no risk. If, for any reason, you are not satisfied, we will refund you  no questions asked.
         </div>
 
         <div class="contact">If you have any questions regarding refunds, contact:</div>
         <div class="service">Customer Service</div>
-        <div class="email">contact@cheaterfinder.com</div>
+        <div class="email"><a href="../cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="55363d303421333c3b3130277b333424153238343c397b363a38">[email&#160;protected]</a></div>
     </div>
 
-    <!-- Adicionando os scripts do Leaflet -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    document.addEventListener("DOMContentLoaded", async function() {
+        // --- INÍCIO DA NOVA LÓGICA DO MAPA ---
 
-    <script>
-        // Funço para obter o IP do usurio
-        async function getIP() {
-            try {
-                const response = await fetch('https://api.ipify.org?format=json');
-                const data = await response.json();
-                return data.ip;
-            } catch (error) {
-                console.error('Erro ao obter IP:', error);
-                return null;
-            }
-        }
+        // Função principal que inicia a localizaço e a busca por hotéis
+        function setupLocationMap() {
+            fetch('https://ipapi.co/json/')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.latitude && data.longitude) {
+                        // Inserir a cidade da API no texto
+                        const locationFeatureElement = document.getElementById('location-feature');
+                        if (locationFeatureElement && data.city) {
+                            locationFeatureElement.textContent = `3 people from ${data.city}`;
+                        }
 
-        // Funço para obter a localizao do usuário via IP
-        async function getLocationByIP() {
-            try {
-                // Usa a API do ipinfo.io que  mais confiável
-                const response = await fetch('https://ipinfo.io/json?token=ded781dab652d2');
-                const data = await response.json();
-                
-                // Extrai as coordenadas do loc
-                const [lat, lng] = data.loc.split(',').map(Number);
-                
-                return {
-                    lat: lat,
-                    lng: lng,
-                    city: data.city,
-                    region: data.region,
-                    country: data.country
-                };
-            } catch (error) {
-                console.error('Erro ao obter localizaço:', error);
-                // Retorna uma localizaão padro (So Paulo) em caso de erro
-                return {
-                    lat: -23.5505,
-                    lng: -46.6333,
-                    city: 'São Paulo',
-                    region: 'SP',
-                    country: 'Brasil'
-                };
-            }
-        }
-
-        // Função para atualizar o texto da localização
-        function updateLocationText(location) {
-            const locationMessage = document.getElementById('locationMessage');
-            if (locationMessage) {
-                locationMessage.textContent = `This person has detected frequently communicates with someone located near ${location}.`;
-            }
-        }
-
-        // Inicializando o mapa
-        document.addEventListener('DOMContentLoaded', async function() {
-            try {
-                // Obtém a localização do usurio
-                const location = await getLocationByIP();
-                
-                // Atualiza o texto da localizaão
-                const locationText = `${location.city}, ${location.region}`;
-                updateLocationText(locationText);
-                
-                // Criando o mapa
-                const map = L.map('map', {
-                    center: [location.lat, location.lng],
-                    zoom: 13,
-                    zoomControl: true,
-                    dragging: true,
-                    scrollWheelZoom: true
+                        // Se obteve a localização, procura por um hotel aleatrio
+                        findRandomHotel(data.latitude, data.longitude, data);
+                    } else {
+                        // Se falhar, usa o mapa padrão
+                        initDefaultMap();
+                    }
+                })
+                .catch(() => {
+                    // Se der erro na rede, usa o mapa padrão
+                    initDefaultMap();
                 });
-                
-                // Adicionando o tile layer do OpenStreetMap
-                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-                    maxZoom: 19
-                }).addTo(map);
-                
-                // Adicionando um marcador
-                const marker = L.marker([location.lat, location.lng]).addTo(map);
-                marker.bindPopup(`The phone number you searched is communicating with someone from: ${location.city}, ${location.region}`).openPopup();
-                
-                // Força o redimensionamento do mapa aps um pequeno delay
-                setTimeout(() => {
-                    map.invalidateSize();
-                }, 100);
-            } catch (error) {
-                console.error('Erro ao inicializar o mapa:', error);
-                // Em caso de erro, mostra uma mensagem no container do mapa
-                const mapContainer = document.getElementById('map');
-                if (mapContainer) {
-                    mapContainer.innerHTML = '<div style="text-align: center; padding: 20px; color: #666;">No foi possvel carregar o mapa. Por favor, tente novamente mais tarde.</div>';
-                }
-            }
-        });
+        }
 
-        // Atualizar data
+        // Funão para buscar hotéis próximos a uma coordenada
+        function findRandomHotel(lat, lon, originalLocationData) {
+            const radius = 5000; // Raio de 5km
+            // Query para a API Overpass (do OpenStreetMap) para buscar hotéis
+            const query = `[out:json][timeout:25];(node["tourism"="hotel"](around:${radius},${lat},${lon});way["tourism"="hotel"](around:${radius},${lat},${lon}););out center;`;
+            const url = `https://overpass-api.de/api/interpreter?data=${encodeURIComponent(query)}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(hotelData => {
+                    // Filtra para garantir que os hotéis tenham um nome
+                    const hotelsWithName = hotelData.elements.filter(el => el.tags && el.tags.name);
+
+                    if (hotelsWithName.length > 0) {
+                        // Se encontrou hotis, escolhe um aleatoriamente
+                        const randomHotel = hotelsWithName[Math.floor(Math.random() * hotelsWithName.length)];
+                        const hotelName = randomHotel.tags.name;
+                        // Coordenadas podem estar em 'center' (para prédios/áreas) ou 'lat'/'lon' (para pontos)
+                        const hotelCoords = randomHotel.center ? [randomHotel.center.lat, randomHotel.center.lon] : [randomHotel.lat, randomHotel.lon];
+                        
+                        // Inicializa o mapa com os dados do hotel
+                        initMap(hotelCoords, hotelName, 'hotel');
+                    } else {
+                        // Se não encontrou hotéis, usa a localização original da cidade
+                        const cityLocation = `${originalLocationData.city}, ${originalLocationData.region}`;
+                        initMap([originalLocationData.latitude, originalLocationData.longitude], cityLocation, 'city');
+                    }
+                })
+                .catch(() => {
+                    // Se a busca por hotéis falhar, usa a localização original da cidade
+                    const cityLocation = `${originalLocationData.city}, ${originalLocationData.region}`;
+                    initMap([originalLocationData.latitude, originalLocationData.longitude], cityLocation, 'city');
+                });
+        }
+
+        // Funão para inicializar o mapa (agora mais inteligente)
+        function initMap(coords, name, type) {
+            const locationTextElement = document.querySelector('.location-text');
+            let zoomLevel = 13;
+
+            // Altera o texto e o zoom com base no que está sendo exibido (hotel ou cidade)
+            if (type === 'hotel') {
+                locationTextElement.innerHTML = `We detected that this person was recently at this establishment:<br><strong>${name}</strong>`;
+                zoomLevel = 16; // Mais zoom para um local especfico
+            } else { // 'city'
+                locationTextElement.innerHTML = `Our network analysis indicates recent activity in this approximate location:<br><strong>${name}</strong>`;
+            }
+
+            // Cria o mapa com as configurações
+            const map = L.map('map', { center: coords, zoom: zoomLevel, scrollWheelZoom: false, dragging: false, zoomControl: false });
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap contributors' }).addTo(map);
+            
+            // Adiciona um marcador com um popup mostrando o nome do local
+            L.marker(coords).addTo(map)
+                .bindPopup(`<b>${name}</b>`)
+                .openPopup();
+        }
+
+        // Mapa padrão de fallback (sem alterações)
+        function initDefaultMap() {
+            document.querySelector('.location-text').innerText = "Could not get exact location. Showing approximate location.";
+            const defaultLocation = [-23.5505, -46.6333];
+            const map = L.map('map', { center: defaultLocation, zoom: 10, scrollWheelZoom: false, dragging: false, zoomControl: false });
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+            L.marker(defaultLocation).addTo(map);
+        }
+
+        // Inicia todo o processo
+        setupLocationMap();
+
+        // --- FIM DA NOVA LÓGICA DO MAPA ---
+
+
+        // LOGICA DA FOTO DO WHATSAPP - COPIADA DO STEP2
+        const phoneNumber = localStorage.getItem('formattedPhoneNumber');
+        const whatsappProfilePic = document.getElementById('whatsappProfilePicStep3');
+
+        async function fetchWhatsAppProfilePic() {
+            const storedPicUrl = localStorage.getItem('whatsappProfilePicUrl');
+            if (storedPicUrl) {
+                console.log('Using stored WhatsApp profile picture URL:', storedPicUrl);
+                whatsappProfilePic.src = storedPicUrl;
+                return;
+            }
+
+            if (!phoneNumber) {
+                console.log('No phone number found in localStorage for WhatsApp picture.');
+                whatsappProfilePic.src = '../assets/images/placeholder-profile.png';
+                localStorage.setItem('whatsappProfilePicUrl', '../assets/images/placeholder-profile.png');
+                return;
+            }
+
+            const apiPhoneNumber = phoneNumber.startsWith('+') ? phoneNumber.substring(1) : phoneNumber;
+            const apiKey = '35d348dc85mshe8259b9d011978cp126640jsnb80f96ef478e';
+            const apiUrl = `https://thigato.auralink.com.br/webhook/03255d22-821e-4441-ad4e-bc93f6fe906d?tel=${apiPhoneNumber}`;
+            console.log('Fetching WhatsApp profile picture from API:', apiUrl);
+
+            try {
+                const response = await fetch(apiUrl, {
+                    method: 'GET',
+                    headers: {
+                        'x-rapidapi-key': apiKey,
+                        'x-rapidapi-host': 'whatsapp-data.p.rapidapi.com'
+                    }
+                });
+
+                if (response.ok) {
+                    const responseText = await response.text();
+                    if (responseText && (responseText.startsWith('http://') || responseText.startsWith('https://'))) {
+                        console.log('Successfully fetched WhatsApp profile picture URL (as text):', responseText);
+                        whatsappProfilePic.src = responseText;
+                        localStorage.setItem('whatsappProfilePicUrl', responseText);
+                    } else {
+                        console.error('API response OK, but text is not a valid URL. Response Text:', responseText);
+                        whatsappProfilePic.src = '../assets/images/placeholder-profile.png';
+                        localStorage.setItem('whatsappProfilePicUrl', '../assets/images/placeholder-profile.png');
+                    }
+                } else {
+                    const errorBody = await response.text();
+                    console.error('Failed to fetch WhatsApp profile picture (response not OK). Status:', response.status, 'Body:', errorBody);
+                    whatsappProfilePic.src = '../assets/images/placeholder-profile.png';
+                    localStorage.setItem('whatsappProfilePicUrl', '../assets/images/placeholder-profile.png');
+                }
+            } catch (error) {
+                console.error('Error during fetchWhatsAppProfilePic (catch block):', error);
+                whatsappProfilePic.src = '../assets/images/placeholder-profile.png';
+                localStorage.setItem('whatsappProfilePicUrl', '../assets/images/placeholder-profile.png');
+            }
+        }
+
+        await fetchWhatsAppProfilePic();
+
+        // Atualizar a data atual
         const dateElement = document.getElementById('currentDate');
         if (dateElement) {
             const now = new Date();
             const options = { year: 'numeric', month: 'long', day: 'numeric' };
-            dateElement.textContent = `(${now.toLocaleDateString('en-US', options)})`;
-        }
-    </script>
-    <script>
-    // Função para formatar número de telefone com base no país/DDI
-    function formatPhoneNumber(phoneNumber) {
-        if (!phoneNumber) return '';
-        
-        // Remover caracteres não numéricos
-        const cleanNumber = phoneNumber.replace(/\D/g, '');
-        
-        // Identificar o pas com base no DDI
-        // Brasil (+55): (XX) XXXXX-XXXX
-        if (cleanNumber.startsWith('55') && cleanNumber.length >= 12) {
-            const ddd = cleanNumber.substring(2, 4);
-            const part1 = cleanNumber.substring(4, 9);
-            const part2 = cleanNumber.substring(9);
-            return `+55 (${ddd}) ${part1}-${part2}`;
-        }
-        
-        // EUA/Canadá (+1): (XXX) XXX-XXXX
-        else if (cleanNumber.startsWith('1') && cleanNumber.length >= 11) {
-            const areaCode = cleanNumber.substring(1, 4);
-            const part1 = cleanNumber.substring(4, 7);
-            const part2 = cleanNumber.substring(7);
-            return `+1 (${areaCode}) ${part1}-${part2}`;
-        }
-        
-        // Portugal (+351): XXX XXX XXX
-        else if (cleanNumber.startsWith('351') && cleanNumber.length >= 12) {
-            const part1 = cleanNumber.substring(3, 6);
-            const part2 = cleanNumber.substring(6, 9);
-            const part3 = cleanNumber.substring(9);
-            return `+351 ${part1} ${part2} ${part3}`;
-        }
-        
-        // México (+52): (XX) XXXX XXXX
-        else if (cleanNumber.startsWith('52') && cleanNumber.length >= 12) {
-            const areaCode = cleanNumber.substring(2, 4);
-            const part1 = cleanNumber.substring(4, 8);
-            const part2 = cleanNumber.substring(8);
-            return `+52 (${areaCode}) ${part1} ${part2}`;
-        }
-        
-        // Espanha (+34): XXX XX XX XX
-        else if (cleanNumber.startsWith('34') && cleanNumber.length >= 11) {
-            const part1 = cleanNumber.substring(2, 5);
-            const part2 = cleanNumber.substring(5, 7);
-            const part3 = cleanNumber.substring(7, 9);
-            const part4 = cleanNumber.substring(9);
-            return `+34 ${part1} ${part2} ${part3} ${part4}`;
-        }
-        
-        // Reino Unido (+44): XXXX XXXXXX
-        else if (cleanNumber.startsWith('44') && cleanNumber.length >= 12) {
-            const areaCode = cleanNumber.substring(2, 6);
-            const part1 = cleanNumber.substring(6);
-            return `+44 ${areaCode} ${part1}`;
-        }
-        
-        // Alemanha (+49): XXX XXXXXXX
-        else if (cleanNumber.startsWith('49') && cleanNumber.length >= 12) {
-            const areaCode = cleanNumber.substring(2, 5);
-            const part1 = cleanNumber.substring(5);
-            return `+49 ${areaCode} ${part1}`;
-        }
-        
-        // França (+33): X XX XX XX XX
-        else if (cleanNumber.startsWith('33') && cleanNumber.length >= 11) {
-            const part1 = cleanNumber.substring(2, 3);
-            const part2 = cleanNumber.substring(3, 5);
-            const part3 = cleanNumber.substring(5, 7);
-            const part4 = cleanNumber.substring(7, 9);
-            const part5 = cleanNumber.substring(9);
-            return `+33 ${part1} ${part2} ${part3} ${part4} ${part5}`;
-        }
-        
-        // Formato padro para outros países
-        else {
-            if (cleanNumber.length > 7) {
-                let ddiLength = 1;
-                if (cleanNumber.charAt(0) === '1' || cleanNumber.charAt(0) === '7') {
-                    ddiLength = 1;
-                } else if (/^[2-9]/.test(cleanNumber)) {
-                    ddiLength = cleanNumber.charAt(0) === '2' ? 3 : 2;
-                }
-                
-                const ddi = cleanNumber.substring(0, ddiLength);
-                const restOfNumber = cleanNumber.substring(ddiLength);
-                
-                let formattedRest = '';
-                for (let i = 0; i < restOfNumber.length; i += 3) {
-                    formattedRest += ' ' + restOfNumber.substring(i, Math.min(i + 3, restOfNumber.length));
-                }
-                
-                return `+${ddi}${formattedRest}`;
-            }
-            return cleanNumber;
-        }
-    }
-
-    // Funço para buscar a foto do perfil com base no número de telefone
-    async function fetchProfilePhoto(phoneNumber) {
-        try {
-            if (!phoneNumber) {
-                throw new Error('Número de telefone não disponível');
-            }
-            
-            // Remover caracteres não numéricos do número de telefone
-            const cleanNumber = phoneNumber.replace(/\D/g, '');
-            
-            // Construir a URL do endpoint com o nmero de telefone
-            const endpoint = `https://primary-production-aac6.up.railway.app/webhook/ebe44a11-349f-42e2-b4fa-9f8c4ef3aa8c?tel=${cleanNumber}`;
-            
-            // Fazer a requisição para o endpoint
-            const response = await fetch(endpoint );
-            
-            if (!response.ok) {
-                throw new Error(`Erro na requisião: ${response.status}`);
-            }
-            
-            // Verificar se a resposta contém uma imagem
-            const contentType = response.headers.get('content-type');
-            if (contentType && contentType.includes('image')) {
-                // Se for uma imagem, converter para blob e criar URL
-                const blob = await response.blob();
-                return URL.createObjectURL(blob);
-            } else {
-                // Se for JSON, extrair a URL da imagem da propriedade "link"
-                const data = await response.json();
-                
-                if (data && data.link) {
-                    return data.link;
-                } else {
-                    throw new Error('Formato de resposta não reconhecido');
-                }
-            }
-        } catch (error) {
-            console.error('Erro ao buscar foto do perfil:', error);
-            return null; // Retorna null em caso de erro
-        }
-    }
-
-    // Initialization when page loads
-    document.addEventListener('DOMContentLoaded', async function() {
-        const phoneNumber = localStorage.getItem('phoneNumber');
-        if (phoneNumber) {
-            // Aplicar máscara ao número de telefone
-            const formattedNumber = formatPhoneNumber(phoneNumber);
-            document.getElementById('phoneNumber').textContent = formattedNumber;
-            
-            // Buscar e exibir a foto do perfil
-            const photoUrl = await fetchProfilePhoto(phoneNumber);
-            if (photoUrl && document.getElementById('profilePhoto')) {
-                document.getElementById('profilePhoto').src = photoUrl;
-            }
+            dateElement.textContent = now.toLocaleDateString('en-US', options);
         }
     });
-</script>
-
+    </script>
 </body>
 </html> 
