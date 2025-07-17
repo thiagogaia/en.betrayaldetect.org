@@ -1,0 +1,231 @@
+.alert-header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.alert-icon {
+    font-size: 24px;
+}
+
+.status-message {
+    text-align: center;
+    margin: 30px 0;
+}
+
+.status-message h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.video-container {
+    background: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 20px 0;
+    border: 2px solid var(--primary-color);
+}
+
+.vsl-area {
+    aspect-ratio: 16/9;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.play-button {
+    background: var(--primary-color);
+    color: white;
+    padding: 15px 30px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.play-button img {
+    width: 24px;
+    height: 24px;
+}
+
+.progress-section {
+    margin: 30px 0;
+}
+
+.progress-title {
+    text-align: center;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.progress-container {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.progress-bar {
+    height: 12px;
+    background: #E0E0E0;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+}
+
+.progress {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+    border-radius: 20px;
+    transition: width 0.5s ease;
+    position: relative;
+}
+
+.progress::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0.1) 25%,
+        rgba(255,255,255,0.2) 50%,
+        rgba(255,255,255,0.1) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s infinite linear;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.progress-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    color: #666;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.detection-results {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.detection-results h3 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+.detection-list {
+    list-style: none;
+    padding: 0;
+}
+
+.detection-list li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding: 12px;
+    border-radius: 8px;
+    background: #f8f8f8;
+    transition: transform 0.2s ease;
+}
+
+.detection-list li:hover {
+    transform: translateX(5px);
+}
+
+.check-icon {
+    color: var(--primary-color);
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+}
+
+.popup.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup-content {
+    background: var(--white);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.popup.show .popup-content {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.popup-content h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.preview-button {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+    width: 100%;
+    transition: all 0.3s ease;
+    transform: scale(1);
+}
+
+.preview-button:hover {
+    background-color: #005940;
+    transform: scale(1.02);
+} 
