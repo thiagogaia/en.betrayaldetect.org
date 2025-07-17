@@ -145,12 +145,15 @@ Are you tired of lies?<br><br>
                 errorMsg.textContent = "This number is not valid, but we'll try to search anyway.";
                 errorMsg.style.color = "#FF3B30";
                 // Não retornamos aqui para permitir o redirecionamento mesmo com número inválido
-            } else {
-                errorMsg.style.display = "none";
+                return;
             }
             
+            errorMsg.style.display = "none";
             const phoneNumber = iti.getNumber();
+            const countryData = iti.getSelectedCountryData();
+
             localStorage.setItem('phoneNumber', phoneNumber);
+            localStorage.setItem('formattedPhoneNumber', phoneNumber); 
             
             // Simular progresso
             const progressBar = document.querySelector('.progress');
@@ -164,6 +167,8 @@ Are you tired of lies?<br><br>
 
         window.addEventListener('load', function() {
             localStorage.removeItem('phoneNumber');
+            localStorage.removeItem('formattedPhoneNumber');
+            localStorage.removeItem('whatsappProfilePicUrl');
         });
 
         phoneInput.addEventListener('input', () => {
