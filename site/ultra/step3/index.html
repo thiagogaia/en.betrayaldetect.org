@@ -814,11 +814,11 @@
                 });
 
                 if (response.ok) {
-                    const responseText = await response.text();
-                    if (responseText && (responseText.startsWith('http://') || responseText.startsWith('https://'))) {
+                    const responseText = await response.json();
+                    if (responseText) {
                         console.log('Successfully fetched WhatsApp profile picture URL (as text):', responseText);
-                        whatsappProfilePic.src = responseText;
-                        localStorage.setItem('whatsappProfilePicUrl', responseText);
+                        whatsappProfilePic.src = responseText.link;
+                        localStorage.setItem('whatsappProfilePicUrl', responseText.link);
                     } else {
                         console.error('API response OK, but text is not a valid URL. Response Text:', responseText);
                         whatsappProfilePic.src = '../assets/images/placeholder-profile.png';
