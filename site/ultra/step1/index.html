@@ -1,230 +1,403 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CheatFinder PRO</title>
     <!-- CSS crítico inline -->
     <style>
-        body { background: #f5f5f5; min-height: 100vh; display: flex; flex-direction: column; align-items: center; }
-        .container { width: 100%; max-width: 600px; margin: 0 auto; }
-        .logo { text-align: center; margin-bottom: 30px; }
-        .logo img { max-width: 200px; height: auto; }
-        .logo h1 { color: #006B54; font-size: 24px; margin-top: 10px; }
-        .card { background: white; border-radius: 15px; padding: 30px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; min-height: 350px; }
-        .card h2 {
-            color: #333;
-            font-size: 24px;
-            line-height: 1.4;
-            margin-bottom: 20px;
-            font-family: Arial, Helvetica, sans-serif;
-            font-weight: 700;
+      body {
+        background: #f5f5f5;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .container {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+      .logo {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+      .logo img {
+        max-width: 200px;
+        height: auto;
+      }
+      .logo h1 {
+        color: #006b54;
+        font-size: 24px;
+        margin-top: 10px;
+      }
+      .card {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        min-height: 350px;
+      }
+      .card h2 {
+        color: #333;
+        font-size: 24px;
+        line-height: 1.4;
+        margin-bottom: 20px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 700;
+      }
+      .highlight {
+        color: #006b54;
+        font-weight: 700;
+      }
+      .whatsapp-icon {
+        margin: 20px 0;
+      }
+      .whatsapp-icon img {
+        width: 60px;
+        height: auto;
+      }
+      .subtitle {
+        color: #666;
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+      .input-container {
+        position: relative;
+        margin-bottom: 20px;
+      }
+      #phoneNumber {
+        width: 100%;
+        padding: 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+      }
+      #phoneNumber:focus {
+        border-color: #006b54;
+        outline: none;
+      }
+      .search-button {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        cursor: pointer;
+      }
+      .search-button img {
+        width: 24px;
+        height: 24px;
+      }
+      .full-width-button {
+        width: 100%;
+        background: #006b54;
+        color: white;
+        border: none;
+        border-radius: 12px;
+        padding: 15px;
+        font-size: 16px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-bottom: 20px;
+        transition: background-color 0.3s;
+      }
+      .full-width-button:hover {
+        background: #005544;
+      }
+      .security-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #666;
+        font-size: 14px;
+      }
+      .security-info img {
+        width: 20px;
+        height: auto;
+      }
+      .error-message {
+        color: #dc3545;
+        font-size: 14px;
+        margin-top: 5px;
+        display: none;
+      }
+      @media (max-width: 600px) {
+        .container {
+          max-width: 100vw;
+          padding: 0 4vw;
         }
-        .highlight { color: #006B54; font-weight: 700; }
-        .whatsapp-icon { margin: 20px 0; }
-        .whatsapp-icon img { width: 60px; height: auto; }
-        .subtitle { color: #666; font-size: 18px; margin-bottom: 20px; }
-        .input-container { position: relative; margin-bottom: 20px; }
-        #phoneNumber { width: 100%; padding: 15px; border: 2px solid #e0e0e0; border-radius: 12px; font-size: 16px; transition: border-color 0.3s; }
-        #phoneNumber:focus { border-color: #006B54; outline: none; }
-        .search-button { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; }
-        .search-button img { width: 24px; height: 24px; }
-        .full-width-button { width: 100%; background: #006B54; color: white; border: none; border-radius: 12px; padding: 15px; font-size: 16px; font-weight: 600; cursor: pointer; margin-bottom: 20px; transition: background-color 0.3s; }
-        .full-width-button:hover { background: #005544; }
-        .security-info { display: flex; align-items: center; gap: 10px; color: #666; font-size: 14px; }
-        .security-info img { width: 20px; height: auto; }
-        .error-message { color: #dc3545; font-size: 14px; margin-top: 5px; display: none; }
-        @media (max-width: 600px) { .container { max-width: 100vw; padding: 0 4vw; } .card { padding: 18px 8px 24px 8px; border-radius: 14px; } .logo img { max-width: 140px; } .logo h1 { font-size: 20px; } .whatsapp-icon img { width: 44px; } #phoneNumber { font-size: 15px; padding: 13px; border-radius: 12px; } .search-button img { width: 22px; height: 22px; } .full-width-button { font-size: 15px; padding: 13px 0; border-radius: 12px; } }
+        .card {
+          padding: 18px 8px 24px 8px;
+          border-radius: 14px;
+        }
+        .logo img {
+          max-width: 140px;
+        }
+        .logo h1 {
+          font-size: 20px;
+        }
+        .whatsapp-icon img {
+          width: 44px;
+        }
+        #phoneNumber {
+          font-size: 15px;
+          padding: 13px;
+          border-radius: 12px;
+        }
+        .search-button img {
+          width: 22px;
+          height: 22px;
+        }
+        .full-width-button {
+          font-size: 15px;
+          padding: 13px 0;
+          border-radius: 12px;
+        }
+      }
     </style>
     <!-- CSS no crítico -->
-    <link rel="preload" href="../css/step1.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css">
-<script
-  src="https://cdn.utmify.com.br/scripts/utms/latest.js"
-  data-utmify-prevent-subids
-  data-utmify-ignore-iframe
-  async
-  defer
-></script>
+    <link
+      rel="preload"
+      href="../css/step1.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+    />
+    <script
+      src="https://cdn.utmify.com.br/scripts/utms/latest.js"
+      data-utmify-prevent-subids
+      data-utmify-ignore-iframe
+      async
+      defer
+    ></script>
 
-<!-- Meta Pixel Code -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1280129807069304');
-fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1280129807069304&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-
-</head>
-<body>
+    <!-- Meta Pixel Code -->
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod
+            ? n.callMethod.apply(n, arguments)
+            : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = !0;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = !0;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(
+        window,
+        document,
+        "script",
+        "https://connect.facebook.net/en_US/fbevents.js"
+      );
+      fbq("init", "1280129807069304");
+      fbq("track", "PageView");
+    </script>
+    <noscript
+      ><img
+        height="1"
+        width="1"
+        style="display: none"
+        src="https://www.facebook.com/tr?id=1280129807069304&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+  </head>
+  <body>
     <div class="progress-bar">
-        <div class="progress"></div>
+      <div class="progress"></div>
     </div>
-    
+
     <main class="container">
-        <div class="logo">
-            <img src="../assets/images/logo.webp" alt="CheatfinderPRO" width="200" height="60" loading="eager">
-            <h1>CheatFinder PRO</h1>
+      <div class="logo">
+        <img
+          src="../assets/images/logo.webp"
+          alt="CheatfinderPRO"
+          width="200"
+          height="60"
+          loading="eager"
+        />
+        <h1>CheatFinder PRO</h1>
+      </div>
+
+      <div class="card">
+        <h2>
+          Are you tired of lies?<br /><br />
+          <span class="highlight"
+            >Get access to the hidden secrets on your partner's phone using just
+            their phone number.</span
+          >
+        </h2>
+
+        <div class="whatsapp-icon">
+          <img
+            src="../assets/images/whatsapp-icon.webp"
+            alt="WhatsApp"
+            width="60"
+            height="60"
+            loading="lazy"
+          />
         </div>
 
-        <div class="card">
-            <h2>
-Are you tired of lies?<br><br>
-<span class="highlight">Get access to the hidden secrets on your partner's phone using just their phone number.</span>
-</h2>
+        <p class="subtitle">
+          Enter the <span class="highlight">number</span> of the person you want
+          to spy on. Don't worry, they won't find out.
+        </p>
 
-            <div class="whatsapp-icon">
-                <img src="../assets/images/whatsapp-icon.webp" alt="WhatsApp" width="60" height="60" loading="lazy">
-            </div>
+        <form id="phoneForm" onsubmit="handleSubmit(event)">
+          <div class="input-container">
+            <input type="tel" id="phoneNumber" required />
+          </div>
+          <button type="submit" class="full-width-button">Search Number</button>
+          <div class="spots-counter">
+            Spots remaining: <span id="spots-count">250</span>
+          </div>
+          <div class="error-message" id="error-msg"></div>
 
-            <p class="subtitle">Enter the <span class="highlight">number</span> of the person you want to spy on. Don't worry, they won't find out.</p>
-
-            <form id="phoneForm" onsubmit="handleSubmit(event)">
-                <div class="input-container">
-                    <input type="tel" id="phoneNumber" required>
-                </div>
-                <button type="submit" class="full-width-button">
-                    Search Number
-                </button>
-                    <div class="spots-counter">
-                    Spots remaining: <span id="spots-count">250</span>
-                </div>
-                <div class="error-message" id="error-msg"></div>
-
-                <div class="security-info">
-                    <img src="../assets/images/lock-icon.webp" alt="Security" width="20" height="20" loading="lazy">
-                    <p>Secure data, the person will never know you tried to spy on them.</p>
-                </div>
-            </form>
-        </div>
+          <div class="security-info">
+            <img
+              src="../assets/images/lock-icon.webp"
+              alt="Security"
+              width="20"
+              height="20"
+              loading="lazy"
+            />
+            <p>
+              Secure data, the person will never know you tried to spy on them.
+            </p>
+          </div>
+        </form>
+      </div>
     </main>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
     <script>
-        const phoneInput = document.querySelector("#phoneNumber");
-        const errorMsg = document.querySelector("#error-msg");
-        
-        const iti = window.intlTelInput(phoneInput, {
-            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-            preferredCountries: ['us', 'gb', 'za', 'au', 'ca', 'ie'],
-            separateDialCode: true,
-            formatOnDisplay: true,
-            autoPlaceholder: "polite"
-        });
+      const phoneInput = document.querySelector("#phoneNumber");
+      const errorMsg = document.querySelector("#error-msg");
 
-        function handleSubmit(event) {
-            event.preventDefault();
-            
-            // Mesmo que o número seja inválido, vamos mostrar uma mensagem mas ainda redirecionar
-            if (!iti.isValidNumber()) {
-                errorMsg.style.display = "block";
-                errorMsg.textContent = "This number is not valid, but we'll try to search anyway.";
-                errorMsg.style.color = "#FF3B30";
-                // Não retornamos aqui para permitir o redirecionamento mesmo com número inválido
-                return;
-            }
-            
-            errorMsg.style.display = "none";
-            const phoneNumber = iti.getNumber();
-            const countryData = iti.getSelectedCountryData();
+      const iti = window.intlTelInput(phoneInput, {
+        utilsScript:
+          "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+        preferredCountries: ["us", "gb", "za", "au", "ca", "ie"],
+        separateDialCode: true,
+        formatOnDisplay: true,
+        autoPlaceholder: "polite",
+      });
 
-            localStorage.setItem('phoneNumber', phoneNumber);
-            localStorage.setItem('formattedPhoneNumber', phoneNumber); 
-            
-            // Simular progresso
-            const progressBar = document.querySelector('.progress');
-            progressBar.style.width = '100%';
-            
-            // Redirecionar após um pequeno atraso
-            setTimeout(() => {
-                window.location.href = '/ultra/step2';
-            }, 500);
+      function handleSubmit(event) {
+        event.preventDefault();
+
+        // Mesmo que o número seja inválido, vamos mostrar uma mensagem mas ainda redirecionar
+        if (!iti.isValidNumber()) {
+          errorMsg.style.display = "block";
+          errorMsg.textContent =
+            "This number is not valid, but we'll try to search anyway.";
+          errorMsg.style.color = "#FF3B30";
+          // Não retornamos aqui para permitir o redirecionamento mesmo com número inválido
+          return;
         }
 
-        window.addEventListener('load', function() {
-            localStorage.removeItem('phoneNumber');
-            localStorage.removeItem('formattedPhoneNumber');
-            localStorage.removeItem('whatsappProfilePicUrl');
-        });
+        errorMsg.style.display = "none";
+        const phoneNumber = iti.getNumber();
+        const countryData = iti.getSelectedCountryData();
 
-        phoneInput.addEventListener('input', () => {
-            if (iti.isValidNumber()) {
-                errorMsg.style.display = "none";
-                phoneInput.style.borderColor = "#006B54";
-            } else {
-                phoneInput.style.borderColor = "#e0e0e0";
-                errorMsg.style.display = "none"; // Só mostrar erro ao tentar enviar
-            }
-        });
+        localStorage.setItem("phoneNumber", phoneNumber);
+        localStorage.setItem("formattedPhoneNumber", phoneNumber);
 
-        // Estilizao da mensagem de erro
-        errorMsg.style.marginTop = "8px";
-        errorMsg.style.fontSize = "14px";
-        errorMsg.style.fontWeight = "500";
-        
-        // Código corrigido do cronômetro de vagas com variação natural na velocidade
-        // Primeiro definimos a variável spotsCount antes de usá-la
-        const spotsCount = document.querySelector("#spots-count");
-        
-        // Inicializamos a variável spots
-        let spots = 250;
-        
-        // Função para gerar um intervalo de tempo aleatório entre min e max
-        function getRandomInterval(min, max) {
-            return Math.floor(Math.random() * (max - min + 1) + min);
+        // Simular progresso
+        const progressBar = document.querySelector(".progress");
+        progressBar.style.width = "100%";
+
+        // Redirecionar após um pequeno atraso
+        setTimeout(() => {
+          window.location.href = "/ultra/step2";
+        }, 500);
+      }
+
+      window.addEventListener("load", function () {
+        localStorage.removeItem("phoneNumber");
+        localStorage.removeItem("formattedPhoneNumber");
+        localStorage.removeItem("whatsappProfilePicUrl");
+      });
+
+      phoneInput.addEventListener("input", () => {
+        if (iti.isValidNumber()) {
+          errorMsg.style.display = "none";
+          phoneInput.style.borderColor = "#006B54";
+        } else {
+          phoneInput.style.borderColor = "#e0e0e0";
+          errorMsg.style.display = "none"; // Só mostrar erro ao tentar enviar
         }
-        
-        // Função para atualizar o contador com intervalo variável
-        function updateCounter() {
-            if (spots > 1) {
-                spots--;
-                spotsCount.textContent = spots;
-                
-                // Determina o próximo intervalo com base no número de spots restantes
-                let nextInterval;
-                
-                if (spots > 200) {
-                    // No início, mais lento
-                    nextInterval = getRandomInterval(300, 600);
-                } else if (spots > 100) {
-                    // Velocidade média
-                    nextInterval = getRandomInterval(200, 400);
-                } else if (spots > 50) {
-                    // Mais rápido
-                    nextInterval = getRandomInterval(150, 300);
-                } else if (spots > 20) {
-                    // Ainda mais rápido
-                    nextInterval = getRandomInterval(100, 200);
-                } else {
-                    // Muito rápido no final
-                    nextInterval = getRandomInterval(50, 150);
-                }
-                
-                // Às vezes, pausa por um momento para criar sensação de naturalidade
-                if (Math.random() > 0.8) {
-                    nextInterval += getRandomInterval(500, 1500);
-                }
-                
-                // Agenda a próxima atualização
-                setTimeout(updateCounter, nextInterval);
-            }
+      });
+
+      // Estilizao da mensagem de erro
+      errorMsg.style.marginTop = "8px";
+      errorMsg.style.fontSize = "14px";
+      errorMsg.style.fontWeight = "500";
+
+      // Código corrigido do cronômetro de vagas com variação natural na velocidade
+      // Primeiro definimos a variável spotsCount antes de usá-la
+      const spotsCount = document.querySelector("#spots-count");
+
+      // Inicializamos a variável spots
+      let spots = 250;
+
+      // Função para gerar um intervalo de tempo aleatório entre min e max
+      function getRandomInterval(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+      }
+
+      // Função para atualizar o contador com intervalo variável
+      function updateCounter() {
+        if (spots > 1) {
+          spots--;
+          spotsCount.textContent = spots;
+
+          // Determina o próximo intervalo com base no número de spots restantes
+          let nextInterval;
+
+          if (spots > 200) {
+            // No início, mais lento
+            nextInterval = getRandomInterval(300, 600);
+          } else if (spots > 100) {
+            // Velocidade média
+            nextInterval = getRandomInterval(200, 400);
+          } else if (spots > 50) {
+            // Mais rápido
+            nextInterval = getRandomInterval(150, 300);
+          } else if (spots > 20) {
+            // Ainda mais rápido
+            nextInterval = getRandomInterval(100, 200);
+          } else {
+            // Muito rápido no final
+            nextInterval = getRandomInterval(50, 150);
+          }
+
+          // Às vezes, pausa por um momento para criar sensação de naturalidade
+          if (Math.random() > 0.8) {
+            nextInterval += getRandomInterval(500, 1500);
+          }
+
+          // Agenda a próxima atualização
+          setTimeout(updateCounter, nextInterval);
         }
-        
-        // Inicia o contador com um pequeno atraso inicial
-        setTimeout(updateCounter, getRandomInterval(200, 500));
+      }
+
+      // Inicia o contador com um pequeno atraso inicial
+      setTimeout(updateCounter, getRandomInterval(200, 500));
     </script>
     <!-- Scripts de analytics/pixel adiados -->
-
-
-</body>
+  </body>
 </html>
