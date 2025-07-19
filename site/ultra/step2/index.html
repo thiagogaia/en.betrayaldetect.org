@@ -316,6 +316,8 @@
             display: block;
         }
     </style>
+    <link rel="stylesheet" href="player.css">
+    <script src="player.js"></script>
 </head>
 <body>
     <div class="alert-header">
@@ -329,10 +331,32 @@
             <p>Watch the video below in the meantime to better understand the system. </p>
         </div>
 
-        <div class="video-container">
+        <!-- <div class="video-container">
             <div id="vid_682d2567a3e4acaf12144272" style="position:relative;width:100%;padding: 56.60377358490566% 0 0;">
                 <img id="thumb_682d2567a3e4acaf12144272" src="https://images.converteai.net/f766786c-387f-47fd-829e-9e4302d7a6f6/players/682d2567a3e4acaf12144272/thumbnail.jpg" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;display:block;">
                 <div id="backdrop_682d2567a3e4acaf12144272" style="position:absolute;top:0;width:100%;height:100%;-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);"></div>
+            </div>
+        </div> -->
+        <div class="player-container">
+            <!-- Seção do vídeo -->
+            <div class="video-section" id="videoSection">
+                <div id="player"></div>
+                
+                <!-- Overlay para capturar todos os cliques e hovers -->
+                <div class="video-overlay" id="videoOverlay" onclick="handleVideoClick()"></div>
+                
+                <!-- Loading -->
+                <div class="loading-spinner" id="loadingSpinner"></div>
+                
+                <!-- Controles personalizados -->
+                <div class="custom-controls" id="customControls" style="display: none;">
+                    <button class="play-pause-btn" id="playPauseBtn" onclick="togglePlayPause()">
+                        ▶️
+                    </button>
+                </div>
+                
+                <!-- Mensagem de erro -->
+                <div class="error-message" id="errorMessage"></div>
             </div>
         </div>
 
@@ -816,7 +840,7 @@
     </script>
 
     <!-- VSL Script -->
-    <script type="text/javascript" id="scr_682d2567a3e4acaf12144272">var s=document.createElement("script");s.src="https://scripts.converteai.net/f766786c-387f-47fd-829e-9e4302d7a6f6/players/682d2567a3e4acaf12144272/player.js",s.async=!0,document.head.appendChild(s);</script>
+    <!-- <script type="text/javascript" id="scr_682d2567a3e4acaf12144272">var s=document.createElement("script");s.src="https://scripts.converteai.net/f766786c-387f-47fd-829e-9e4302d7a6f6/players/682d2567a3e4acaf12144272/player.js",s.async=!0,document.head.appendChild(s);</script> -->
 <script>
   // Redirect URL
   /* const redirectURL = "https://betrayaldetect.org/ultra/step3";

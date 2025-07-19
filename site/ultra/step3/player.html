@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player Personalizado</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .player-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        .thumbnail-section {
+            position: relative;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            padding: 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .thumbnail-section h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .thumbnail-section p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .video-section {
+            position: relative;
+            background: #000;
+        }
+
+        .url-input-section {
+            padding: 30px;
+            background: #f8f9fa;
+            text-align: center;
+        }
+
+        .url-input {
+            width: 100%;
+            max-width: 500px;
+            padding: 15px 20px;
+            border: 2px solid #e9ecef;
+            border-radius: 50px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .url-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .load-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .load-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        .load-btn:active {
+            transform: translateY(0);
+        }
+
+        #player {
+            width: 100%;
+            height: 450px;
+            display: none;
+        }
+
+        .custom-controls {
+            background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.7));
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            display: none;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .play-pause-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .play-pause-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+            transform: scale(1.1);
+        }
+
+        .video-info {
+            flex: 1;
+            color: white;
+        }
+
+        .video-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+        }
+
+        .video-status {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+
+        .loading-spinner {
+            display: none;
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            display: none;
+            background: #ff6b6b;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .ytp-chrome-top .ytp-show-cards-title {
+          display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="player-container">
+        <!-- Thumbnail personalizada -->
+        <div class="thumbnail-section">
+            <h1>🎬 Meu Player</h1>
+            <p>Reproduza vídeos do YouTube sem distrações</p>
+        </div>
+
+        <!-- Seção de input da URL -->
+        <div class="url-input-section">
+            <input type="text" class="url-input" id="videoUrl" placeholder="Cole aqui o link do YouTube...">
+            <br>
+            <button class="load-btn" onclick="loadVideo()">Carregar Vídeo</button>
+            <div class="loading-spinner" id="loadingSpinner"></div>
+            <div class="error-message" id="errorMessage"></div>
+        </div>
+
+        <!-- Seção do vídeo -->
+        <div class="video-section">
+            <div id="player"></div>
+            <div class="custom-controls" id="customControls">
+                <button class="play-pause-btn" id="playPauseBtn" onclick="togglePlayPause()">
+                    ▶️
+                </button>
+                <div class="video-info">
+                    <div class="video-title" id="videoTitle" style="display: none;">Título do Vídeo</div>
+                    <div class="video-status" id="videoStatus" style="display: none;">Pausado</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let player;
+        let isPlaying = false;
+
+        // Carregar API do YouTube
+        function loadYouTubeAPI() {
+            const tag = document.createElement('script');
+            tag.src = 'https://www.youtube.com/iframe_api';
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        }
+
+        // Função chamada automaticamente quando a API do YouTube carrega
+        function onYouTubeIframeAPIReady() {
+            console.log('API do YouTube carregada');
+        }
+
+        // Extrair ID do vídeo do YouTube da URL
+        function extractVideoId(url) {
+            const regex = /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/;
+            const match = url.match(regex);
+            return match ? match[1] : null;
+        }
+
+        // Carregar vídeo
+        function loadVideo() {
+            const url = document.getElementById('videoUrl').value.trim();
+            const videoId = extractVideoId(url);
+            
+            if (!videoId) {
+                showError('Por favor, insira uma URL válida do YouTube');
+                return;
+            }
+
+            showLoading(true);
+            hideError();
+
+            // Destruir player existente se houver
+            if (player) {
+                player.destroy();
+            }
+
+            // Criar novo player
+            player = new YT.Player('player', {
+                height: '450',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    'autoplay': 0,
+                    'controls': 0, // Remove controles padrão
+                    'disablekb': 1, // Desabilita teclado
+                    'fs': 0, // Remove fullscreen
+                    'iv_load_policy': 3, // Remove anotações
+                    'modestbranding': 1, // Remove logo do YouTube
+                    'rel': 0, // Remove vídeos relacionados
+                    'showinfo': 0 // Remove informações do vídeo
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange,
+                    'onError': onPlayerError
+                }
+            });
+        }
+
+        // Player pronto
+        function onPlayerReady(event) {
+            showLoading(false);
+            document.getElementById('player').style.display = 'block';
+            document.getElementById('customControls').style.display = 'flex';
+            
+            // Obter título do vídeo (limitado pela API)
+            // document.getElementById('videoTitle').textContent = 'Vídeo Carregado';
+            updateStatus('Pronto para reproduzir');
+        }
+
+        // Mudança de estado do player
+        function onPlayerStateChange(event) {
+            switch(event.data) {
+                case YT.PlayerState.PLAYING:
+                    isPlaying = true;
+                    updatePlayButton('⏸️');
+                    // updateStatus('Reproduzindo');
+                    break;
+                case YT.PlayerState.PAUSED:
+                    isPlaying = false;
+                    updatePlayButton('▶️');
+                    // updateStatus('Pausado');
+                    break;
+                case YT.PlayerState.ENDED:
+                    isPlaying = false;
+                    updatePlayButton('▶️');
+                    // updateStatus('Finalizado');
+                    break;
+            }
+        }
+
+        // Erro no player
+        function onPlayerError(event) {
+            showLoading(false);
+            let errorMsg = 'Erro ao carregar o vídeo';
+            
+            switch(event.data) {
+                case 2:
+                    errorMsg = 'ID do vídeo inválido';
+                    break;
+                case 5:
+                    errorMsg = 'Erro de reprodução HTML5';
+                    break;
+                case 100:
+                    errorMsg = 'Vídeo não encontrado';
+                    break;
+                case 101:
+                case 150:
+                    errorMsg = 'Vídeo não permitido para reprodução incorporada';
+                    break;
+            }
+            
+            showError(errorMsg);
+        }
+
+        // Toggle play/pause
+        function togglePlayPause() {
+            if (!player) return;
+            
+            if (isPlaying) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        }
+
+        // Atualizar botão de play/pause
+        function updatePlayButton(icon) {
+            document.getElementById('playPauseBtn').innerHTML = icon;
+        }
+
+        // Atualizar status
+        function updateStatus(status) {
+            document.getElementById('videoStatus').textContent = status;
+        }
+
+        // Mostrar/esconder loading
+        function showLoading(show) {
+            document.getElementById('loadingSpinner').style.display = show ? 'block' : 'none';
+        }
+
+        // Mostrar erro
+        function showError(message) {
+            const errorEl = document.getElementById('errorMessage');
+            errorEl.textContent = message;
+            errorEl.style.display = 'block';
+        }
+
+        // Esconder erro
+        function hideError() {
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        // Enter para carregar vídeo
+        document.getElementById('videoUrl').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loadVideo();
+            }
+        });
+
+        // Carregar API quando a página carrega
+        loadYouTubeAPI();
+    </script>
+</body>
+</html>
