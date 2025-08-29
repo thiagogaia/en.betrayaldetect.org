@@ -1210,7 +1210,7 @@
         } catch (error) {
             console.error("Erro ao obter localização:", error);
             // Retorna uma localização padrão (São Paulo) em caso de erro
-            await getLocationByIP2();
+            return await getLocationByIP2();
         }
     }
 
