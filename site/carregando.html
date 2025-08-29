@@ -66,7 +66,7 @@
                     <span>Active</span><br>
                 </div>
                 <div class="text-center mt-2">
-                    <form action="./relatorio_h.html" method="get">
+                    <form action="./relatorio_h.html" id="relatorioGet" method="get">
                         
                         <button class="btn-acessar-relatorio py-2"><i class="fa-solid fa-chart-line"></i> View Report</button>
                     </form>
@@ -123,6 +123,7 @@
 <script>
     let city = 'Unknown';
     let recuperado = localStorage.getItem("telefoneFormatado");
+    let sexoStorage = localStorage.getItem("sexo");
 
     console.log("tel"+recuperado);
     if (recuperado) {
@@ -156,6 +157,18 @@
             }
         }
     }
+
+    let formGet = document.getElementById('relatorioGet');
+    formGet.addEventListener('submit', function(event) {
+      event.preventDefault();
+      if (sexoStorage === 'homem') {
+        formGet.action = './relatorio_h.html';
+      } else {
+        formGet.action = './relatorio_m.html';
+      }
+      let url = new URL(formGet.action);
+      window.location.href = url.toString();
+    });
 
     // LOGICA DA FOTO DO WHATSAPP - COPIADA DO STEP2
     const phoneNumber = localStorage.getItem('telefoneFormatado');
