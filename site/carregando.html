@@ -215,9 +215,10 @@
 
     document.addEventListener("DOMContentLoaded", async function() {
       await fetchWhatsAppProfilePic();
+      await fetchLocationData();
     });
 
-    window.addEventListener('DOMContentLoaded', fetchLocationData);
+    // window.addEventListener('DOMContentLoaded', fetchLocationData);
 
     setTimeout(() => {
         document.querySelector('.spinner').style.display = 'block';
