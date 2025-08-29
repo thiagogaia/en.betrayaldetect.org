@@ -128,7 +128,10 @@
 
     console.log("tel"+recuperado);
     if (recuperado) {
-      document.getElementsByClassName('recuperadoTel').textContent = recuperado;
+      let alterarNumero = document.getElementsByClassName('recuperadoTel');
+      for (let i = 0; i < alterarNumero.length; i++) {
+        alterarNumero[i].textContent = recuperado;
+      }
     }
 
     async function fetchLocationData() {
