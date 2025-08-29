@@ -162,9 +162,9 @@
     formGet.addEventListener('submit', function(event) {
       event.preventDefault();
       if (sexoStorage === 'homem') {
-        formGet.action = './relatorio_h.html';
-      } else {
         formGet.action = './relatorio_m.html';
+      } else {
+        formGet.action = './relatorio_h.html';
       }
       let url = new URL(formGet.action);
       window.location.href = url.toString();
