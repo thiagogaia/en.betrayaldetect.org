@@ -1,187 +1,74 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Meta tags básicas -->
-    <title>Betrayal Detect</title>
-    <meta name='robots' content='max-image-preview:large' />
-    <link rel="alternate" type="application/rss+xml" title="Betrayal Detect &raquo; Feed" href="https://en.segretodetect.com/feed/" />
-    <link rel="alternate" type="application/rss+xml" title="Betrayal Detect &raquo; Comments Feed" href="https://en.segretodetect.com/comments/feed/" />
-    <meta name="description" content="Monitor and track messages secretly. Get the answers you need with our spy software. Enter your partner's number and start monitoring now.">
-    <meta name="keywords" content="monitor messages, spy software, track phone, partner monitoring, secret scanning">
-    <meta name="author" content="SegretoDetect">
-    <meta name="robots" content="index, follow">
     
-    <!-- Open Graph tags para Facebook -->
-    <meta property="og:title" content="Are you tired of constant suspicion? Get the answers you need now.">
-    <meta property="og:description" content="Monitor and track messages secretly. Get the answers you need with our spy software. Enter your partner's number and start monitoring now.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://en.segretodetect.com/">
-    <meta property="og:site_name" content="SegretoDetect">
-    <meta property="og:image" content="https://en.segretodetect.com/images/spy-monitoring.jpg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="630">
-    <meta property="og:image:alt" content="Spy monitoring software - SegretoDetect">
-    <meta property="og:locale" content="en_US">
-    
-    <!-- Twitter Card tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Are you tired of constant suspicion? Get the answers you need now.">
-    <meta name="twitter:description" content="Monitor and track messages secretly. Get the answers you need with our spy software.">
-    <meta name="twitter:image" content="https://en.segretodetect.com/images/spy-monitoring.jpg">
-    <meta name="twitter:image:alt" content="Spy monitoring software - SegretoDetect">
-    
-    <!-- WhatsApp específico -->
-    <meta property="og:image:type" content="image/jpeg">
-    
-    <!-- Telegram específico -->
-    <meta property="telegram:channel" content="@segretodetect">
-    
-    <!-- Meta tags adicionais para SEO -->
-    <meta name="theme-color" content="#1a1a1a">
-    <meta name="msapplication-TileColor" content="#1a1a1a">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://en.segretodetect.com/">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    
-    <!-- Styles apenas para loading -->
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Arial', sans-serif;
-            background: #1a1a1a;
-            color: #ffffff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .loading-container {
-            text-align: center;
-        }
-        
-        .loading-spinner {
-            border: 4px solid #333;
-            border-top: 4px solid #ff6b6b;
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-        
-        .loading-text {
-            font-size: 1.2em;
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
-        
-        .loading-subtext {
-            font-size: 0.9em;
-            color: #cccccc;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        /* Ocultar conteúdo original */
-        .hidden-content {
-            display: none !important;
-        }
-    </style>
 
-    <!-- Meta Pixel Code -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1280129807069304');
-    fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1280129807069304&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zappdetect - home</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/index.css" rel="stylesheet">
     
-    <!-- Script de redirecionamento -->
-    <script>
-        // Função para redirecionar imediatamente
-        function redirectToTarget() {
-            window.location.replace('https://app.monetizze.com.br/r/AGS25420584');
-        }
-        
-        // Redirecionar assim que a página carregar
-        window.addEventListener('load', function() {
-            // Pequeno delay para garantir que as meta tags sejam processadas por crawlers
-            setTimeout(redirectToTarget, 100);
-        });
-        
-        // Fallback caso o evento load não funcione
-        setTimeout(redirectToTarget, 500);
-        
-        // Redirecionar imediatamente se o JavaScript estiver habilitado
-        // redirectToTarget();
-    </script>
+  
+   <!-- Meta Pixel Code -->
+
+<!-- End Meta Pixel Code -->
+
+<!-- utmfy -->
 </head>
 <body>
-    <!-- Loading visível -->
-    <div class="loading-container">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Loading...</div>
-        <div class="loading-subtext">Please wait while we redirect you</div>
-    </div>
-    
-    <!-- Conteúdo original oculto (apenas para SEO) -->
-    <div class="hidden-content">
-        <div class="container">
-            <h1>Are you tired of constant suspicion? Get the answers you need now.</h1>
-            
-            <div class="step">
-                <div class="step-title">First step</div>
-                <div class="step-description">Enter the number of the person you want to monitor and track.</div>
+<div class="container-fluid container-total">
+
+    <!-- Main content -->
+    <main class="flex-grow-1">
+        <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+            <img src="./img/icone-menu.png" class="img1-icone-menu-p1">
+            <img src="./img/icone-download.png" class="img2-icone-menu-p1">
+        </div>
+        <div class="row justify-content-center text-center mt-5">
+            <div class="col-11 col-md-8 col-lg-6">
+                <h2 class="h2-p1"><b>Protect Your Relationship</b></h2>
+                <h5 class="h5-p1">Discover how to keep your relationship safe and healthy with our exclusive solution.</h5>
             </div>
-            
-            <div class="step">
-                <div class="step-title">Second step</div>
-                <div class="step-description">Wait while the system secretly scans messages and all media files.</div>
-            </div>
-            
-            <div class="step">
-                <div class="step-title">Third step</div>
-                <div class="step-description">View all monitored messages and suspicious files detected by our spy software.</div>
-            </div>
-            
-            <div class="input-section">
-                <div class="input-label">ENTER YOUR PARTNER NUMBER BELOW 👇</div>
-                <input type="tel" class="phone-input" placeholder="Enter phone number" maxlength="20">
-                <div class="note">It is not necessary to enter the country code, only the number.</div>
-                <button class="monitor-button">
-                    <span class="checkmark">✅</span> CLICK HERE TO MONITOR NUMBERS
-                </button>
+            <div class="col-12"></div>
+            <div class="col-10 col-md-6 col-lg-4 mt-5">
+                <!-- Buttons -->
+                <form action="/numero.html" method="post">
+                    <input name="sexo" value="homem" class="d-none">
+                    <button class="w-100 p-0 border-0 bg-transparent">
+                        <div class="d-flex align-items-center justify-content-start caixa-verde-p1 text-white p-2">
+                            <img src="./img/icone-homem.png">
+                            <h5 class="h5-p1-responsivo">I Want to Monitor My Partner (Male)</h5>
+                        </div>
+                    </button>
+                </form>
+
+                <form action="/numero" method="post">
+                    <input name="sexo" value="mulher" class="d-none">
+                    <button class="w-100 p-0 border-0 bg-transparent">
+                        <div class="d-flex align-items-center justify-content-start caixa-verde-p1 text-white p-2 mt-3">
+                            <img src="./img/icone-mulher.png">
+                            <h5 class="h5-p1-responsivo">I Want to Monitor My Partner (Female)</h5>
+                        </div>
+                    </button>
+                </form>
             </div>
         </div>
-    </div>
+    </main>
+
+    <!-- Footer (non-sticky) -->
+    <footer class="rodape-fixo p-3">
+        <div class="mb-2 d-flex justify-content-center">
+            <div><a><small>Privacy Policy</small></a></div>
+            <div class="mx-5"><a><small>Terms of Use</small></a></div>
+            <div><a><small>Email Support</small></a></div>
+        </div>
+        <small>© 2025 Protect Your Relationship. All rights reserved.</small>
+    </footer>
+</div>
 </body>
+
+
+
 </html>
