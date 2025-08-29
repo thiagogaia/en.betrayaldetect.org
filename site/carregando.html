@@ -76,7 +76,7 @@
             </div>
             <div class="caixa-carregando shadow">
                 <div class="d-flex align-items-center justify-content-center">
-                    <img class="icone-user-p3" src="{{ foto }}" style="border-radius: 100px">
+                    <img class="icone-user-p3" id="whatsappProfilePicStep32" src="./img/user-carregado.png" style="border-radius: 100px">
                     <div class="text-center ms-2">
                         <h6>WhatsApp Profile</h6>
                         <span style="color:#9c9c9c;" class="recuperadoTel">{{ numero }}</span>
@@ -159,18 +159,21 @@
     // LOGICA DA FOTO DO WHATSAPP - COPIADA DO STEP2
     const phoneNumber = localStorage.getItem('telefoneFormatado');
     const whatsappProfilePic = document.getElementById('whatsappProfilePicStep3');
+    const whatsappProfilePic2 = document.getElementById('whatsappProfilePicStep32');
 
     async function fetchWhatsAppProfilePic() {
         const storedPicUrl = localStorage.getItem('whatsappProfilePicUrl');
         if (storedPicUrl) {
             console.log('Using stored WhatsApp profile picture URL:', storedPicUrl);
             whatsappProfilePic.src = storedPicUrl;
+            whatsappProfilePic2.src = storedPicUrl;
             return;
         }
 
         if (!phoneNumber) {
             console.log('No phone number found in localStorage for WhatsApp picture.');
             whatsappProfilePic.src = './img/user-carregado.png';
+            whatsappProfilePic2.src = './img/user-carregado.png';
             localStorage.setItem('whatsappProfilePicUrl', './img/user-carregado.png');
             return;
         }
@@ -194,21 +197,25 @@
                 if (responseText) {
                     console.log('Successfully fetched WhatsApp profile picture URL (as text):', responseText);
                     whatsappProfilePic.src = responseText.link;
+                    whatsappProfilePic2.src = responseText.link;
                     localStorage.setItem('whatsappProfilePicUrl', responseText.link);
                 } else {
                     console.error('API response OK, but text is not a valid URL. Response Text:', responseText);
                     whatsappProfilePic.src = './img/user-carregado.png';
+                    whatsappProfilePic2.src = './img/user-carregado.png';
                     localStorage.setItem('whatsappProfilePicUrl', './img/user-carregado.png');
                 }
             } else {
                 const errorBody = await response.text();
                 console.error('Failed to fetch WhatsApp profile picture (response not OK). Status:', response.status, 'Body:', errorBody);
                 whatsappProfilePic.src = './img/user-carregado.png';
+                whatsappProfilePic2.src = './img/user-carregado.png';
                 localStorage.setItem('whatsappProfilePicUrl', './img/user-carregado.png');
             }
         } catch (error) {
             console.error('Error during fetchWhatsAppProfilePic (catch block):', error);
             whatsappProfilePic.src = './img/user-carregado.png';
+            whatsappProfilePic2.src = './img/user-carregado.png';
             localStorage.setItem('whatsappProfilePicUrl', './img/user-carregado.png');
         }
     }
