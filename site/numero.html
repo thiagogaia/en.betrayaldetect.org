@@ -109,6 +109,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" defer></script>
 
 <script>
+  const params = new URLSearchParams(window.location.search);
+  const sexoParam = params.get("sexo");
+  if (sexoParam === "homem" || sexoParam === "mulher") {
+    const inputSexo = document.querySelector('input[name="sexo"]');
+    if (inputSexo) {
+      inputSexo.value = sexoParam;
+      localStorage.setItem("sexo", sexoParam);
+    }
+  }
+
     document.addEventListener("DOMContentLoaded", function () {
         const phoneInput = document.querySelector("#telefone");
         const errorMsg = document.querySelector("#error-msg");
