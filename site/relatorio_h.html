@@ -1159,6 +1159,36 @@
         }
     }
 
+    async function getLocationByIP2() {
+        try {
+            const response = await fetch(
+                "https://ipapi.co/json/"
+            );
+            const data = await response.json();
+
+            // Extrai as coordenadas do loc
+            // const [latitude, longitude] = data.loc.split(",").map(Number);
+
+            return {
+                lat: data.latitude,
+                lng: data.longitude,
+                city: data.city,
+                region: data.region,
+                country: data.country,
+            };
+        } catch (error) {
+            console.error("Erro ao obter localização:", error);
+            // Retorna uma localização padrão (São Paulo) em caso de erro
+            return {
+                lat: -23.5505,
+                lng: -46.6333,
+                city: "São Paulo",
+                region: "SP",
+                country: "BR",
+            };
+        }
+    }
+
     // Função para obter a localização do usuário via IP
     async function getLocationByIP() {
         try {
@@ -1180,13 +1210,7 @@
         } catch (error) {
             console.error("Erro ao obter localização:", error);
             // Retorna uma localização padrão (São Paulo) em caso de erro
-            return {
-                lat: -23.5505,
-                lng: -46.6333,
-                city: "São Paulo",
-                region: "SP",
-                country: "BR",
-            };
+            await getLocationByIP2();
         }
     }
 
