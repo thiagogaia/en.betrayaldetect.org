@@ -4,7 +4,7 @@
     
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Zappdetect - Number</title>
+    <title>Betrayal Detected - Number</title>
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/numero.css" rel="stylesheet">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css" as="style">
@@ -19,21 +19,23 @@
             font-weight: 500;
             display: none;
         }
+          /* Placeholder mais suave e que some ao focar */
+        #telefone::placeholder { color: #9aa0a6; opacity: .6; }
+        #telefone:focus::placeholder { opacity: 0; }
+
     </style>
 
+    <script src="./js/gg.js" defer></script>
 
-   <!-- Meta Pixel Code -->
 
-  <!-- End Meta Pixel Code -->
 
-  <!-- utmfy  -->
 </head>
 <body>
 <div class="container-fluid container-total">
     <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
-        <img src="./img/icone-menu.png" class="img1-icone-menu-p1">
+       <!--  <img src="./img/icone-menu.png" class="img1-icone-menu-p1"> -->
         <img src="./img/icone-nome-zap.png" class="img3-icone-menu-p1">
-        <img src="./img/icone-download.png" class="img2-icone-menu-p1">
+       <!-- <img src="./img/icone-download.png" class="img2-icone-menu-p1"> -->
     </div>
     <div class="row justify-content-center text-center mt-5">
         <div class="col-10 col-md-6 col-lg-5 mt-3">
@@ -107,70 +109,153 @@
 <script src="./js/bootstrap.bundle.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js" defer></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/inputmask/5.0.8/inputmask.min.js"></script>
 
 <script>
+
   const params = new URLSearchParams(window.location.search);
   const sexoParam = params.get("sexo");
   if (sexoParam === "homem" || sexoParam === "mulher") {
     const inputSexo = document.querySelector('input[name="sexo"]');
     if (inputSexo) {
       inputSexo.value = sexoParam;
-      // localStorage.setItem("sexo", sexoParam); --
     }
   }
 
-    document.addEventListener("DOMContentLoaded", function () {
-        const phoneInput = document.querySelector("#telefone");
-        const errorMsg = document.querySelector("#error-msg");
-        const form = document.querySelector("#phoneForm");
-      
+  document.addEventListener("DOMContentLoaded", function () {
+    const phoneInput = document.querySelector("#telefone");
+    const errorMsg = document.querySelector("#error-msg"); // certifique-se de que exista APENAS UM elemento com esse id
+    const form = document.querySelector("#phoneForm");
 
-        const iti = window.intlTelInput(phoneInput, {
-            separateDialCode: true,
-            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-            preferredCountries: ["us", "br", "gb", "pt", "au", "ca"],
-            autoPlaceholder: "polite",
-            formatOnDisplay: true,
-            width: "100px"
-        });
-
-        form.addEventListener("submit", function (e) {
-
-
-            if (!iti.isValidNumber()) {
-                e.preventDefault();
-                errorMsg.textContent = "Número inválido. Por favor, verifique.";
-                errorMsg.style.display = "block";
-                return;
-            }
-
-            const fullNumber = iti.getNumber(); // ex: +5511912345678
-            const countryCode = "+" + iti.getSelectedCountryData().dialCode; // ex: +55
-            const localNumber = fullNumber.replace(countryCode, ""); // ex: 11912345678
-
-            // Preenche os campos ocultos
-            document.querySelector("#full_number").value = fullNumber;
-            document.querySelector("#country_code").value = countryCode;
-            document.querySelector("#local_number").value = localNumber;
-
-            errorMsg.style.display = "none";
-            
-           localStorage.setItem("telefoneFormatado", fullNumber);
-            // Descomente para envio real:
-            // form.submit();
-        });
-
-        phoneInput.addEventListener("input", function () {
-            if (iti.isValidNumber()) {
-                phoneInput.style.borderColor = "#006B54";
-                errorMsg.style.display = "none";
-            } else {
-                phoneInput.style.borderColor = "#e0e0e0";
-            }
-        });
-
+    // 1) Inicializa o intl-tel-input SEM placeholder automático (vamos cuidar disso manualmente)
+    const iti = window.intlTelInput(phoneInput, {
+      initialCountry: "us",                          // começa no EUA
+      preferredCountries: ["us", "ca" ,  "au", "gb"],
+      separateDialCode: true,
+      nationalMode: true,                            // campo mostra só o número local
+      autoPlaceholder: "off",                        // desliga placeholder forte do plugin
+      formatOnDisplay: false,                        // máscara será nossa, não do plugin
+      utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js"
     });
+
+    
+    
+    // Função para aplicar/remover máscara US
+  function applyUSMask() {
+    phoneInput.addEventListener("input", formatUSInput);
+  }
+  function removeUSMask() {
+    phoneInput.removeEventListener("input", formatUSInput);
+    phoneInput.value = phoneInput.value.replace(/\D/g, ""); // limpa máscara se trocar país
+  }
+
+  function formatUSInput(e) {
+    let digits = phoneInput.value.replace(/\D/g, "").slice(0, 10);
+    let result = "";
+    if (digits.length > 0) {
+      result = "(" + digits.substring(0, 3);
+    }
+    if (digits.length >= 4) {
+      result += ") " + digits.substring(3, 6);
+    }
+    if (digits.length >= 7) {
+      result += "-" + digits.substring(6, 10);
+    }
+    phoneInput.value = result;
+  }
+
+  // sempre que mudar de país
+  phoneInput.addEventListener("countrychange", function () {
+    if (iti.getSelectedCountryData().iso2 === "us") {
+      applyUSMask();
+    } else {
+      removeUSMask();
+    }
+  });
+
+  // aplica máscara logo no início se já for EUA
+  if (iti.getSelectedCountryData().iso2 === "us") {
+    applyUSMask();
+  }
+
+    // 3) Placeholder manual (suave) que some no foco e volta se estiver vazio
+    phoneInput.setAttribute("placeholder", "(201) 555-0169");
+    phoneInput.addEventListener("focus", () => phoneInput.setAttribute("placeholder",""));
+    phoneInput.addEventListener("blur", () => {
+      if (!phoneInput.value.trim()) phoneInput.setAttribute("placeholder","(201) 555-0169");
+    });
+
+    // 4) Validação + preenchimento dos campos ocultos no submit
+    form.addEventListener("submit", function (e) {
+      // Garante validação como número US
+      if (!iti.isValidNumber()) {
+        e.preventDefault();
+        if (errorMsg) {
+          errorMsg.textContent = "Invalid phone number. Please check and try again.";
+          errorMsg.style.display = "block";
+        }
+        return;
+      }
+
+      const fullNumber = iti.getNumber(); // +1XXXXXXXXXX em E.164
+      const countryCode = "+" + iti.getSelectedCountryData().dialCode; // +1
+      const localNumber = fullNumber.replace(countryCode, ""); // XXXXXXXXXX
+
+      document.querySelector("#full_number").value = fullNumber;
+      document.querySelector("#country_code").value = countryCode;
+      document.querySelector("#local_number").value = localNumber;
+
+      if (errorMsg) errorMsg.style.display = "none";
+      localStorage.setItem("telefoneFormatado", fullNumber);
+    });
+
+    // 5) Feedback visual simples durante a digitação
+    phoneInput.addEventListener("input", function () {
+      if (iti.isValidNumber()) {
+        phoneInput.style.borderColor = "#006B54";
+        if (errorMsg) errorMsg.style.display = "none";
+      } else {
+        phoneInput.style.borderColor = "#e0e0e0";
+      }
+    });
+
+
+
+
+  });
+
+
+
+  (function () {
+  // Esconde a barra e persiste a aceitação
+  function aceitar() {
+    const bar = document.getElementById("cookies");
+    if (!bar) return;
+
+    // Animação opcional (fade-out)
+    bar.style.transition = "opacity .35s";
+    bar.style.opacity = "0";
+    setTimeout(() => { bar.style.display = "none"; }, 350);
+
+    // Guarda que já aceitou
+    try { localStorage.setItem("cookiesAccepted", "true"); } catch (e) {}
+  }
+
+  // Torna a função acessível ao onclick inline
+  window.aceitar_cookies = aceitar;
+
+  // Ao carregar, se já aceitou antes, não mostra a barra
+  document.addEventListener("DOMContentLoaded", () => {
+    try {
+      if (localStorage.getItem("cookiesAccepted") === "true") {
+        const bar = document.getElementById("cookies");
+        if (bar) bar.style.display = "none";
+      }
+    } catch (e) {}
+  });
+})();
 </script>
+
 
 </body>
 </html>
