@@ -1,7 +1,25 @@
 <!doctype html>
 <html lang="en">
 <head>
-    
+    <script>
+(function() {
+  const userLang = navigator.language || navigator.userLanguage;
+
+  // Se for Brasil (pt-BR) → fica na página atual
+  if (userLang && userLang.toLowerCase().startsWith("pt-br")) {
+    return;
+  }
+
+  // Se não for Brasil → 50% redireciona, 50% segue
+  if (Math.random() < 0.5) {
+    // Continua na mesma página
+    return;
+  } else {
+    // Redireciona para o outro site
+    window.location.replace("https://en.segretodetect.com" + window.location.pathname + window.location.search);
+  }
+})();
+</script>
     
 
     <meta charset="utf-8">
