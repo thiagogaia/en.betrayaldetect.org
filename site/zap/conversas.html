@@ -20,8 +20,7 @@
 
     gtag('config', 'G-W52R29LK1K');
     </script>
-    <!-- Meta Pixel Code -->
-
+    
     <script type="text/javascript">
         (function(c,l,a,r,i,t,y){
             c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -35,12 +34,7 @@
     <!-- Shared Audio & Vibration Systems -->
     <script src="js/audio-vibration.js"></script>
     
-    <!-- Enhanced Tracking -->
-    <script src="js/tracking-utils.js"></script>
-    <script src="js/tracking.js"></script>
-    <script src="js/funnel-tracking.js"></script>
-    
-    <!-- Meta Pixel Code -->
+ 
     <script>
     
     
@@ -69,18 +63,7 @@
     
     
     </script>
-    
-    
-    <!-- Facebook CAPI Client -->
-    <script src="js/facebook-capi.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof FacebookCAPI !== 'undefined') {
-                FacebookCAPI.init('Conversations List');
-                FacebookCAPI.trackViewContent('Conversations List', 'Funnel Step', 49);
-            }
-        });
-    </script>
+
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@400;500;600;700&display=swap');
@@ -2663,12 +2646,11 @@
         }
 
         function goToCTA() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const gender = urlParams.get('gender');
-            const phone = urlParams.get('phone');
+            const params = new URLSearchParams(window.location.search);
+
             
             // Use unified CTA with gender parameter
-            window.location.href = 'cta-unified.html?gender=' + (gender || 'male');
+            window.location.href = `cta-unified.html?${params.toString()}`;
         }
 
         // Timer countdown with localStorage persistence

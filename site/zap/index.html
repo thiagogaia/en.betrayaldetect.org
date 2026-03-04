@@ -101,3 +101,71 @@
     </script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+#bloco tirado das outras paginas.
+
+ <!-- Enhanced Tracking -->
+    <script src="js/tracking.js"></script>
+    
+    <!-- Facebook CAPI Client -->
+    <script src="js/facebook-capi.js"></script>
+    <script>
+        // Initialize CAPI and track PageView to both browser and server
+        document.addEventListener('DOMContentLoaded', function() {
+            // Early geo detection for CAPI quality
+            (function() {
+                if (!localStorage.getItem('userCity') || !localStorage.getItem('userState')) {
+                    fetch('https://ipapi.co/json/').then(r => r.json()).then(function(data) {
+                        if (data.city) localStorage.setItem('userCity', data.city);
+                        if (data.region) localStorage.setItem('userState', data.region);
+                        if (data.country_code && !localStorage.getItem('userCountryCode')) {
+                            localStorage.setItem('userCountryCode', data.country_code);
+                        }
+                    }).catch(function(e) { console.log('Geo detection error:', e); });
+                }
+            })();
+
+            if (typeof FacebookCAPI !== 'undefined') {
+                FacebookCAPI.init('Landing Page');
+                // Track ViewContent on landing page
+                FacebookCAPI.trackViewContent('Landing Page', 'Funnel - Entry', 49);
+            }
+        });
+    </script>
+    
+    <!-- Enhanced Tracking -->
+    <script src="js/tracking-utils.js"></script>
+    <script src="js/funnel-tracking.js"></script>
+
+
+
+
+
+      // ============================================
+        // CAPTURE AND PRESERVE ORIGINAL UTMs FROM META ADS
+        // ============================================
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // List of UTM parameters to capture
+            const utmParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+            
+            // Only save if we have UTM params in URL (fresh visit from ad)
+            if (urlParams.has('utm_source') || urlParams.has('utm_campaign')) {
+                utmParams.forEach(param => {
+                    const value = urlParams.get(param);
+                    if (value) {
+                        localStorage.setItem(param, value);
+                    }
+                });
+                console.log('[UTM] Captured UTMs from URL:', Object.fromEntries(utmParams.map(p => [p, urlParams.get(p)])));
+            }
+        })();
+        
