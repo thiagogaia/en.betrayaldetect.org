@@ -18,7 +18,7 @@
  
      gtag('config', 'G-W52R29LK1K');
      </script>
-     <!-- Meta Pixel Code -->
+
  
      <script type="text/javascript">
          (function(c,l,a,r,i,t,y){
@@ -27,7 +27,6 @@
              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
          })(window, document, "clarity", "script", "t8xlagi0nl");
      </script>
-    <!-- Meta Pixel (topo do head para definir _fbp o mais cedo possível) -->
     <script>
     
     var userData = {};
@@ -54,7 +53,7 @@
     
     </script>
     
-    <!-- End Meta Pixel Code -->
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     
     <!-- Shared CSS -->
@@ -62,12 +61,7 @@
     
     <!-- Shared Audio & Vibration Systems -->
     <script src="js/audio-vibration.js"></script>
-    
-    <!-- Enhanced Tracking -->
-    <script src="js/tracking-utils.js"></script>
-    <script src="js/tracking.js"></script>
-    <script src="js/funnel-tracking.js"></script>
-    
+        
     <!-- Matrix Effect -->
     <script src="js/matrix.js"></script>
     
@@ -128,23 +122,7 @@
         }, { once: true });
     </script>
 
-    <!-- Facebook CAPI Client -->
-    <script src="js/facebook-capi.js"></script>
-    <!-- A/B Testing -->
-    <script src="js/ab-testing.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async function() {
-            if (typeof FacebookCAPI !== 'undefined') {
-                FacebookCAPI.init('Phone Capture');
-                FacebookCAPI.trackViewContent('Phone Capture', 'Funnel - Lead Step', 49);
-            }
-            
-            // Initialize A/B Testing
-            if (typeof ABTesting !== 'undefined') {
-                await ABTesting.init('ingles');
-            }
-        });
-    </script>
+
 
     <style>
         * {
@@ -419,6 +397,7 @@
             color: #E9EDEF;
             font-size: 18px;
             transition: all 0.3s ease;
+            width: 50px;
         }
 
         .phone-input:focus {
@@ -2714,88 +2693,19 @@
             }
             
             // Send to backend
-            sendLeadToBackend({
-                name: name,
-                email: email,
-                whatsapp: country + whatsapp,
-                targetPhone: localStorage.getItem('targetPhone') || '',
-                targetGender: localStorage.getItem('targetGender') || '',
-                country_code: localStorage.getItem('userCountryCode') || localStorage.getItem('detectedCountry') || '',
-                city: localStorage.getItem('userCity') || localStorage.getItem('detectedCity') || '',
-                state: localStorage.getItem('userState') || '',
-                pageUrl: window.location.href,
-                funnelLanguage: 'en',
-                funnelSource: 'main',
-                timestamp: new Date().toISOString(),
-                userAgent: navigator.userAgent,
-                referrer: document.referrer,
-                visitorId: visitorId
-            });
+         
             
             // Track event
             if (typeof FunnelTracker !== 'undefined') {
-                FunnelTracker.track(FunnelTracker.events.EMAIL_CAPTURED);
+         //       FunnelTracker.track(FunnelTracker.events.EMAIL_CAPTURED);
             }
             
-            if (typeof ZapSpyTracking !== 'undefined') {
-                ZapSpyTracking.trackEvent('LeadCapture', {
-                    has_email: true,
-                    has_whatsapp: true,
-                    stage: 'phone_confirmation'
-                });
-            }
-            
-            if (typeof FacebookCAPI !== 'undefined') {
-                FacebookCAPI.trackEvent('Lead', {
-                    content_name: 'ZapSpy Lead Capture',
-                    content_category: 'phone_confirmation',
-                    value: 49,
-                    currency: 'USD'
-                });
-                // CompleteRegistration - helps Facebook optimize for users who complete registration
-                FacebookCAPI.trackEvent('CompleteRegistration', {
-                    content_name: 'ZapSpy Registration Complete',
-                    status: 'completed',
-                    value: 49,
-                    currency: 'USD'
-                });
-            } else if (typeof fbq !== 'undefined') {
-                const leadEventId2 = 'Lead_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                fbq('track', 'Lead', {
-                    content_name: 'ZapSpy Lead Capture',
-                    content_category: 'phone_confirmation',
-                    value: 49,
-                    currency: 'USD'
-                }, { eventID: leadEventId2 });
-                const regEventId = 'CompleteRegistration_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                fbq('track', 'CompleteRegistration', {
-                    content_name: 'ZapSpy Registration Complete',
-                    status: 'completed',
-                    value: 49,
-                    currency: 'USD'
-                }, { eventID: regEventId });
-            }
             
             // Start hacking animation
             startHacking();
         }
         
-        // Get Facebook click/browser IDs for CAPI (use FacebookCAPI if available, fallback to localStorage)
-        function getFacebookIds() {
-            // Try to get from FacebookCAPI first (already handles capture logic)
-            if (typeof FacebookCAPI !== 'undefined') {
-                return {
-                    fbc: FacebookCAPI.getFbc(),
-                    fbp: FacebookCAPI.getFbp()
-                };
-            }
-            // Fallback to localStorage
-            return {
-                fbc: localStorage.getItem('_fbc') || null,
-                fbp: localStorage.getItem('_fbp') || null
-            };
-        }
-        
+    
         // Send lead to backend
         function sendLeadToBackend(data) {
             const ZAPSPY_API_URL = window.ZAPSPY_API_URL || 'https://zapspy-funnel-production.up.railway.app';
@@ -3100,10 +3010,14 @@
                 if (commandIndex >= fastCommands.length) {
                     // Redirect to conversations after final animation
                     setTimeout(() => {
-                        const urlParams = new URLSearchParams(window.location.search);
-                        const gender = urlParams.get('gender');
-                        const genderParam = gender ? '&gender=' + gender : '';
-                        window.location.href = 'conversas.html?phone=' + encodeURIComponent(currentPhone) + genderParam;
+                      // Pega TODOS os GETs atuais
+                      const params = new URLSearchParams(window.location.search);
+
+                      // Garante/atualiza o phone
+                      params.set('phone', currentPhone); // ou encode se quiser, mas o URLSearchParams já cuida ao serializar
+
+                      // Redireciona preservando tudo
+                      window.location.href = `conversas.html?${params.toString()}`;
                     }, 1500);
                     return;
                 }

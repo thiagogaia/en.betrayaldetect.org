@@ -30,7 +30,6 @@
      </script>
     <script type='text/javascript' src='https://app.auralink.com.br/t/0wRF1DOR3f/script'></script>
 
-    <!-- Meta Pixel (topo do head para _fbp o mais cedo possível) -->
     <script>
     var userData = {};
     try {
@@ -56,42 +55,10 @@
     
     </script>
     
-    <!-- End Meta Pixel Code -->
     <!-- Shared CSS -->
     <link rel="stylesheet" href="css/global.css">
     
-    <!-- Enhanced Tracking -->
-    <script src="js/tracking.js"></script>
-    
-    <!-- Facebook CAPI Client -->
-    <script src="js/facebook-capi.js"></script>
-    <script>
-        // Initialize CAPI and track PageView to both browser and server
-        document.addEventListener('DOMContentLoaded', function() {
-            // Early geo detection for CAPI quality
-            (function() {
-                if (!localStorage.getItem('userCity') || !localStorage.getItem('userState')) {
-                    fetch('https://ipapi.co/json/').then(r => r.json()).then(function(data) {
-                        if (data.city) localStorage.setItem('userCity', data.city);
-                        if (data.region) localStorage.setItem('userState', data.region);
-                        if (data.country_code && !localStorage.getItem('userCountryCode')) {
-                            localStorage.setItem('userCountryCode', data.country_code);
-                        }
-                    }).catch(function(e) { console.log('Geo detection error:', e); });
-                }
-            })();
-
-            if (typeof FacebookCAPI !== 'undefined') {
-                FacebookCAPI.init('Landing Page');
-                // Track ViewContent on landing page
-                FacebookCAPI.trackViewContent('Landing Page', 'Funnel - Entry', 49);
-            }
-        });
-    </script>
-    
-    <!-- Enhanced Tracking -->
-    <script src="js/tracking-utils.js"></script>
-    <script src="js/funnel-tracking.js"></script>
+   
     
     <!-- Matrix Effect -->
     <script src="js/matrix.js"></script>
@@ -680,27 +647,7 @@
     </div>
 
     <script>
-        // ============================================
-        // CAPTURE AND PRESERVE ORIGINAL UTMs FROM META ADS
-        // ============================================
-        (function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            
-            // List of UTM parameters to capture
-            const utmParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
-            
-            // Only save if we have UTM params in URL (fresh visit from ad)
-            if (urlParams.has('utm_source') || urlParams.has('utm_campaign')) {
-                utmParams.forEach(param => {
-                    const value = urlParams.get(param);
-                    if (value) {
-                        localStorage.setItem(param, value);
-                    }
-                });
-                console.log('[UTM] Captured UTMs from URL:', Object.fromEntries(utmParams.map(p => [p, urlParams.get(p)])));
-            }
-        })();
-        
+      
         // Selected gender
         let selectedGender = null;
 
@@ -719,9 +666,9 @@
             localStorage.setItem('targetGender', gender);
             
             // Track gender selection in funnel
-            if (typeof FunnelTracker !== 'undefined') {
-                FunnelTracker.track(FunnelTracker.events.GENDER_SELECTED, { gender: gender });
-            }
+           // if (typeof FunnelTracker !== 'undefined') {
+             //   FunnelTracker.track(FunnelTracker.events.GENDER_SELECTED, { gender: gender });
+           // }
         }
 
         function startSpy() {
@@ -733,8 +680,18 @@
                 }, 500);
                 return;
             }
-            
-            window.location.href = 'phone.html?gender=' + selectedGender;
+
+
+
+              // Pega TODOS os params atuais (utm_*, fbclid, etc.)
+                const params = new URLSearchParams(window.location.search);
+
+                // Garante o gender no destino (sobrescreve se já existir)
+                params.set('gender', selectedGender);
+
+                // Monta a URL de destino com todos os parâmetros preservados
+                const qs = params.toString();
+                window.location.href = 'phone.html' + (qs ? ('?' + qs) : '');
         }
 
         // Keyboard support for gender buttons

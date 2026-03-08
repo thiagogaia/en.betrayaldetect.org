@@ -21,7 +21,7 @@
  
      gtag('config', 'G-W52R29LK1K');
      </script>
-     <!-- Meta Pixel Code -->
+
  
      <script type="text/javascript">
          (function(c,l,a,r,i,t,y){
@@ -30,7 +30,7 @@
              y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
          })(window, document, "clarity", "script", "t8xlagi0nl");
      </script>
-    <!-- Meta Pixel Code -->
+
     <script>
     
     
@@ -62,56 +62,6 @@
     </script>
     
 
-    <!-- Enhanced Tracking -->
-    <script src="js/tracking-utils.js"></script>
-    <script src="js/tracking.js"></script>
-    <script src="js/funnel-tracking.js"></script>
-    <script src="js/facebook-capi.js"></script>
-    <script src="js/ab-testing.js"></script>
-    <script>
-        // Default product value (can be overridden by A/B testing)
-        window.productValue = 49;
-        window.checkoutCode = 'RVM4939';
-        
-        document.addEventListener('DOMContentLoaded', async function() {
-            // Initialize A/B Testing and apply config
-            if (typeof ABTesting !== 'undefined') {
-                await ABTesting.init('ingles');
-                
-                // Apply A/B config to CTA page (updates prices, headlines, etc.)
-                ABTesting.applyConfig('cta');
-                
-                // Update productValue if A/B test changed it
-                const abPrice = ABTesting.getPrice();
-                if (abPrice) {
-                    window.productValue = abPrice;
-                    
-                    // Also update savings text
-                    const originalPrice = ABTesting.getOriginalPrice() || 197;
-                    const savings = originalPrice - abPrice;
-                    const savingsEl = document.querySelector('.price-savings, [data-ab-savings]');
-                    if (savingsEl) {
-                        savingsEl.textContent = `You save $${savings} today!`;
-                    }
-                }
-                
-                // Update checkout code if A/B test provides one
-                const abCheckoutCode = ABTesting.getCheckoutCode();
-                if (abCheckoutCode) {
-                    window.checkoutCode = abCheckoutCode;
-                }
-            }
-            
-            // Initialize Facebook CAPI with current product value
-            if (typeof FacebookCAPI !== 'undefined') {
-                FacebookCAPI.init('CTA Page');
-                FacebookCAPI.trackViewContent('CTA Page', 'Funnel - Final Step', window.productValue);
-            }
-        });
-    </script>
-    
-    <!-- Email Capture Modal -->
-    <script src="js/email-capture.js"></script>
     
     <!-- Matrix Effect -->
     <script src="js/matrix.js"></script>
@@ -2428,90 +2378,34 @@
             checkoutLocked = true;
             // Get current product value (may be modified by A/B testing)
             const currentValue = window.productValue || 47;
-            const currentCheckoutCode = window.checkoutCode || 'RVM4939';
             
-            if (typeof FacebookCAPI !== 'undefined') {
-                FacebookCAPI.trackAddToCart(currentValue, 'ZapSpy.ai VIP Access');
-                FacebookCAPI.trackInitiateCheckout(currentValue, 'ZapSpy.ai VIP Access');
-            } else if (typeof fbq !== 'undefined') {
-                // Fallback: browser pixel + direct CAPI call
-                const cartEventId = 'AddToCart_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                const checkoutEventId = 'InitiateCheckout_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-                fbq('track', 'AddToCart', { content_name: 'ZapSpy.ai VIP Access', currency: 'USD', value: currentValue }, { eventID: cartEventId });
-                fbq('track', 'InitiateCheckout', { content_name: 'ZapSpy.ai VIP Access', currency: 'USD', value: currentValue }, { eventID: checkoutEventId });
-                // Send to CAPI directly as fallback
-                const capiUrl = (window.ZAPSPY_API_URL || 'https://zapspy-funnel-production.up.railway.app') + '/api/capi/event';
-                const capiData = { eventSourceUrl: window.location.href, funnelLanguage: 'en', email: localStorage.getItem('userEmail'), phone: localStorage.getItem('userWhatsApp'), fbc: document.cookie.match(/_fbc=([^;]+)/)?.[1] || '', fbp: document.cookie.match(/_fbp=([^;]+)/)?.[1] || '' };
-                fetch(capiUrl, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({...capiData, eventName: 'AddToCart', eventId: cartEventId, value: currentValue, currency: 'USD', content_name: 'ZapSpy.ai VIP Access'}) }).catch(() => {});
-                fetch(capiUrl, { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({...capiData, eventName: 'InitiateCheckout', eventId: checkoutEventId, value: currentValue, currency: 'USD', content_name: 'ZapSpy.ai VIP Access'}) }).catch(() => {});
-            }
-            
-            // AddToCart already tracked above by FacebookCAPI.trackAddToCart() with deduplication
-            
-            // Track checkout click in funnel
-            if (typeof FunnelTracker !== 'undefined') {
-                FunnelTracker.track(FunnelTracker.events.CHECKOUT_CLICKED);
-            }
-            
-            // Track A/B test conversion if active
-            if (typeof ABTesting !== 'undefined' && ABTesting.hasActiveTest()) {
-                ABTesting.trackConversion('checkout_click', currentValue);
-            }
-            
-            // Build checkout URL with user data
-            // Use original UTMs from Meta Ads (for Utmify) + custom zs_* params (for internal tracking)
-            let checkoutUrl = 'https://pay.monetizze.com.br/' + currentCheckoutCode;
-            
-            // Get preserved UTMs from Meta Ads (if they exist)
-            const utm_source = localStorage.getItem('utm_source') || 'zapspy';
-            const utm_medium = localStorage.getItem('utm_medium') || 'funnel';
-            const utm_campaign = localStorage.getItem('utm_campaign') || utmCampaign;
-            const utm_content = localStorage.getItem('utm_content');
-            const utm_term = localStorage.getItem('utm_term');
-            
-            // Add original UTMs (compatible with Utmify)
-            checkoutUrl += '?utm_source=' + encodeURIComponent(utm_source);
-            checkoutUrl += '&utm_medium=' + encodeURIComponent(utm_medium);
-            checkoutUrl += '&utm_campaign=' + encodeURIComponent(utm_campaign);
-            if (utm_content) checkoutUrl += '&utm_content=' + encodeURIComponent(utm_content);
-            if (utm_term) checkoutUrl += '&utm_term=' + encodeURIComponent(utm_term);
-            
-            // Add custom zs_* params for internal tracking (won't interfere with Utmify)
-            checkoutUrl += '&zs_source=zapspy';
-            checkoutUrl += '&zs_funnel=' + encodeURIComponent(utmCampaign);
-            
-            // IMPORTANT: Pass visitor_id for upsell tracking continuity
-            // This allows upsell pages to maintain tracking with the same visitor
-            const visitorId = typeof TrackingUtils !== 'undefined' ? TrackingUtils.getVisitorId() : localStorage.getItem('funnelVisitorId');
-            if (visitorId) {
-                checkoutUrl += '&vid=' + encodeURIComponent(visitorId);
-            }
-            
-            // Pass Facebook IDs for CAPI attribution (fallback if lead matching fails)
-            const checkoutFbc = (typeof FacebookCAPI !== 'undefined') ? FacebookCAPI.getFbc() : localStorage.getItem('_fbc');
-            const checkoutFbp = (typeof FacebookCAPI !== 'undefined') ? FacebookCAPI.getFbp() : localStorage.getItem('_fbp');
-            if (checkoutFbc) {
-                checkoutUrl += '&zs_fbc=' + encodeURIComponent(checkoutFbc);
-                // Also pass raw fbclid for maximum compatibility
-                const fbclidMatch = checkoutFbc.match(/\.([^.]+)$/);
-                if (fbclidMatch && fbclidMatch[1]) {
-                    checkoutUrl += '&fbclid=' + encodeURIComponent(fbclidMatch[1]);
-                }
-            }
-            if (checkoutFbp) checkoutUrl += '&zs_fbp=' + encodeURIComponent(checkoutFbp);
-            
-            // Add user data from localStorage to pre-fill PerfectPay checkout
+                    
+           const baseUrl = `https://pay.monetizze.com.br/RVM4939`;
+
+            // Pega params atuais (campanhas etc.)
+            const params = new URLSearchParams(window.location.search);
+
+            // Remove os que você NÃO quer levar
+            params.delete('phone');
+            params.delete('gender');
+
+            // Pega nome e email do localStorage
             const userName = localStorage.getItem('userName');
             const userEmail = localStorage.getItem('userEmail');
-            const userWhatsApp = localStorage.getItem('userWhatsApp');
-            const userCountryCode = localStorage.getItem('userCountryCode');
             const userPhoneNumber = localStorage.getItem('userPhoneNumber');
-            
-            if (userName) checkoutUrl += '&name=' + encodeURIComponent(userName);
-            if (userEmail) checkoutUrl += '&email=' + encodeURIComponent(userEmail);
-            if (userPhoneNumber) checkoutUrl += '&phone=' + encodeURIComponent(userPhoneNumber);
-            
-            // Redirect to checkout
+
+            // Adiciona nome/email
+            if (userName) params.set('nome', userName);
+            if (userEmail) params.set('email', userEmail);
+            if (userPhoneNumber) params.set('telefone', userPhoneNumber);
+
+            params.set('src', 'Novo');
+
+            // Monta URL final (com ou sem ?)
+            const qs = params.toString();
+            const checkoutUrl = qs ? `${baseUrl}?${qs}` : baseUrl;
+
+            // Redirect
             window.location.href = checkoutUrl;
         }
 
