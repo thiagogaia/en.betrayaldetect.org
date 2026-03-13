@@ -8,61 +8,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Recover Deleted Conversations, Photos and Videos</title>
+<!-- Google tag (gtag.js) -->
+     <script async src="https://www.googletagmanager.com/gtag/js?id=G-W52R29LK1K"></script>
+     <script>
+     window.dataLayer = window.dataLayer || [];
+     function gtag(){dataLayer.push(arguments);}
+     gtag('js', new Date());
+ 
+     gtag('config', 'G-W52R29LK1K');
+     </script>
     
-    <!-- Meta Pixel Code -->
-    <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    
-    // Advanced Matching - get user data from localStorage
-    var userData = {};
-    try {
-        var em = localStorage.getItem('userEmail');
-        var ph = localStorage.getItem('userWhatsApp');
-        var fn = localStorage.getItem('userName');
-        var ct = localStorage.getItem('userCity');
-        var co = localStorage.getItem('userCountryCode');
-        var ge = localStorage.getItem('targetGender');
-        var st = localStorage.getItem('userState');
-        if (em) userData.em = em.toLowerCase().trim();
-        if (ph) userData.ph = ph.replace(/\D/g, '');
-        if (fn) {
-            var names = fn.trim().split(' ');
-            userData.fn = names[0].toLowerCase();
-            if (names.length > 1) userData.ln = names.slice(1).join(' ').toLowerCase();
-        }
-        if (ct) userData.ct = ct.toLowerCase().replace(/[^a-z]/g, '');
-        if (co) userData.country = co.toLowerCase();
-        if (ge) userData.ge = ge === 'female' ? 'f' : 'm';
-        if (st) userData.st = st.toLowerCase().replace(/[^a-z]/g, '');
-    } catch(e) {}
-    
-    fbq('init', '726299943423075', userData);
-    var pvId = 'PageView_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-    fbq('track', 'PageView', {}, { eventID: pvId });
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=726299943423075&ev=PageView&noscript=1"
-    /></noscript>
-    <!-- End Meta Pixel Code -->
-    
-    <!-- Facebook CAPI Client -->
-    <script src="../../js/facebook-capi.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof FacebookCAPI !== 'undefined') {
-                FacebookCAPI.init('Upsell 1 - Message Vault');
-                // Track ViewContent for CAPI
-                FacebookCAPI.trackViewContent('Upsell Page', 'Funnel - Upsell', 47);
-            }
-        });
-    </script>
+   
     
     <meta name="description" content="Additional service: recover deleted conversations, photos and videos from the last 90 days.">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔓</text></svg>">
@@ -429,8 +385,8 @@
 
     <script src="../polyfills.js?v=8.0"></script>
     <script src="upsell2-script.js?v=9.0"></script>
-    <!-- geo-restriction.js removed - prices always visible -->
-    <script src="../upsell-tracking.js?v=1.0"></script>
+    
+    
 
     <script>
     // ==========================================
