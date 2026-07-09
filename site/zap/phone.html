@@ -2518,86 +2518,64 @@
             let lastStepId = null;
 
             // Animate loading steps
-            for (let i = 0; i < loadingSteps.length; i++) {
-                const step = loadingSteps[i];
-                
-                document.getElementById('loadingText').textContent = step.text;
-                document.getElementById('loadingProgress').style.width = step.progress + '%';
-                document.getElementById('loadingPercent').textContent = step.progress + '%';
+           // Animate loading steps
+for (let i = 0; i < loadingSteps.length; i++) {
+    const step = loadingSteps[i];
+    
+    document.getElementById('loadingText').textContent = step.text;
+    document.getElementById('loadingProgress').style.width = step.progress + '%';
+    document.getElementById('loadingPercent').textContent = step.progress + '%';
 
-                // Update step visual
-                if (step.stepId && step.stepId !== lastStepId) {
-                    // Complete previous step
-                    if (lastStepId) {
-                        const prevEl = document.getElementById(lastStepId);
-                        if (prevEl) {
-                            prevEl.classList.remove('active');
-                            prevEl.classList.add('completed');
-                            prevEl.querySelector('.step-icon').textContent = '✅';
-                        }
-                    }
-                    // Activate current step
-                    const currEl = document.getElementById(step.stepId);
-                    if (currEl) {
-                        currEl.classList.add('active');
-                        currEl.querySelector('.step-icon').textContent = '🔄';
-                    }
-                    lastStepId = step.stepId;
-                }
-
-                // Make API calls at specific steps
-                if (i === 2) {
-                    // Check if registered on WhatsApp
-                    try {
-                        const response = await fetch(`https://api.z-api.io/instances/${ZAPI_INSTANCE}/token/${ZAPI_TOKEN}/phone-exists/${fullPhone}`, {
-                            headers: { 'client-token': ZAPI_CLIENT_TOKEN }
-                        });
-                        const data = await response.json();
-                        isRegistered = data.exists === true;
-                    } catch (e) {
-                        console.log('API error:', e);
-                        isRegistered = true; // Assume registered on error
-                    }
-                    
-                    // If not registered, show error screen
-                    if (!isRegistered) {
-                        const formattedPhone = formatPhoneNumber(phone, country);
-                        document.getElementById('errorPhone').textContent = formattedPhone;
-                        showScreen('screenError');
-                        return; // Stop the loading animation
-                    }
-                }
-
-                if (i === 4 && isRegistered) {
-                    // Fetch profile picture
-                    try {
-                        const response = await fetch(`https://api.z-api.io/instances/${ZAPI_INSTANCE}/token/${ZAPI_TOKEN}/profile-picture?phone=${fullPhone}`, {
-                            headers: { 'client-token': ZAPI_CLIENT_TOKEN }
-                        });
-                        const data = await response.json();
-                        // Check if the link is valid (not null, "null", undefined or empty)
-                        if (data.link && data.link !== 'null' && data.link !== null && data.link.startsWith('http')) {
-                            profilePictureUrl = data.link;
-                        }
-                    } catch (e) {
-                        console.log('Profile picture error:', e);
-                    }
-                }
-
-                // More realistic variation in loading times
-                const baseDelay = [800, 600, 1200, 700, 900, 500, 600, 400][i] || 600;
-                await new Promise(resolve => setTimeout(resolve, baseDelay + Math.random() * 500));
+    // Update step visual
+    if (step.stepId && step.stepId !== lastStepId) {
+        // Complete previous step
+        if (lastStepId) {
+            const prevEl = document.getElementById(lastStepId);
+            if (prevEl) {
+                prevEl.classList.remove('active');
+                prevEl.classList.add('completed');
+                prevEl.querySelector('.step-icon').textContent = '✅';
             }
+        }
 
-            // Complete last step
-            if (lastStepId) {
-                const lastEl = document.getElementById(lastStepId);
-                if (lastEl) {
-                    lastEl.classList.remove('active');
-                    lastEl.classList.add('completed');
-                    lastEl.querySelector('.step-icon').textContent = '✅';
-                }
-            }
+        // Activate current step
+        const currEl = document.getElementById(step.stepId);
+        if (currEl) {
+            currEl.classList.add('active');
+            currEl.querySelector('.step-icon').textContent = '🔄';
+        }
+
+        lastStepId = step.stepId;
+    }
+
+    // Simula sucesso sem consultar a Z-API
+    if (i === 2) {
+        isRegistered = true;
+    }
+
+    // Simula sucesso sem buscar foto de perfil
+    if (i === 4 && isRegistered) {
+        profilePictureUrl = ''; 
+        // ou use uma imagem padrão:
+        // profilePictureUrl = 'https://seusite.com/imagem-padrao.jpg';
+    }
+
+    // More realistic variation in loading times
+    const baseDelay = [800, 600, 1200, 700, 900, 500, 600, 400][i] || 600;
+    await new Promise(resolve => setTimeout(resolve, baseDelay + Math.random() * 500));
+}
+
+// Complete last step
+if (lastStepId) {
+    const lastEl = document.getElementById(lastStepId);
+    if (lastEl) {
+        lastEl.classList.remove('active');
+        lastEl.classList.add('completed');
+        lastEl.querySelector('.step-icon').textContent = '✅';
+    }
+}
+
+        
 
             // Update profile screen with real data
             const fullNumber = formatPhoneNumber(phone, country);
