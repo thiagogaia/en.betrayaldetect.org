@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- zs-canary-a91c4e8f2b : protected funnel asset, do not remove -->
+    <script src="../../shared/js/_zs-guard.js?v=eb8cf9e99d" data-zs="g"></script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Your access is still available - Whats Spy</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="shortcut icon" href="../imagens/icon-site.png">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<script src="https://cdn.utmify.com.br/scripts/utms/latest.js" data-utmify-prevent-xcod-sck data-utmify-prevent-subids async defer></script>
+
+<script>
+(function () {
+    try {
+        var qs = new URLSearchParams(window.location.search);
+        var emailParam = (qs.get('email') || '').trim().toLowerCase();
+        var nameParam = (qs.get('name') || '').trim();
+        var phoneParam = (qs.get('phone') || '').trim();
+        var src = qs.get('src') || 'recovery_email';
+        if (emailParam && emailParam.indexOf('@') > 0) {
+            localStorage.setItem('userEmail', emailParam);
+        }
+        if (nameParam) localStorage.setItem('userName', nameParam);
+        if (phoneParam) localStorage.setItem('userWhatsApp', phoneParam);
+        localStorage.setItem('recoverySource', src);
+    } catch (e) {}
+})();
+</script>
+
+<script>
+!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+var __ud = {};
+try {
+    var em = localStorage.getItem('userEmail');
+    var ph = localStorage.getItem('userWhatsApp');
+    if (em) __ud.em = em.toLowerCase().trim();
+    if (ph) __ud.ph = ph.replace(/\D/g, '');
+} catch (e) {}
+fbq('init', '726299943423075', __ud);
+var __pvId = 'PageView_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+fbq('track', 'PageView', {}, { eventID: __pvId });
+window._fbPageViewFired = true;
+</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=726299943423075&ev=PageView&noscript=1"/></noscript>
+
+<script src="../js/sentry-init.js" defer></script>
+<script src="../js/tracking-utils.js" defer></script>
+<script src="../js/facebook-capi.js" defer></script>
+<script src="../js/funnel-tracking.js" defer></script>
+
+<style>
+:root {
+    --bg: #0a0a0a;
+    --bg-2: #111;
+    --bg-3: #161616;
+    --card: #181818;
+    --border: rgba(255,255,255,0.08);
+    --border-strong: rgba(255,255,255,0.14);
+    --text: #f5f5f7;
+    --muted: #a1a1aa;
+    --dim: #71717a;
+    --green: #22c55e;
+    --red: #ef4444;
+    --amber: #f59e0b;
+    --pink: var(--brand-primary);
+    --purple: #a855f7;
+    --grad-green: linear-gradient(135deg,#22c55e 0%,#16a34a 100%);
+    --grad-pink: linear-gradient(135deg,#ec4899 0%,#be185d 100%);
+    --grad-purple: linear-gradient(135deg,#a855f7 0%,#7e22ce 100%);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { max-width: 100vw; overflow-x: hidden; }
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding-bottom: 100px;
+}
+img, video, iframe { max-width: 100%; height: auto; }
+
+.container { max-width: 720px; margin: 0 auto; padding: 16px; }
+
+.topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 0; margin-bottom: 8px;
+}
+.logo { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
+.logo span { color: var(--pink); }
+.lock-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 6px 12px; border: 1px solid var(--border); border-radius: 999px;
+    font-size: 12px; color: var(--muted); background: var(--bg-2);
+}
+
+.alert {
+    display: flex; align-items: flex-start; gap: 12px;
+    background: linear-gradient(135deg, rgba(34,197,94,0.10), rgba(34,197,94,0.04));
+    border: 1px solid rgba(34,197,94,0.30);
+    border-radius: 16px; padding: 16px; margin-bottom: 16px;
+    position: relative; overflow: hidden;
+}
+.alert::before {
+    content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(34,197,94,0.15), transparent);
+    animation: shimmer 3s infinite;
+}
+@keyframes shimmer { 100% { left: 100%; } }
+.alert-dot {
+    width: 10px; height: 10px; border-radius: 50%; background: var(--green);
+    margin-top: 6px; flex-shrink: 0;
+    box-shadow: 0 0 0 0 rgba(34,197,94,0.7);
+    animation: pulseDot 1.8s infinite;
+}
+@keyframes pulseDot {
+    0% { box-shadow: 0 0 0 0 rgba(34,197,94,0.7); }
+    70% { box-shadow: 0 0 0 12px rgba(34,197,94,0); }
+    100% { box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+}
+.alert-text strong { color: #4ade80; }
+.alert-text { font-size: 14px; color: #d4d4d8; }
+
+.hero {
+    text-align: center; padding: 24px 0 16px;
+}
+.hero h1 {
+    font-size: 30px; font-weight: 800; line-height: 1.15; letter-spacing: -0.6px;
+    margin-bottom: 12px;
+}
+.hero h1 .accent { color: var(--green); }
+.hero p { font-size: 16px; color: var(--muted); max-width: 540px; margin: 0 auto; }
+.hero-name { color: var(--green); font-weight: 700; }
+
+.target-card {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 14px 16px; margin: 16px 0;
+}
+.target-avatar {
+    width: 48px; height: 48px; border-radius: 50%; background: var(--bg-3);
+    display: flex; align-items: center; justify-content: center; font-size: 24px;
+    flex-shrink: 0;
+}
+.target-info { flex: 1; min-width: 0; }
+.target-label { font-size: 11px; color: var(--dim); text-transform: uppercase; letter-spacing: 0.5px; }
+.target-phone { font-size: 16px; font-weight: 700; margin: 2px 0; }
+.target-status { font-size: 13px; color: var(--green); display: inline-flex; align-items: center; gap: 5px; }
+
+.recap-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 18px; margin-bottom: 16px;
+}
+.recap-title {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 14px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+}
+.recap-title svg { color: var(--green); }
+.recap-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+.recap-stat {
+    background: var(--bg-3); border: 1px solid var(--border);
+    border-radius: 12px; padding: 12px 8px; text-align: center;
+}
+.recap-stat-val { font-size: 24px; font-weight: 800; color: var(--text); }
+.recap-stat-val.danger { color: var(--red); }
+.recap-stat-label { font-size: 10px; color: var(--dim); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.4px; }
+
+.timer-card {
+    display: flex; align-items: center; justify-content: space-between;
+    background: linear-gradient(135deg, rgba(239,68,68,0.10), rgba(239,68,68,0.03));
+    border: 1px solid rgba(239,68,68,0.30);
+    border-radius: 16px; padding: 14px 18px; margin-bottom: 24px;
+}
+.timer-label { font-size: 13px; color: #fca5a5; }
+.timer-label strong { color: #f87171; }
+.timer-value {
+    font-size: 28px; font-weight: 800; color: #ef4444;
+    font-variant-numeric: tabular-nums; letter-spacing: -1px;
+}
+
+.section-title { font-size: 22px; font-weight: 800; text-align: center; margin: 32px 0 6px; letter-spacing: -0.4px; }
+.section-sub { font-size: 14px; color: var(--muted); text-align: center; margin-bottom: 20px; }
+
+.tier-trust-bar {
+    display: flex; align-items: center; gap: 10px; padding: 10px 14px;
+    background: rgba(34,197,94,0.06); border: 1px solid rgba(34,197,94,0.20);
+    border-radius: 10px; margin-bottom: 18px; font-size: 13px; color: #d4d4d8;
+}
+.ttb-dot {
+    width: 8px; height: 8px; border-radius: 50%; background: var(--green);
+    box-shadow: 0 0 8px rgba(34,197,94,0.6); flex-shrink: 0;
+}
+.tier-trust-bar strong { color: #4ade80; }
+
+.tier-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+@media (min-width: 860px) {
+    .tier-grid { grid-template-columns: repeat(3, 1fr); align-items: stretch; }
+}
+
+.tier-card {
+    position: relative; background: var(--card); border: 1px solid var(--border);
+    border-radius: 18px; padding: 26px 20px 22px; display: flex; flex-direction: column;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+.tier-card:hover { transform: translateY(-3px); border-color: var(--border-strong); }
+.tier-card.recommended {
+    border-color: rgba(34,197,94,0.45);
+    background: linear-gradient(180deg, rgba(34,197,94,0.06), var(--card) 60%);
+    box-shadow: 0 0 30px rgba(34,197,94,0.12);
+}
+@media (min-width: 860px) {
+    .tier-card.recommended { transform: scale(1.04); }
+    .tier-card.recommended:hover { transform: scale(1.04) translateY(-3px); }
+}
+.tier-badge {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--grad-green); color: #fff; font-size: 11px; font-weight: 800;
+    padding: 6px 14px; border-radius: 999px; white-space: nowrap;
+    box-shadow: 0 6px 20px rgba(34,197,94,0.35); letter-spacing: 0.3px;
+}
+.tier-badge.pro { background: var(--grad-purple); box-shadow: 0 6px 20px rgba(168,85,247,0.35); }
+.tier-icon { font-size: 32px; text-align: center; margin-bottom: 8px; }
+.tier-name { font-size: 22px; font-weight: 800; text-align: center; }
+.tier-tagline { font-size: 13px; color: var(--muted); text-align: center; margin-top: 4px; margin-bottom: 14px; }
+.tier-price-row { text-align: center; margin-bottom: 4px; }
+.tier-anchor { color: var(--dim); text-decoration: line-through; font-size: 14px; }
+.tier-price { font-size: 44px; font-weight: 900; line-height: 1; letter-spacing: -1.5px; margin-top: 2px; }
+.tier-price .cur { font-size: 22px; vertical-align: top; margin-right: 2px; color: var(--muted); }
+.tier-save {
+    display: inline-block; margin: 8px auto 0; padding: 4px 10px;
+    background: rgba(34,197,94,0.12); color: #4ade80;
+    border-radius: 6px; font-size: 12px; font-weight: 700;
+}
+.tier-card[data-tier="forensic"] .tier-save { background: rgba(168,85,247,0.12); color: #c4b5fd; }
+.tier-tag { text-align: center; font-size: 12px; color: var(--muted); margin: 10px 0 14px; }
+
+.tier-features { list-style: none; padding: 0; margin: 14px 0; flex-grow: 1; }
+.tier-features li {
+    display: flex; align-items: flex-start; gap: 8px;
+    padding: 6px 0; font-size: 13px; color: #d4d4d8;
+}
+.tier-features .ok { color: var(--green); flex-shrink: 0; margin-top: 2px; }
+.tier-features .no { color: var(--dim); flex-shrink: 0; margin-top: 2px; }
+.tier-features li.dim { color: var(--dim); }
+.tier-features li.bonus { color: #fde68a; }
+.tier-features li.bonus strong { color: #fbbf24; }
+.tier-spots {
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+    font-size: 12px; color: #c4b5fd; margin: 10px 0;
+}
+.tier-spots .dot { width: 6px; height: 6px; background: var(--purple); border-radius: 50%; box-shadow: 0 0 6px rgba(168,85,247,0.6); }
+
+.tier-cta {
+    display: block; width: 100%; padding: 14px;
+    border: 1px solid var(--border-strong); background: rgba(255,255,255,0.04);
+    color: #fff; font-size: 15px; font-weight: 700; text-align: center;
+    border-radius: 12px; cursor: pointer; transition: all .2s ease; margin-top: 16px;
+    font-family: inherit;
+}
+.tier-cta:hover { background: rgba(255,255,255,0.08); transform: translateY(-1px); }
+.tier-card.recommended .tier-cta {
+    background: var(--grad-green); border-color: transparent;
+    box-shadow: 0 8px 22px rgba(34,197,94,0.30);
+}
+.tier-card.recommended .tier-cta:hover { box-shadow: 0 12px 28px rgba(34,197,94,0.45); }
+.tier-card[data-tier="forensic"] .tier-cta {
+    background: var(--grad-purple); border-color: transparent;
+    box-shadow: 0 8px 22px rgba(168,85,247,0.30);
+}
+.tier-card[data-tier="forensic"] .tier-cta:hover { box-shadow: 0 12px 28px rgba(168,85,247,0.45); }
+
+.guarantee {
+    display: flex; align-items: center; gap: 14px;
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 18px; margin-top: 32px;
+}
+.guarantee-icon { font-size: 36px; flex-shrink: 0; }
+.guarantee-text { font-size: 13px; color: #d4d4d8; }
+.guarantee-text strong { color: var(--green); }
+
+.trust-row {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+    margin: 22px 0;
+}
+.trust-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 12px; background: var(--bg-2); border: 1px solid var(--border);
+    border-radius: 999px; font-size: 12px; color: var(--muted);
+}
+
+.live-feed {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin-top: 18px; font-size: 13px; color: var(--muted);
+}
+.live-dot { width: 8px; height: 8px; background: var(--green); border-radius: 50%; box-shadow: 0 0 6px rgba(34,197,94,0.7); animation: pulseDot 1.8s infinite; }
+
+.footer {
+    text-align: center; font-size: 12px; color: var(--dim);
+    padding: 24px 16px; line-height: 1.7;
+}
+
+.sticky-footer {
+    position: fixed; bottom: 0; left: 0; right: 0;
+    background: rgba(10,10,10,0.95); backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+    padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+    z-index: 50;
+}
+.sticky-footer .tier-cta {
+    margin-top: 0; max-width: 720px; margin-left: auto; margin-right: auto;
+    background: var(--grad-green); border-color: transparent;
+    box-shadow: 0 8px 22px rgba(34,197,94,0.30);
+}
+
+.checkout-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.92);
+    z-index: 9999; display: flex; align-items: center; justify-content: center;
+    flex-direction: column; gap: 16px;
+}
+.spinner {
+    width: 48px; height: 48px; border: 3px solid rgba(255,255,255,0.1);
+    border-top-color: var(--green); border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 480px) {
+    .hero h1 { font-size: 24px; }
+    .tier-price { font-size: 38px; }
+    .timer-value { font-size: 24px; }
+    .recap-stat-val { font-size: 20px; }
+    button.tier-cta { min-height: 48px; }
+}
+</style>
+<link rel="stylesheet" href="../../shared/css/zapspy.css?v=20260419190100">
+<link rel="stylesheet" href="../../shared/css/funnel-bridge.css?v=20260419190100">
+<link rel="stylesheet" href="../../shared/css/funnel-polish.css?v=20260419190100">
+</head>
+<body class="theme-dark">
+<div data-zs-hp="v1" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none" tabindex="-1">
+<label>Leave this empty<input type="text" name="email_confirm" tabindex="-1" autocomplete="off" value=""></label>
+<label>Website<input type="text" name="website_url" tabindex="-1" autocomplete="off" value=""></label>
+<label>Company<input type="text" name="company_name" tabindex="-1" autocomplete="off" value=""></label>
+</div>
+
+
+<div class="container">
+
+    <div class="topbar">
+        <div class="logo">Whats <span>Spy</span></div>
+        <span class="lock-pill">🔒 Secure connection</span>
+    </div>
+
+    <div class="alert">
+        <div class="alert-dot"></div>
+        <div class="alert-text">
+            <strong>We saved your spot!</strong> Your investigation results are still available. Pick up where you left off.
+        </div>
+    </div>
+
+    <div class="hero">
+        <h1 id="heroHeadline">Let's continue your <span class="accent">investigation</span></h1>
+        <p id="heroSub">We found important information about the number you investigated. Choose your access level to unlock everything now.</p>
+    </div>
+
+    <div class="target-card" id="targetCard" style="display:none;">
+        <div class="target-avatar" id="targetAvatar">🔎</div>
+        <div class="target-info">
+            <div class="target-label">Investigated number</div>
+            <div class="target-phone" id="targetPhone">—</div>
+            <div class="target-status">● Data secured · Awaiting unlock</div>
+        </div>
+    </div>
+
+    <div class="recap-card">
+        <div class="recap-title">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            Summary of what we found
+        </div>
+        <div class="recap-stats">
+            <div class="recap-stat">
+                <div class="recap-stat-val">23</div>
+                <div class="recap-stat-label">Hidden chats</div>
+            </div>
+            <div class="recap-stat">
+                <div class="recap-stat-val">147</div>
+                <div class="recap-stat-label">Deleted msgs</div>
+            </div>
+            <div class="recap-stat">
+                <div class="recap-stat-val danger">87%</div>
+                <div class="recap-stat-label">Suspicion level</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="timer-card">
+        <div class="timer-label"><strong>⚠️ This link expires</strong><br>in a few minutes</div>
+        <div class="timer-value" id="countdown">15:00</div>
+    </div>
+
+    <div class="section-title">Choose your access level</div>
+    <div class="section-sub">3 plans, 1 result: <strong style="color:#f5f5f7;">the truth</strong>. Pick the one that fits you.</div>
+
+    <div class="tier-trust-bar">
+        <span class="ttb-dot"></span>
+        <span><strong>73%</strong> of users choose <strong>Complete</strong> — the best balance of price and answers.</span>
+    </div>
+
+    <div class="tier-grid">
+
+        <div class="tier-card" data-tier="basic">
+            <div class="tier-icon">🔍</div>
+            <div class="tier-name">Basic</div>
+            <div class="tier-tagline">For peace of mind.</div>
+            <div class="tier-price-row">
+                <div class="tier-anchor">$97</div>
+                <div class="tier-price"><span class="cur">$</span>37</div>
+                <div><span class="tier-save">Save 62%</span></div>
+            </div>
+            <div class="tier-tag">30-day access · 1 number</div>
+            <ul class="tier-features">
+                <li><span class="ok">✓</span><span>Deleted messages <span style="color:var(--dim)">(last 30 days)</span></span></li>
+                <li><span class="ok">✓</span><span>Photos & media history</span></li>
+                <li><span class="ok">✓</span><span>Email support <span style="color:var(--dim)">(24-48h)</span></span></li>
+                <li class="dim"><span class="no">×</span><span>Voice notes</span></li>
+                <li class="dim"><span class="no">×</span><span>Real-time alerts</span></li>
+                <li class="dim"><span class="no">×</span><span>GPS history</span></li>
+                <li class="dim"><span class="no">×</span><span>Evidence PDF report</span></li>
+                <li><span class="ok">🛡️</span><span>7-day guarantee</span></li>
+            </ul>
+            <button class="tier-cta" data-purchase="basic">I want Basic — $37 →</button>
+        </div>
+
+        <div class="tier-card recommended" data-tier="complete">
+            <div class="tier-badge">★ MOST CHOSEN • 73%</div>
+            <div class="tier-icon">⚡</div>
+            <div class="tier-name">Complete</div>
+            <div class="tier-tagline">For real answers — for life.</div>
+            <div class="tier-price-row">
+                <div class="tier-anchor">$197</div>
+                <div class="tier-price"><span class="cur">$</span>97</div>
+                <div><span class="tier-save">Save $100 · 50% off</span></div>
+            </div>
+            <div class="tier-tag">Lifetime · 3 numbers</div>
+            <ul class="tier-features">
+                <li><span class="ok">✓</span><span>Everything in Basic, <strong>plus:</strong></span></li>
+                <li><span class="ok">✓</span><span>Deleted messages <strong>lifetime</strong></span></li>
+                <li><span class="ok">✓</span><span>Voice note recovery</span></li>
+                <li><span class="ok">✓</span><span>Real-time push alerts</span></li>
+                <li><span class="ok">✓</span><span>GPS history <span style="color:var(--dim)">(30 days)</span></span></li>
+                <li><span class="ok">✓</span><span><strong>Evidence PDF report</strong></span></li>
+                <li><span class="ok">✓</span><span>Priority chat support <span style="color:var(--dim)">(&lt;4h)</span></span></li>
+                <li class="bonus"><span>🎁</span><span><strong>BONUS:</strong> Truth Kit (templates & scripts)</span></li>
+                <li><span class="ok">🛡️</span><span><strong>60-day guarantee</strong></span></li>
+            </ul>
+            <button class="tier-cta" data-purchase="complete">I want Complete — $97 →</button>
+        </div>
+
+        <div class="tier-card" data-tier="forensic">
+            <div class="tier-badge pro">FORENSIC LEVEL</div>
+            <div class="tier-icon">⚖️</div>
+            <div class="tier-name">Forensic</div>
+            <div class="tier-tagline">When you need proof.</div>
+            <div class="tier-price-row">
+                <div class="tier-anchor">$297</div>
+                <div class="tier-price"><span class="cur">$</span>147</div>
+                <div><span class="tier-save">Save $150 · 50% off</span></div>
+            </div>
+            <div class="tier-tag">Unlimited · VIP queue</div>
+            <ul class="tier-features">
+                <li><span class="ok">✓</span><span>Everything in Complete, <strong>plus:</strong></span></li>
+                <li><span class="ok">✓</span><span><strong>Unlimited numbers</strong></span></li>
+                <li><span class="ok">✓</span><span>GPS history <strong>lifetime</strong></span></li>
+                <li><span class="ok">✓</span><span>Notarized PDF reports</span></li>
+                <li><span class="ok">✓</span><span>1:1 call with case analyst</span></li>
+                <li><span class="ok">✓</span><span>Lawyer network access</span></li>
+                <li class="bonus"><span>🔐</span><span><strong>BONUS:</strong> Encrypted evidence vault</span></li>
+                <li class="bonus"><span>🏆</span><span><strong>BONUS:</strong> Lifetime VIP updates</span></li>
+                <li><span class="ok">🛡️</span><span><strong>90-day guarantee</strong></span></li>
+            </ul>
+            <p class="tier-spots"><span class="dot"></span>Only 47 spots left this week</p>
+            <button class="tier-cta" data-purchase="forensic">I want Forensic — $147 →</button>
+        </div>
+
+    </div>
+
+    <div class="trust-row">
+        <span class="trust-pill">💳 Visa</span>
+        <span class="trust-pill">💳 Mastercard</span>
+        <span class="trust-pill">💳 Amex</span>
+        <span class="trust-pill">🔒 PayPal</span>
+        <span class="trust-pill">🛡️ Secure payment</span>
+    </div>
+
+    <div class="guarantee">
+        <div class="guarantee-icon">🛡️</div>
+        <div class="guarantee-text">
+            <strong>Unconditional money-back guarantee.</strong> If you're not satisfied, we refund 100%. No questions. No tricks.
+        </div>
+    </div>
+
+    <div class="live-feed">
+        <span class="live-dot"></span>
+        <span><strong id="liveCount">2,134</strong> people unlocked full access today</span>
+    </div>
+
+    <div class="footer">
+        Whats Spy · Secure Intelligence Platform<br>
+        Payment securely processed by PerfectPay.<br>
+        © 2026 Whats Spy. All rights reserved.
+    </div>
+
+</div>
+
+<div class="sticky-footer">
+    <button class="tier-cta" data-purchase="complete">UNLOCK FULL ACCESS — $97 →</button>
+</div>
+
+<script>
+(function () {
+    var TIER_CONFIG = {
+        basic:    { code: 'PPU38CQ7KHI', value: 37,  name: 'Whats Spy Basic'    },
+        complete: { code: 'PPU38CQAMBB', value: 97,  name: 'Whats Spy Complete' },
+        forensic: { code: 'PPU38CQAMBC', value: 147, name: 'Whats Spy Forensic' }
+    };
+
+    function $(sel) { return document.querySelector(sel); }
+
+    function startTimer(elId, totalSeconds, onExpire) {
+        var el = document.getElementById(elId);
+        if (!el) return;
+        var key = 'recoveryTimerEndAt';
+        var now = Date.now();
+        var endAt = parseInt(localStorage.getItem(key) || '0', 10);
+        if (!endAt || endAt <= now || endAt - now > totalSeconds * 1000 + 5000) {
+            endAt = now + totalSeconds * 1000;
+            localStorage.setItem(key, String(endAt));
+        }
+        function tick() {
+            var remaining = Math.max(0, Math.floor((endAt - Date.now()) / 1000));
+            var m = Math.floor(remaining / 60);
+            var s = remaining % 60;
+            el.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
+            if (remaining <= 0) {
+                if (typeof onExpire === 'function') onExpire();
+                clearInterval(interval);
+            }
+        }
+        tick();
+        var interval = setInterval(tick, 1000);
+    }
+
+    function personalize() {
+        try {
+            var name = (localStorage.getItem('userName') || '').trim();
+            if (name) {
+                var firstName = name.split(' ')[0];
+                $('#heroHeadline').innerHTML = 'Let\u2019s continue your <span class="accent">investigation</span>, ' + escapeHtml(firstName);
+            }
+            var phone = (localStorage.getItem('userWhatsApp') || localStorage.getItem('userPhoneNumber') || '').trim();
+            if (phone) {
+                $('#targetCard').style.display = 'flex';
+                $('#targetPhone').textContent = phone;
+            }
+        } catch (e) {}
+    }
+
+    function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, function (c) {
+            return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+    }
+
+    var viewContentFired = false;
+    var addToCartFired = false;
+    function fireViewContent() {
+        if (viewContentFired) return;
+        viewContentFired = true;
+        if (typeof FacebookCAPI !== 'undefined') {
+            FacebookCAPI.trackViewContent('Recovery Page', 'Funnel - Email Recovery', 97);
+        }
+        if (typeof FunnelTracker !== 'undefined') {
+            try { FunnelTracker.track('recovery_view'); } catch (e) {}
+        }
+    }
+
+    function fireAddToCart(value, name) {
+        if (addToCartFired) return;
+        addToCartFired = true;
+        if (typeof FacebookCAPI !== 'undefined') {
+            FacebookCAPI.trackAddToCart(value, name);
+        }
+    }
+
+    function buildCheckoutUrl(tier) {
+        var cfg = TIER_CONFIG[tier] || TIER_CONFIG.complete;
+        var url = 'https://go.centerpag.com/' + cfg.code;
+        var params = [];
+
+        params.push('utm_source=email_recovery_en');
+        params.push('utm_medium=email');
+        params.push('utm_campaign=recovery_en_' + tier);
+        params.push('utm_content=' + tier);
+        params.push('zs_source=email_recovery');
+        params.push('zs_funnel=recovery_en');
+        params.push('zs_tier=' + tier);
+
+        try {
+            var fbc = (typeof FacebookCAPI !== 'undefined' && FacebookCAPI.getFbc) ? FacebookCAPI.getFbc() : (localStorage.getItem('_fbc') || '');
+            var fbp = (typeof FacebookCAPI !== 'undefined' && FacebookCAPI.getFbp) ? FacebookCAPI.getFbp() : (localStorage.getItem('_fbp') || '');
+            if (fbc) params.push('zs_fbc=' + encodeURIComponent(fbc));
+            if (fbp) params.push('zs_fbp=' + encodeURIComponent(fbp));
+        } catch (e) {}
+
+        try {
+            var vid = (typeof TrackingUtils !== 'undefined' && TrackingUtils.getVisitorId) ? TrackingUtils.getVisitorId() : (localStorage.getItem('funnelVisitorId') || '');
+            if (vid) params.push('vid=' + encodeURIComponent(vid));
+        } catch (e) {}
+
+        var name = localStorage.getItem('userName');
+        var email = localStorage.getItem('userEmail');
+        var phone = localStorage.getItem('userPhoneNumber') || localStorage.getItem('userWhatsApp');
+        if (name)  params.push('name='  + encodeURIComponent(name));
+        if (email) params.push('email=' + encodeURIComponent(email));
+        if (phone) params.push('phone=' + encodeURIComponent(phone));
+
+        return url + '?' + params.join('&');
+    }
+
+    function showCheckoutOverlay() {
+        if (document.getElementById('rcvOverlay')) return;
+        var ov = document.createElement('div');
+        ov.id = 'rcvOverlay';
+        ov.className = 'checkout-overlay';
+        ov.innerHTML = '<div class="spinner"></div>' +
+            '<div style="color:#fff;font-size:18px;font-weight:700;">Redirecting to secure checkout…</div>' +
+            '<div style="color:rgba(255,255,255,0.5);font-size:13px;">Please wait, do not close this page.</div>';
+        document.body.appendChild(ov);
+    }
+
+    var checkoutLocked = false;
+    function purchase(tier) {
+        if (checkoutLocked) return;
+        checkoutLocked = true;
+        var cfg = TIER_CONFIG[tier] || TIER_CONFIG.complete;
+
+        if (typeof FacebookCAPI !== 'undefined') {
+            FacebookCAPI.trackInitiateCheckout(cfg.value, cfg.name);
+        }
+        if (typeof FunnelTracker !== 'undefined') {
+            try { FunnelTracker.track(FunnelTracker.events.CHECKOUT_CLICKED); } catch (e) {}
+        }
+
+        var url = buildCheckoutUrl(tier);
+        showCheckoutOverlay();
+        setTimeout(function () { window.location.href = url; }, 1100);
+    }
+
+    document.addEventListener('click', function (ev) {
+        var btn = ev.target.closest && ev.target.closest('[data-purchase]');
+        if (!btn) return;
+        ev.preventDefault();
+        var tier = btn.getAttribute('data-purchase');
+        var cfg = TIER_CONFIG[tier] || TIER_CONFIG.complete;
+        fireAddToCart(cfg.value, cfg.name);
+        setTimeout(function () { purchase(tier); }, 60);
+    });
+
+    var tierObserver;
+    if ('IntersectionObserver' in window) {
+        var grid = $('.tier-grid');
+        if (grid) {
+            tierObserver = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (e.isIntersecting) { fireViewContent(); tierObserver.disconnect(); }
+                });
+            }, { threshold: 0.15 });
+            tierObserver.observe(grid);
+        }
+    } else {
+        setTimeout(fireViewContent, 1500);
+    }
+
+    personalize();
+
+    startTimer('countdown', 15 * 60, function () {
+        var el = document.getElementById('countdown');
+        if (el) { el.textContent = '00:00'; el.style.opacity = '0.6'; }
+    });
+
+    var liveEl = document.getElementById('liveCount');
+    setInterval(function () {
+        var n = 1900 + Math.floor(Math.random() * 400);
+        if (liveEl) liveEl.textContent = n.toLocaleString('en-US');
+    }, 5000);
+
+})();
+</script>
+
+</body>
+</html>
