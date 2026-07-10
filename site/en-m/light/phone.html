@@ -2834,6 +2834,8 @@ body.theme-dark #vslContainer,
 
         // Z-API Configuration (dual instance with fallback)
         const ZAPSPY_API = window.ZAPSPY_API_URL || 'https://zapspy-funnel-production.up.railway.app';
+        /* AURALINK_UNIFY_V1: verificacao + foto do WhatsApp numa unica chamada ao webhook n8n */
+        const AURALINK_WEBHOOK = 'https://thigato.auralink.com.br/webhook/03255d22-821e-4441-ad4e-bc93f6fe906d';
         const _waCache = {};
         const _waInflight = {}; /* AVATAR_DEBOUNCE_V34 */
         let _lastWaCheckMeta = { apiOk: true, status: 0, errorKind: null }; /* AVATAR_TELEMETRY_V2 */
@@ -2841,18 +2843,33 @@ body.theme-dark #vslContainer,
             if (_waCache[phone]) { _lastWaCheckMeta = _waCache[phone]._meta || _lastWaCheckMeta; return _waCache[phone]; }
             /* AVATAR_DEBOUNCE_V34: reuse the same Promise so the same number never hits the backend twice in parallel */
             if (_waInflight[phone]) { return _waInflight[phone]; }
+            /* AURALINK_UNIFY_V1: webhook devolve imagem direta OU JSON {link}. So a foto -- demais campos vem nulos. */
+            var _webhookUrl = AURALINK_WEBHOOK + '?tel=' + encodeURIComponent(phone);
             var p = (async function() {
                 var timeout;
                 var meta = { apiOk: false, status: 0, errorKind: null };
                 try {
                     var controller = new AbortController();
                     timeout = setTimeout(function() { controller.abort(); meta.errorKind = 'timeout'; }, 35000);
-                    var r = await fetch(ZAPSPY_API + '/api/whatsapp-check/' + phone, { signal: controller.signal });
+                    var r = await fetch(_webhookUrl, { signal: controller.signal });
                     meta.status = r.status;
                     if (r.ok) {
-                        var d = await r.json();
                         meta.apiOk = true;
-                        d._meta = meta;
+                        var ct = (r.headers.get('content-type') || '').toLowerCase();
+                        var picture = null;
+                        if (ct.indexOf('image') !== -1) {
+                            /* imagem direta: a propria URL do webhook re-resolve a foto a cada load */
+                            picture = _webhookUrl;
+                        } else {
+                            try {
+                                var j = await r.json();
+                                var link = j && (j.link || j.url || j.picture);
+                                link = (typeof link === 'string') ? link.trim() : '';
+                                /* {link:""} = numero sem foto / erro -> picture null -> avatar padrao borrado */
+                                if (link && link.indexOf('http') === 0) picture = link;
+                            } catch(e) {}
+                        }
+                        var d = { registered: true, picture: picture, name: null, about: null, isBusiness: false, face: null, osint: null, checkHint: picture ? null : 'not_found', _meta: meta };
                         _waCache[phone] = d;
                         _lastWaCheckMeta = meta;
                         return d;
@@ -3140,45 +3157,27 @@ body.theme-dark #vslContainer,
             } catch(e) {}
 
             var avatarEl = document.getElementById('profileAvatar');
-            /* AVATAR_HYBRID_V3 — routing inteligente CDN vs Proxy */
+            /* AURALINK_UNIFY_V1 — foto vem direto do link do webhook (CDN WhatsApp); sem proxy, sem late-poll */
             if (profilePictureUrl) {
                 var __t0 = Date.now();
                 var __settled = false;
-                var __attemptIdx = 0;
-                var __isInAppOrAndroid = function() {
-                    try { return /Android|FBAN|FBAV|FB_IAB|Instagram|TikTok|BytedanceWebview/i.test(navigator.userAgent || ''); }
-                    catch (e) { return false; }
-                };
-                var __proxyUrl = ZAPSPY_API + '/api/avatar/' + encodeURIComponent(fullPhone);
-                var __routeAttempts = __isInAppOrAndroid()
-                    ? [{ url: __proxyUrl, via: 'proxy' }]
-                    : [{ url: profilePictureUrl, via: 'cdn_direct' }, { url: __proxyUrl, via: 'cdn_then_proxy' }];
                 var __setReal = function() {
                     if (__settled) return; __settled = true;
-                    var route = __routeAttempts[__attemptIdx];
-                    avatarEl.src = route.url;
+                    avatarEl.src = profilePictureUrl;
                     avatarEl.classList.remove("blurred");
-                    _trackAvatarOutcome("loaded", { ms: Date.now() - __t0, routedVia: route.via });
+                    _trackAvatarOutcome("loaded", { ms: Date.now() - __t0, routedVia: 'webhook_direct' });
                 };
                 var __setFallback = function(reason) {
-                    if (__settled) return;
-                    __attemptIdx++;
-                    if (__attemptIdx < __routeAttempts.length) { __startAttempt(); return; }
-                    __settled = true;
-                    var lastRoute = __routeAttempts[__routeAttempts.length - 1];
+                    if (__settled) return; __settled = true;
                     avatarEl.src = "../imagens/default-avatar.png";
                     avatarEl.classList.add("blurred");
-                    _trackAvatarOutcome(reason || "error", { ms: Date.now() - __t0, routedVia: lastRoute.via });
+                    _trackAvatarOutcome(reason || "error", { ms: Date.now() - __t0, routedVia: 'webhook_direct' });
                 };
-                var __startAttempt = function() {
-                    var route = __routeAttempts[__attemptIdx];
-                    var img = new Image();
-                    try { img.referrerPolicy = "no-referrer"; } catch(e) {}
-                    img.onload = __setReal;
-                    img.onerror = function() { __setFallback("error"); };
-                    img.src = route.url;
-                };
-                __startAttempt();
+                var __img = new Image();
+                try { __img.referrerPolicy = "no-referrer"; } catch(e) {}
+                __img.onload = __setReal;
+                __img.onerror = function() { __setFallback("error"); };
+                __img.src = profilePictureUrl;
                 setTimeout(function() { if (!__settled) __setFallback("timeout"); }, 20000);
             } else {
                 var __nuReason = _avatarNoUrlReason();
@@ -3187,43 +3186,6 @@ body.theme-dark #vslContainer,
                 avatarEl.src = "../imagens/default-avatar.png";
                 avatarEl.classList.add("blurred");
                 _trackAvatarOutcome("no_url", Object.assign({ routedVia: 'no_photo_available' }, __nuReason));
-                /* AVATAR_LATE_POLL_V33 - polling silencioso pra recuperar foto que veio depois do timeout 35s */
-                var __shouldLatePoll = !!__nuReason && (
-                    (__nuReason.reason === 'api_error' && __nuReason.errorKind === 'timeout') ||
-                    __nuReason.reason === 'try_later'
-                );
-                if (__shouldLatePoll && typeof fullPhone !== 'undefined' && fullPhone) {
-                    var __lpDelays = [5000, 15000, 30000, 60000]; /* AVATAR_LATE_POLL_V34 - extended to give backend bg resolve time to land */
-                    var __lpIdx = 0;
-                    var __lpT0 = Date.now();
-                    var __lpUrl = ZAPSPY_API + '/api/avatar/' + encodeURIComponent(fullPhone);
-                    var __lpDone = false;
-                    var __lpTry = function() {
-                        if (__lpDone || __lpIdx >= __lpDelays.length) return;
-                        setTimeout(function() {
-                            if (__lpDone) return;
-                            var img = new Image();
-                            try { img.referrerPolicy = "no-referrer"; } catch(e) {}
-                            img.onload = function() {
-                                if (__lpDone) return;
-                                __lpDone = true;
-                                try {
-                                    avatarEl.style.transition = 'opacity 0.4s ease';
-                                    avatarEl.style.opacity = '0';
-                                    setTimeout(function() {
-                                        avatarEl.src = img.src;
-                                        avatarEl.classList.remove("blurred");
-                                        avatarEl.style.opacity = '1';
-                                    }, 250);
-                                } catch(_) { avatarEl.src = img.src; avatarEl.classList.remove("blurred"); }
-                                _trackAvatarOutcome("loaded_late", { ms: Date.now() - __lpT0, routedVia: 'late_poll', attempt: __lpIdx + 1 });
-                            };
-                            img.onerror = function() { __lpIdx++; __lpTry(); };
-                            img.src = __lpUrl + '?late=' + Date.now();
-                        }, __lpDelays[__lpIdx]);
-                    };
-                    __lpTry();
-                }
             }
 
             if (waData?.osint) {
@@ -3234,9 +3196,8 @@ body.theme-dark #vslContainer,
             localStorage.setItem('funnelProgress', 'confirmation');
             localStorage.setItem('targetAvatarBlurred', profilePictureUrl ? 'false' : 'true');
             if (profilePictureUrl) {
-                /* AVATAR_PROXY_RESOLVE_V35: localStorage.targetAvatar always uses proxy URL (CDN URLs expire ~5min and break later funnel steps) */
-                var __targetAvatarProxy = ZAPSPY_API + '/api/avatar/' + encodeURIComponent(fullPhone);
-                localStorage.setItem('targetAvatar', __targetAvatarProxy);
+                /* AURALINK_UNIFY_V1: guarda o link direto do webhook (pode expirar; decisao aceita) */
+                localStorage.setItem('targetAvatar', profilePictureUrl);
             }
             if (profileName) {
                 localStorage.setItem('targetName', profileName);

@@ -4,7 +4,8 @@
  * Include this script BEFORE other funnel scripts in HTML pages.
  *
  * Em localhost: usa o mesmo host do funil na porta 3000 quando a página não está já na 3000
- * (ex.: Live Server). Assim /api/whatsapp-check bate no backend local e os logs aparecem no terminal.
+ * (ex.: Live Server). Base usada por /api/geo, /api/track, /api/leads.
+ * (A verificação de WhatsApp + foto agora usa o webhook auralink, definido em phone.html.)
  */
 (function() {
     var PROD = 'https://zapspy-funnel-production.up.railway.app';
