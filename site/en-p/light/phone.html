@@ -1640,6 +1640,45 @@
         .capture-error.visible {
             display: block;
         }
+
+        /* ===== Gender selection buttons ===== */
+        .gender-label {
+            font-size: 13px;
+            color: #6c757d;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .gender-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+
+        .gender-btn {
+            flex: 1;
+            padding: 12px 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            background: #ffffff;
+            font-family: inherit;
+            font-size: 15px;
+            font-weight: 500;
+            color: #1a1a1a;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .gender-btn--active {
+            border-color: var(--brand-primary);
+            background: rgba(0, 168, 132, 0.05);
+            color: var(--brand-primary);
+            font-weight: 600;
+        }
+
+        .gender-btn:not(.gender-btn--active):hover {
+            border-color: #adb5bd;
+        }
         
         /* Target Info Card */
         .target-info-card {
@@ -2221,9 +2260,17 @@ body.theme-dark #vslContainer,
     <div class="container">
         <!-- Screen 1: Landing -->
         <div class="screen active" id="screen1">
+            <h1>Discover the truth hidden in their WhatsApp</h1>
+            <p class="subtitle">Recover deleted messages, hidden chats and secret contacts — in under a minute, 100% anonymous.</p>
             <div class="phone-section">
                 <h3>Enter their WhatsApp number to begin — 100% private</h3>
-                
+
+                <p class="gender-label">Who do you want to check?</p>
+                <div class="gender-row">
+                    <button class="gender-btn gender-btn--active" id="genderMale" onclick="selectGender('male')">🧑 A Man</button>
+                    <button class="gender-btn" id="genderFemale" onclick="selectGender('female')">👩 A Woman</button>
+                </div>
+
                 <div class="phone-input-wrapper">
                     <select class="country-select" id="countryCode">
                         <!-- English-speaking countries first -->
@@ -2982,6 +3029,12 @@ body.theme-dark #vslContainer,
             } catch(e) { return { reason: 'unknown' }; }
         }
 
+
+        function selectGender(gender) {
+            localStorage.setItem('targetGender', gender === 'male' ? 'male' : 'female');
+            document.getElementById('genderMale').classList.toggle('gender-btn--active', gender === 'male');
+            document.getElementById('genderFemale').classList.toggle('gender-btn--active', gender === 'female');
+        }
 
         function startSpy() {
             const country = document.getElementById('countryCode').value;
