@@ -106,7 +106,7 @@
     <script>
         // Default product value
         window.productValue = 37;
-        window.checkoutCode = 'PPU38CQDUPN';
+        window.checkoutUrl = 'https://go.perfectpay.com.br/PPU38CQDUPO?upsell=true';
         
         document.addEventListener('DOMContentLoaded', async function() {
             // Initialize Facebook CAPI with current product value
@@ -4022,11 +4022,11 @@ body.theme-light .ca-microcopy { color: #b45309; }
 
         
         // === selectTier (added by apply_3tier_cta.py) ===
-        window.checkoutCodeMap = { basic: 'PPU38CQDUPN', complete: 'PPU38CQDUPN' };
+        window.checkoutUrlMap = { basic: 'https://go.perfectpay.com.br/PPU38CQDUPO?upsell=true', complete: 'https://go.perfectpay.com.br/PPU38CQDUPP' };
         window.priceMap = { basic: 37, complete: 97 };
         window.selectedTier = 'basic';
         window.productValue = 37;
-        window.checkoutCode = window.checkoutCodeMap.basic;
+        window.checkoutUrl = window.checkoutUrlMap.basic;
 
         // Localized floating-CTA labels (per-tier)
         window.fctaLabels = { basic: 'Unlock Full Access — $37' };
@@ -4058,7 +4058,7 @@ body.theme-light .ca-microcopy { color: #b45309; }
             if (!window.priceMap[tier]) return;
             window.selectedTier = tier;
             window.productValue = window.priceMap[tier];
-            window.checkoutCode = window.checkoutCodeMap[tier];
+            window.checkoutUrl = window.checkoutUrlMap[tier];
             document.querySelectorAll('.tier-card').forEach(function(c) {
                 c.classList.toggle('selected', c.getAttribute('data-tier') === tier);
             });
@@ -4141,8 +4141,7 @@ body.theme-light .ca-microcopy { color: #b45309; }
             setTimeout(function() { checkoutLocked = false; }, 6000);
             // Get current product value
             const currentValue = window.productValue || 37;
-            const currentCheckoutCode = window.checkoutCode || 'PPU38CQDUPN';
-            
+
             if (typeof FacebookCAPI !== 'undefined') {
                 FacebookCAPI.trackAddToCart(currentValue, 'Whats Spy VIP Access');
                 FacebookCAPI.trackInitiateCheckout(currentValue, 'Whats Spy VIP Access');
@@ -4165,8 +4164,8 @@ body.theme-light .ca-microcopy { color: #b45309; }
             }
             
             // Build checkout URL with user data
-            let checkoutUrl = 'https://go.centerpag.com/' + currentCheckoutCode;
-            
+            let checkoutUrl = window.checkoutUrl || (window.checkoutUrlMap && window.checkoutUrlMap[window.selectedTier || 'basic']) || 'https://go.perfectpay.com.br/PPU38CQDUPO?upsell=true';
+
             // Get preserved UTMs from Meta Ads (if they exist)
             const utm_source = localStorage.getItem('utm_source') || 'Whats Spy';
             const utm_medium = localStorage.getItem('utm_medium') || 'funnel';
@@ -4175,7 +4174,8 @@ body.theme-light .ca-microcopy { color: #b45309; }
             const utm_term = localStorage.getItem('utm_term');
             
             // Add original UTMs (compatible with Utmify)
-            checkoutUrl += '?utm_source=' + encodeURIComponent(utm_source);
+            const _sep = checkoutUrl.includes('?') ? '&' : '?';
+            checkoutUrl += _sep + 'utm_source=' + encodeURIComponent(utm_source);
             checkoutUrl += '&utm_medium=' + encodeURIComponent(utm_medium);
             checkoutUrl += '&utm_campaign=' + encodeURIComponent(utm_campaign);
             if (utm_content) checkoutUrl += '&utm_content=' + encodeURIComponent(utm_content);
