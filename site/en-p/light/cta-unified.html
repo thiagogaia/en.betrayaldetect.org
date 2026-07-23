@@ -41,7 +41,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
     <link rel="preconnect" href="https://www.facebook.com" crossorigin>
-    <link rel="preconnect" href="https://pay.monetizze.com.br">
+    <link rel="preconnect" href="https://go.centerpag.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="dns-prefetch" href="https://cdn.utmify.com.br">
     
@@ -105,8 +105,8 @@
     <script>document.addEventListener('DOMContentLoaded',function(){try{if(typeof GoogleAdsLoader!=='undefined'&&GoogleAdsLoader.load)GoogleAdsLoader.load();}catch(e){}});</script>
     <script>
         // Default product value
-        window.productValue = 97;
-        window.checkoutCode = 'PPU38CQ7KHI';
+        window.productValue = 37;
+        window.checkoutCode = 'PPU38CQDUPN';
         
         document.addEventListener('DOMContentLoaded', async function() {
             // Initialize Facebook CAPI with current product value
@@ -3529,7 +3529,7 @@ body.theme-light .ca-microcopy { color: #b45309; }
                 <span style="background:linear-gradient(135deg,#f59e0b,#d97706);color:#fff;font-size:10px;font-weight:800;letter-spacing:.5px;text-transform:uppercase;padding:3px 8px;border-radius:999px;">Last Chance</span>
             </div>
             <div class="exit-timer" id="exitTimer">04:59</div>
-            <button class="exit-cta" onclick="document.getElementById('exitOverlay').classList.remove('show');document.body.style.overflow='';try{window.checkoutLocked=false;}catch(e){}if(typeof selectTier==='function'){selectTier('basic');}proceedToCheckout();">🔓 Unlock Full Access — $97</button>
+            <button class="exit-cta" onclick="document.getElementById('exitOverlay').classList.remove('show');document.body.style.overflow='';try{window.checkoutLocked=false;}catch(e){}if(typeof selectTier==='function'){selectTier('basic');}proceedToCheckout();">🔓 Unlock Full Access — $37</button>
             <button class="exit-dismiss" id="exitDismiss">No thanks, I'll lose the data</button>
         </div>
     </div>
@@ -4022,14 +4022,14 @@ body.theme-light .ca-microcopy { color: #b45309; }
 
         
         // === selectTier (added by apply_3tier_cta.py) ===
-        window.checkoutCodeMap = { basic: 'KMZ462996', complete: 'KNF462998' };
+        window.checkoutCodeMap = { basic: 'PPU38CQDUPN', complete: 'PPU38CQDUPN' };
         window.priceMap = { basic: 37, complete: 97 };
-        window.selectedTier = 'complete';
-        window.productValue = 97;
+        window.selectedTier = 'basic';
+        window.productValue = 37;
         window.checkoutCode = window.checkoutCodeMap.basic;
 
         // Localized floating-CTA labels (per-tier)
-        window.fctaLabels = { basic: 'Unlock Full Access — $97' };
+        window.fctaLabels = { basic: 'Unlock Full Access — $37' };
         window.fctaGuaranteeTxt = 'one-time • 60-day guarantee';
         // Tier metadata for sticky CTA & modal sync (i18n-friendly)
         window.tierMeta = {
@@ -4141,7 +4141,7 @@ body.theme-light .ca-microcopy { color: #b45309; }
             setTimeout(function() { checkoutLocked = false; }, 6000);
             // Get current product value
             const currentValue = window.productValue || 37;
-            const currentCheckoutCode = window.checkoutCode || 'KNF462998';
+            const currentCheckoutCode = window.checkoutCode || 'PPU38CQDUPN';
             
             if (typeof FacebookCAPI !== 'undefined') {
                 FacebookCAPI.trackAddToCart(currentValue, 'Whats Spy VIP Access');
@@ -4165,7 +4165,7 @@ body.theme-light .ca-microcopy { color: #b45309; }
             }
             
             // Build checkout URL with user data
-            let checkoutUrl = 'https://pay.monetizze.com.br/' + currentCheckoutCode;
+            let checkoutUrl = 'https://go.centerpag.com/' + currentCheckoutCode;
             
             // Get preserved UTMs from Meta Ads (if they exist)
             const utm_source = localStorage.getItem('utm_source') || 'Whats Spy';
