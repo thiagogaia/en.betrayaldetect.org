@@ -41,7 +41,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
     <link rel="preconnect" href="https://www.facebook.com" crossorigin>
-    <link rel="preconnect" href="https://pay.monetizze.com.br">
+    <link rel="preconnect" href="https://api.checkoutkombat.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <link rel="dns-prefetch" href="https://cdn.utmify.com.br">
     
@@ -106,7 +106,7 @@
     <script>
         // Default product value
         window.productValue = 97;
-        window.checkoutCode = 'PPU38CQ7KHI';
+        window.checkoutUrl = 'https://api.checkoutkombat.com/go/gvupsem9';
         
         document.addEventListener('DOMContentLoaded', async function() {
             // Initialize Facebook CAPI with current product value
@@ -4022,11 +4022,11 @@ body.theme-light .ca-microcopy { color: #b45309; }
 
         
         // === selectTier (added by apply_3tier_cta.py) ===
-        window.checkoutCodeMap = { basic: 'KMZ462996', complete: 'KNF462998' };
+        window.checkoutUrlMap = { basic: 'https://api.checkoutkombat.com/go/gvupsem9', complete: 'https://api.checkoutkombat.com/go/vsfvkyxb' };
         window.priceMap = { basic: 37, complete: 97 };
         window.selectedTier = 'complete';
         window.productValue = 97;
-        window.checkoutCode = window.checkoutCodeMap.basic;
+        window.checkoutUrl = window.checkoutUrlMap.basic;
 
         // Localized floating-CTA labels (per-tier)
         window.fctaLabels = { basic: 'Unlock Full Access — $97' };
@@ -4058,7 +4058,7 @@ body.theme-light .ca-microcopy { color: #b45309; }
             if (!window.priceMap[tier]) return;
             window.selectedTier = tier;
             window.productValue = window.priceMap[tier];
-            window.checkoutCode = window.checkoutCodeMap[tier];
+            window.checkoutUrl = window.checkoutUrlMap[tier];
             document.querySelectorAll('.tier-card').forEach(function(c) {
                 c.classList.toggle('selected', c.getAttribute('data-tier') === tier);
             });
@@ -4141,8 +4141,6 @@ body.theme-light .ca-microcopy { color: #b45309; }
             setTimeout(function() { checkoutLocked = false; }, 6000);
             // Get current product value
             const currentValue = window.productValue || 37;
-            const currentCheckoutCode = window.checkoutCode || 'KNF462998';
-            
             if (typeof FacebookCAPI !== 'undefined') {
                 FacebookCAPI.trackAddToCart(currentValue, 'Whats Spy VIP Access');
                 FacebookCAPI.trackInitiateCheckout(currentValue, 'Whats Spy VIP Access');
@@ -4165,7 +4163,7 @@ body.theme-light .ca-microcopy { color: #b45309; }
             }
             
             // Build checkout URL with user data
-            let checkoutUrl = 'https://pay.monetizze.com.br/' + currentCheckoutCode;
+            let checkoutUrl = window.checkoutUrl || (window.checkoutUrlMap && window.checkoutUrlMap[window.selectedTier || 'basic']) || 'https://api.checkoutkombat.com/go/gvupsem9';
             
             // Get preserved UTMs from Meta Ads (if they exist)
             const utm_source = localStorage.getItem('utm_source') || '';
