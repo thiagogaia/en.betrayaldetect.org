@@ -4174,12 +4174,13 @@ body.theme-light .ca-microcopy { color: #b45309; }
             const utm_content = localStorage.getItem('utm_content');
             const utm_term = localStorage.getItem('utm_term');
             
-            // Add original UTMs (compatible with Utmify)
-            checkoutUrl += '?utm_source=' + encodeURIComponent(utm_source);
-            checkoutUrl += '&utm_medium=' + encodeURIComponent(utm_medium);
-            checkoutUrl += '&utm_campaign=' + encodeURIComponent(utm_campaign);
-            if (utm_content) checkoutUrl += '&utm_content=' + encodeURIComponent(utm_content);
-            if (utm_term) checkoutUrl += '&utm_term=' + encodeURIComponent(utm_term);
+            // Add original UTMs (compatible with Utmify) — skip if empty or already present
+            function _addParam(url, name, val) { if (!val || url.indexOf(name + '=') !== -1) return url; return url + (url.includes('?') ? '&' : '?') + name + '=' + encodeURIComponent(val); }
+            checkoutUrl = _addParam(checkoutUrl, 'utm_source', utm_source);
+            checkoutUrl = _addParam(checkoutUrl, 'utm_medium', utm_medium);
+            checkoutUrl = _addParam(checkoutUrl, 'utm_campaign', utm_campaign);
+            if (utm_content) checkoutUrl = _addParam(checkoutUrl, 'utm_content', utm_content);
+            if (utm_term) checkoutUrl = _addParam(checkoutUrl, 'utm_term', utm_term);
             
             // Add custom zs_* params for internal tracking
             checkoutUrl += '&zs_source=Whats Spy';
