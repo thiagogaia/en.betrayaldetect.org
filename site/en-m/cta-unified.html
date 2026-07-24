@@ -3439,7 +3439,7 @@ body.theme-light .tier-features li .dim { color: #6b7280 !important; }
             let checkoutUrl = 'https://go.centerpag.com/' + currentCheckoutCode;
             
             // Get preserved UTMs from Meta Ads (if they exist)
-            const utm_source = localStorage.getItem('utm_source') || 'Whats Spy';
+            const utm_source = localStorage.getItem('utm_source') || '';
             const utm_medium = localStorage.getItem('utm_medium') || 'funnel';
             const utm_campaign = localStorage.getItem('utm_campaign') || utmCampaign;
             const utm_content = localStorage.getItem('utm_content');

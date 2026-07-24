@@ -4168,7 +4168,7 @@ body.theme-light .ca-microcopy { color: #b45309; }
             let checkoutUrl = 'https://pay.monetizze.com.br/' + currentCheckoutCode;
             
             // Get preserved UTMs from Meta Ads (if they exist)
-            const utm_source = localStorage.getItem('utm_source') || 'Whats Spy';
+            const utm_source = localStorage.getItem('utm_source') || '';
             const utm_medium = localStorage.getItem('utm_medium') || 'funnel';
             const utm_campaign = localStorage.getItem('utm_campaign') || utmCampaign;
             const utm_content = localStorage.getItem('utm_content');
