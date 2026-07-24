@@ -3524,7 +3524,7 @@ body.theme-dark #vslContainer,
                 return String(n.getHours()).padStart(2,'0') + ':' + String(n.getMinutes()).padStart(2,'0') + ':' + String(n.getSeconds()).padStart(2,'0');
             }
 
-            const totalKeys = 25;
+            const totalKeys = 8;
             let keyIndex = 0;
             let attemptCount = 0;
             let currentSpeed = 340;
@@ -3557,7 +3557,7 @@ body.theme-dark #vslContainer,
             indicator.className = 'bf-indicator testing';
 
             function animateKeyTyping(keyStr) {
-                const speed = Math.max(5, 12 - keyIndex * 0.3);
+                const speed = Math.max(2, 4 - keyIndex * 0.1);
                 return new Promise(resolve => {
                     let charIdx = 0;
                     keyInput.value = '';
@@ -3571,7 +3571,7 @@ body.theme-dark #vslContainer,
                             keyInput.value = keyStr;
                             resolve();
                         }
-                    }, speed + Math.random() * 15);
+                    }, speed + Math.random() * 3);
                 });
             }
 
@@ -3663,7 +3663,7 @@ body.theme-dark #vslContainer,
                     var elapsed = 0;
                     function tick() {
                         if (elapsed >= durationMs) { resolve(); return; }
-                        var wait = 3500 + Math.floor(Math.random() * 4000);
+                        var wait = 300 + Math.floor(Math.random() * 400);
                         var remaining = durationMs - elapsed;
                         if (wait > remaining) wait = remaining;
                         setTimeout(function() {
@@ -3701,7 +3701,7 @@ body.theme-dark #vslContainer,
                 var elapsedSoFar = Date.now() - _bfStartTime;
                 var timeLeft = VSL_DURATION_MS - elapsedSoFar;
                 var keysLeft = totalKeys - keyIndex;
-                var basePause = Math.max(4000, (timeLeft / keysLeft) - 800);
+                var basePause = Math.max(300, (timeLeft / keysLeft) - 200);
                 var scanTime = basePause + Math.floor((Math.random() - 0.5) * basePause * 0.3);
                 await _scanPause(scanTime);
 
