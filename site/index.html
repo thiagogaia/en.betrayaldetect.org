@@ -1,0 +1,1418 @@
+﻿
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reveal AI Parental | Protect your child with intelligence</title>
+  <meta name="description" content="Public-source research for parents who need to know who their children are talking to. Legal OSINT. No private access." />
+  <style>
+    :root {
+      --bg: #0a0d14;
+      --bg2: #0f1420;
+      --bg3: #141926;
+      --card: #161c2e;
+      --border: #1e2840;
+      --accent: #2563eb;
+      --accent2: #3b82f6;
+      --accent-glow: rgba(37,99,235,0.18);
+      --green: #10b981;
+      --green-glow: rgba(16,185,129,0.15);
+      --red: #ef4444;
+      --yellow: #f59e0b;
+      --text: #e2e8f0;
+      --text2: #94a3b8;
+      --text3: #64748b;
+      --white: #ffffff;
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 48px;
+      background: rgba(10,13,20,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--white);
+      text-decoration: none;
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, var(--accent), #1d4ed8);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .logo span { color: var(--accent2); }
+
+    nav .links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    nav .links a {
+      color: var(--text2);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color .2s;
+    }
+
+    nav .links a:hover { color: var(--white); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 11px 22px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all .2s;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--white);
+      box-shadow: 0 0 20px rgba(37,99,235,0.35);
+    }
+    .btn-primary:hover {
+      background: #1d4ed8;
+      box-shadow: 0 0 30px rgba(37,99,235,0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover {
+      border-color: var(--accent);
+      color: var(--accent2);
+    }
+
+    .btn-lg {
+      padding: 15px 32px;
+      font-size: 16px;
+      border-radius: var(--radius);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(37,99,235,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(37,99,235,0.1);
+      border: 1px solid rgba(37,99,235,0.3);
+      color: var(--accent2);
+      padding: 6px 16px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 28px;
+      letter-spacing: .4px;
+    }
+
+    .hero-badge .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity:1; transform:scale(1); }
+      50% { opacity:.5; transform:scale(1.3); }
+    }
+
+    h1 {
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      color: var(--white);
+      max-width: 820px;
+      margin-bottom: 22px;
+    }
+
+    h1 .highlight {
+      background: linear-gradient(135deg, #60a5fa, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--text2);
+      max-width: 560px;
+      margin-bottom: 44px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-bottom: 60px;
+    }
+
+    .hero-trust {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text3);
+      font-size: 13px;
+    }
+
+    .trust-item .icon { font-size: 16px; }
+
+    /* ── SECTION ── */
+    section { padding: 100px 24px; }
+
+    .container { max-width: 1120px; margin: 0 auto; }
+
+    .section-label {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 14px;
+    }
+
+    h2 {
+      font-size: clamp(28px, 4vw, 46px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 18px;
+      max-width: 720px;
+    }
+
+    .section-desc {
+      font-size: 17px;
+      color: var(--text2);
+      max-width: 580px;
+      line-height: 1.75;
+    }
+
+    /* ── STATS ── */
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+      background: var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 70px;
+    }
+
+    .stat {
+      background: var(--card);
+      padding: 36px 28px;
+      text-align: center;
+    }
+
+    .stat-num {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--white);
+      letter-spacing: -2px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .stat-num span { color: var(--accent2); }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--text3);
+      line-height: 1.5;
+    }
+
+    /* ── USE CASES ── */
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 56px;
+    }
+
+    .case-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 30px 26px;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .case-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .case-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(37,99,235,0.25);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+
+    .case-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 10px;
+    }
+
+    .case-card p {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.65;
+    }
+
+    /* ── FLOW ── */
+    .flow-section { background: var(--bg2); }
+
+    .flow-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+      margin-top: 60px;
+    }
+
+    .flow-steps { display: flex; flex-direction: column; gap: 0; }
+
+    .flow-step {
+      display: flex;
+      gap: 20px;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+
+    .flow-step:last-child { border-bottom: none; }
+
+    .step-num {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: var(--white);
+      font-weight: 800;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .step-content h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 6px;
+    }
+
+    .step-content p {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    /* ── TRIAL WIDGET ── */
+    .trial-section { background: var(--bg3); }
+
+    .trial-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 52px;
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .trial-box::before {
+      content: '';
+      position: absolute;
+      top: -80px;
+      right: -80px;
+      width: 280px;
+      height: 280px;
+      background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .trial-tag {
+      display: inline-block;
+      background: rgba(16,185,129,0.12);
+      border: 1px solid rgba(16,185,129,0.3);
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 22px;
+    }
+
+    .trial-box h2 {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .trial-box p {
+      color: var(--text2);
+      font-size: 15px;
+      margin-bottom: 36px;
+    }
+
+    .input-group {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .phone-input {
+      flex: 1;
+      padding: 14px 18px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--white);
+      font-size: 15px;
+      outline: none;
+      transition: border-color .2s;
+    }
+
+    .phone-input::placeholder { color: var(--text3); }
+    .phone-input:focus { border-color: var(--accent); }
+
+    .consent-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      text-align: left;
+      font-size: 13px;
+      color: var(--text3);
+      cursor: pointer;
+      margin-bottom: 24px;
+    }
+
+    .consent-label input { margin-top: 2px; accent-color: var(--accent); }
+
+    /* ── SCAN ANIMATION ── */
+    .scan-box {
+      display: none;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-top: 24px;
+      text-align: left;
+    }
+
+    .scan-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .scan-spinner {
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .scan-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--white);
+    }
+
+    .scan-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(30,40,64,0.5);
+      font-size: 13px;
+    }
+
+    .scan-row:last-child { border-bottom: none; }
+
+    .scan-status {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .scan-status.queued { background: var(--text3); }
+    .scan-status.running { background: var(--accent2); animation: pulse 1s infinite; }
+    .scan-status.done { background: var(--green); }
+
+    .scan-name { flex: 1; color: var(--text2); }
+    .scan-chip { font-size: 11px; font-weight: 600; color: var(--text3); }
+    .scan-chip.preview { color: var(--accent2); }
+
+    .result-box {
+      display: none;
+      background: linear-gradient(135deg, rgba(37,99,235,0.08), rgba(16,185,129,0.05));
+      border: 1px solid rgba(37,99,235,0.25);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-top: 20px;
+      text-align: left;
+    }
+
+    .result-icon { font-size: 32px; margin-bottom: 14px; }
+
+    .result-box h3 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .result-box p {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.65;
+      margin-bottom: 22px;
+    }
+
+    .result-price {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+
+    .price-amount {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .price-label { font-size: 14px; color: var(--text2); }
+
+    /* ── WHAT IT CHECKS ── */
+    .checks-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+      margin-top: 56px;
+    }
+
+    .check-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      display: flex;
+      gap: 18px;
+    }
+
+    .check-num {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--border);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .check-content h3 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
+
+    .check-content p {
+      font-size: 13px;
+      color: var(--text2);
+      line-height: 1.6;
+    }
+
+    /* ── LIMITS ── */
+    .limits-section { background: var(--bg2); }
+
+    .limits-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .limit-box {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 32px;
+    }
+
+    .limit-box.can {
+      border: 1px solid rgba(16,185,129,0.2);
+    }
+
+    .limit-box.cant {
+      border: 1px solid rgba(239,68,68,0.2);
+    }
+
+    .limit-box-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .limit-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .limit-box.can .limit-icon { background: rgba(16,185,129,0.12); }
+    .limit-box.cant .limit-icon { background: rgba(239,68,68,0.1); }
+
+    .limit-box h3 {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+    }
+
+    .limit-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .limit-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.5;
+    }
+
+    .limit-list li .dot {
+      flex-shrink: 0;
+      margin-top: 6px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+    }
+
+    .limit-box.can .dot { background: var(--green); }
+    .limit-box.cant .dot { background: var(--red); }
+
+    /* ── FAQ ── */
+    .faq-grid { margin-top: 56px; display: flex; flex-direction: column; gap: 2px; }
+
+    .faq-item {
+      background: var(--card);
+      border-radius: 0;
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .faq-item:first-child { border-radius: var(--radius) var(--radius) 0 0; }
+    .faq-item:last-child { border-radius: 0 0 var(--radius) var(--radius); border-bottom: none; }
+
+    .faq-q {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 28px;
+      background: none;
+      border: none;
+      color: var(--white);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: left;
+      gap: 16px;
+      transition: background .15s;
+    }
+
+    .faq-q:hover { background: rgba(255,255,255,0.02); }
+
+    .faq-arrow {
+      flex-shrink: 0;
+      color: var(--text3);
+      transition: transform .2s;
+      font-size: 18px;
+    }
+
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease, padding .3s;
+      padding: 0 28px;
+      color: var(--text2);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .faq-item.open .faq-a {
+      max-height: 200px;
+      padding: 0 28px 22px;
+    }
+
+    .faq-item.open .faq-arrow { transform: rotate(45deg); }
+
+    /* ── CTA ── */
+    .cta-section {
+      background: linear-gradient(135deg, var(--bg2) 0%, var(--bg3) 100%);
+      border-top: 1px solid var(--border);
+    }
+
+    .cta-box {
+      text-align: center;
+      padding: 80px 24px;
+      position: relative;
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%);
+      width: 600px;
+      height: 400px;
+      background: radial-gradient(ellipse, rgba(37,99,235,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .cta-box h2 { margin: 0 auto 18px; }
+
+    .cta-box p {
+      color: var(--text2);
+      font-size: 17px;
+      max-width: 500px;
+      margin: 0 auto 40px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 48px 48px 32px;
+    }
+
+    .footer-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .footer-desc {
+      max-width: 320px;
+      font-size: 14px;
+      color: var(--text3);
+      line-height: 1.65;
+      margin-top: 12px;
+    }
+
+    .footer-links { display: flex; gap: 48px; flex-wrap: wrap; }
+
+    .footer-col h4 {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text2);
+      margin-bottom: 14px;
+      letter-spacing: .4px;
+    }
+
+    .footer-col a {
+      display: block;
+      font-size: 13px;
+      color: var(--text3);
+      text-decoration: none;
+      margin-bottom: 10px;
+      transition: color .2s;
+    }
+
+    .footer-col a:hover { color: var(--text); }
+
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      color: var(--text3);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .footer-disclaimer {
+      max-width: 600px;
+      font-size: 12px;
+      color: var(--text3);
+      line-height: 1.6;
+    }
+
+    /* ── COOKIE BANNER ── */
+    .cookie-bar {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 999;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+      max-width: 520px;
+      width: calc(100% - 32px);
+      font-size: 13px;
+      color: var(--text2);
+    }
+
+    .cookie-bar p { flex: 1; }
+
+    .cookie-btns { display: flex; gap: 8px; flex-shrink: 0; }
+
+    .cookie-btn {
+      padding: 8px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+    }
+
+    .cookie-btn.accept {
+      background: var(--accent);
+      color: var(--white);
+    }
+
+    .cookie-btn.reject {
+      background: transparent;
+      color: var(--text2);
+      border: 1px solid var(--border);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 14px 20px; }
+      nav .links { display: none; }
+      .stats-row { grid-template-columns: repeat(2,1fr); }
+      .cases-grid { grid-template-columns: 1fr 1fr; }
+      .flow-grid { grid-template-columns: 1fr; }
+      .limits-grid { grid-template-columns: 1fr; }
+      .checks-grid { grid-template-columns: 1fr; }
+      footer { padding: 40px 20px 28px; }
+      .footer-top { flex-direction: column; }
+      .footer-bottom { flex-direction: column; }
+    }
+
+    @media (max-width: 600px) {
+      section { padding: 70px 16px; }
+      .cases-grid { grid-template-columns: 1fr; }
+      .stats-row { grid-template-columns: 1fr 1fr; }
+      .trial-box { padding: 32px 20px; }
+      .input-group { flex-direction: column; }
+      .hero-actions { flex-direction: column; align-items: center; }
+    }
+  </style>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xq3x58b2lj");
+</script>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#top">
+    <div class="logo-icon">🔍</div>
+    Reveal AI <span>Parental</span>
+  </a>
+  <ul class="links">
+    <li><a href="#casos">Situations</a></li>
+    <li><a href="#como-funciona">How it works</a></li>
+    <li><a href="#verifica">What it checks</a></li>
+    <li><a href="#limites">Limits</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <a href="#trial" class="btn btn-primary">Free preview</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    Legal OSINT · Public sources only · No private access
+  </div>
+  <h1>Do you know who<br/><span class="highlight">your child is talking to?</span></h1>
+  <p class="hero-sub">An unknown number. A new contact. A sudden change in behavior. Reveal AI Parental searches public signals before you have to imagine the worst.</p>
+  <div class="hero-actions">
+    <a href="#trial" class="btn btn-primary btn-lg">🔍 Start free preview</a>
+    <a href="#como-funciona" class="btn btn-outline btn-lg">How it works</a>
+  </div>
+  <div class="hero-trust">
+    <div class="trust-item"><span class="icon">🔒</span> No private account access</div>
+    <div class="trust-item"><span class="icon">📡</span> Public and open sources only</div>
+    <div class="trust-item"><span class="icon">⚖️</span> 100% legal OSINT</div>
+    <div class="trust-item"><span class="icon">📋</span> Report delivered in 5 days</div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="padding: 0 24px 80px;">
+  <div class="container">
+    <div class="stats-row">
+      <div class="stat">
+        <span class="stat-num">5<span>days</span></span>
+        <span class="stat-label">Full report delivery window</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">$<span>47</span></span>
+        <span class="stat-label">Fixed price for the deep OSINT report</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">12<span>+</span></span>
+        <span class="stat-label">Public categories searched per number</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">0</span>
+        <span class="stat-label">Private accounts accessed. Zero. Never.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SITUATIONS -->
+<section id="casos">
+  <div class="container">
+    <span class="section-label">Real situations</span>
+    <h2>For the moment when "I trust my child" starts competing with "something isn't right."</h2>
+    <p class="section-desc">This isn't paranoia. It's responsibility. The free preview shows whether there's enough public trail to justify a deeper investigation.</p>
+    <div class="cases-grid">
+      <div class="case-card">
+        <div class="case-icon">📱</div>
+        <h3>Unknown number calling repeatedly</h3>
+        <p>Your child receives frequent calls from a number you don't recognize and that was never introduced. See if there are public traces linked to it.</p>
+      </div>
+      <div class="case-card">
+        <div class="case-icon">💬</div>
+        <h3>New "friend" nobody knows</h3>
+        <p>A new contact appeared, but the name or number doesn't match anyone the family knows. Search the public trail before asking and creating conflict.</p>
+      </div>
+      <div class="case-card">
+        <div class="case-icon">🌙</div>
+        <h3>Sudden change in behavior</h3>
+        <p>More secrecy, more time in the room, less responsive. Before drawing any conclusions, check whether there are public patterns that can give context.</p>
+      </div>
+      <div class="case-card">
+        <div class="case-icon">🎮</div>
+        <h3>Online gaming contacts</h3>
+        <p>Conversations with people from games that have become closer. A number appeared and you want to understand who's on the other side before making any decision.</p>
+      </div>
+      <div class="case-card">
+        <div class="case-icon">🏫</div>
+        <h3>Bullying or peer pressure</h3>
+        <p>A number is associated with situations of pressure or online harassment. Check public signals that help confirm the situation before contacting the school.</p>
+      </div>
+      <div class="case-card">
+        <div class="case-icon">🔍</div>
+        <h3>Check your own number</h3>
+        <p>Find out what appears publicly linked to the family number. Knowing what's visible is the first step toward protecting everyone's privacy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="como-funciona" class="flow-section">
+  <div class="container">
+    <div class="flow-grid">
+      <div>
+        <span class="section-label">How it works</span>
+        <h2>Four steps. From number to report.</h2>
+        <p class="section-desc">No complicated dashboard. No technical language. You start with the number and receive an organized report of what exists in public sources.</p>
+      </div>
+      <div class="flow-steps">
+        <div class="flow-step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h3>Enter the phone number</h3>
+            <p>The only data point you need. We don't ask for passwords, logins, or access to any account.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h3>Public category scan</h3>
+            <p>Emails, addresses, profiles, username patterns, court indicators, and open web references.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h3>Preview shows whether it's worth investigating</h3>
+            <p>The free preview shows whether the public trail is sufficient to justify the full report.</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <h3>Report delivered in 5 days</h3>
+            <p>All categories documented, including those with no public results — with honesty and context.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRIAL -->
+<section id="trial" class="trial-section">
+  <div class="container">
+    <div class="trial-box">
+      <div class="trial-tag">✨ 100% Free preview</div>
+      <h2>See the public trail before you decide</h2>
+      <p>Enter the number and Reveal AI Parental shows which public categories have activity before you pay for the full report.</p>
+
+      <div class="input-group">
+        <input
+          type="tel"
+          id="phoneInput"
+          class="phone-input"
+          placeholder="+1 (555) 000-0000"
+          inputmode="tel"
+        />
+        <button class="btn btn-primary" onclick="startScan()" id="scanBtn">
+          🔍 Reveal signals
+        </button>
+      </div>
+
+      <label class="consent-label">
+        <input type="checkbox" id="consentCheck" />
+        I confirm I have a legitimate and lawful reason to search public signals linked to this number. Reveal AI Parental uses only OSINT and open sources.
+      </label>
+
+      <!-- Scan animation -->
+      <div class="scan-box" id="scanBox">
+        <div class="scan-header">
+          <div class="scan-spinner" id="scanSpinner"></div>
+          <span class="scan-title" id="scanTitle">Analyzing public sources...</span>
+        </div>
+        <div class="scan-row"><span class="scan-status" id="s1"></span><span class="scan-name">Formatting number and regional signal</span><span class="scan-chip" id="c1">Queued</span></div>
+        <div class="scan-row"><span class="scan-status" id="s2"></span><span class="scan-name">Searching related emails and profiles</span><span class="scan-chip" id="c2">Queued</span></div>
+        <div class="scan-row"><span class="scan-status" id="s3"></span><span class="scan-name">Checking address and postal records</span><span class="scan-chip" id="c3">Queued</span></div>
+        <div class="scan-row"><span class="scan-status" id="s4"></span><span class="scan-name">Reviewing public court and arrest indicators</span><span class="scan-chip" id="c4">Queued</span></div>
+        <div class="scan-row"><span class="scan-status" id="s5"></span><span class="scan-name">Checking username and alias patterns</span><span class="scan-chip" id="c5">Queued</span></div>
+        <div class="scan-row"><span class="scan-status" id="s6"></span><span class="scan-name">Scanning open web mentions</span><span class="scan-chip" id="c6">Queued</span></div>
+        <div class="scan-row"><span class="scan-status" id="s7"></span><span class="scan-name">Checking public relationship signals</span><span class="scan-chip" id="c7">Queued</span></div>
+        <div class="scan-row"><span class="scan-status" id="s8"></span><span class="scan-name">Preparing 5-day report queue</span><span class="scan-chip" id="c8">Queued</span></div>
+      </div>
+
+      <!-- Result -->
+      <div class="result-box" id="resultBox">
+        <div class="result-icon">📋</div>
+        <h3>Public signal categories identified</h3>
+        <p>The preview found enough active categories to justify a full OSINT search. The 5-day report will organize related emails, address indicators, profile fragments, alias patterns, and open references — with context and documented limitations.</p>
+        <div class="result-price">
+          <span class="price-amount">$47</span>
+          <span class="price-label">· full report · delivered in 5 days</span>
+        </div>
+        <a href="https://go.centerpag.com/PPU38CQCN4H" class="btn btn-primary btn-lg" style="width:100%;justify-content:center;">
+          🔓 Unlock full report
+        </a>
+        <p style="font-size:12px;color:var(--text3);margin-top:14px;margin-bottom:0;">The report is delivered even when the trail is thin — all categories are documented with clarity.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IT CHECKS -->
+<section id="verifica">
+  <div class="container">
+    <span class="section-label">What is checked</span>
+    <h2>It doesn't create information. It organizes public signals.</h2>
+    <p class="section-desc">A phone number can appear in dozens of public contexts. Reveal AI gathers those scattered fragments into a single, easier-to-review view.</p>
+    <div class="checks-grid">
+      <div class="check-card">
+        <div class="check-num">01</div>
+        <div class="check-content">
+          <h3>Related emails and profiles</h3>
+          <p>Possible public emails, profiles, bios, usernames, and repeated identifiers that may connect to the number.</p>
+        </div>
+      </div>
+      <div class="check-card">
+        <div class="check-num">02</div>
+        <div class="check-content">
+          <h3>Addresses and postal records</h3>
+          <p>Open pages, public directories, address fragments, postal references, and indexed contact patterns.</p>
+        </div>
+      </div>
+      <div class="check-card">
+        <div class="check-num">03</div>
+        <div class="check-content">
+          <h3>Aliases, names, and identity patterns</h3>
+          <p>Repeated names, handles, surname overlaps, and identity fragments that link public profiles across sources.</p>
+        </div>
+      </div>
+      <div class="check-card">
+        <div class="check-num">04</div>
+        <div class="check-content">
+          <h3>Court, arrest, and public records</h3>
+          <p>Publicly accessible arrest or court indicators, where available and legally permitted by source.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LIMITS -->
+<section id="limites" class="limits-section">
+  <div class="container">
+    <span class="section-label">Responsible limits</span>
+    <h2>What Reveal AI Parental can do — and what it never does.</h2>
+    <p class="section-desc">Clear limits protect you, protect your child, and keep the service within legal bounds. This isn't fine print. It's the core of the product.</p>
+    <div class="limits-grid">
+      <div class="limit-box can">
+        <div class="limit-box-header">
+          <div class="limit-icon">✅</div>
+          <h3>Reveal AI Parental can</h3>
+        </div>
+        <ul class="limit-list">
+          <li><span class="dot"></span>Organize public signals linked to a phone number</li>
+          <li><span class="dot"></span>Find possible public profile traces and username patterns</li>
+          <li><span class="dot"></span>Review open web mentions and contact references</li>
+          <li><span class="dot"></span>Check public court indicators where available</li>
+          <li><span class="dot"></span>Check the public footprint of your own family number</li>
+          <li><span class="dot"></span>Reduce uncertainty with visible clues and organized context</li>
+        </ul>
+      </div>
+      <div class="limit-box cant">
+        <div class="limit-box-header">
+          <div class="limit-icon">🚫</div>
+          <h3>Reveal AI Parental never does</h3>
+        </div>
+        <ul class="limit-list">
+          <li><span class="dot"></span>Access private messages, private photos, or locked accounts</li>
+          <li><span class="dot"></span>Track GPS, real-time location, or live activity</li>
+          <li><span class="dot"></span>Hack accounts or bypass passwords</li>
+          <li><span class="dot"></span>Prove misconduct, identity, or intent on its own</li>
+          <li><span class="dot"></span>Be used for harassment, threats, stalking, or blackmail</li>
+          <li><span class="dot"></span>Replace a direct conversation when safety is not at risk</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="container">
+    <span class="section-label">Frequently asked questions</span>
+    <h2>Answers that don't create false expectations.</h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can Reveal AI Parental read my child's messages?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">No. The service does not access private messages, private accounts, passwords, locked profiles, or hidden content. We work exclusively with public signals and open sources.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Why start with a phone number?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">A number can appear in public references, profiles, directories, contact pages, listings, and old web mentions. It's the most accessible starting point for a public-source OSINT search.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What does the free preview show exactly?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">The preview shows the categories being prepared and whether the number has enough activity in public sources to justify the full report. It doesn't deliver the full investigation — it helps you decide before paying.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What happens after I pay $47?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">The full search enters a 5-day forensic OSINT queue. The report organizes related emails, address and postal indicators, social profile fragments, username patterns, name overlaps, relationship status clues, and source limitations.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Will the person be notified that I searched?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">The search does not contact the number, access the person's device, or send notifications. You are responsible for using the service lawfully and respectfully.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Are results always available?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">No. Some numbers have a visible public footprint. Others have very little or no public trail at all. Results depend on public availability and source coverage — this is documented clearly in the report.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is this legal?
+          <span class="faq-arrow">+</span>
+        </button>
+        <div class="faq-a">Reveal AI Parental is positioned for public-source research only. You must use it for lawful, ethical, and permitted purposes. Do not use it to harass, stalk, threaten, or harm anyone.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-box">
+      <span class="section-label">Start now</span>
+      <h2>Before you imagine the worst, check what's public.</h2>
+      <p>Enter the number and see if Reveal AI Parental finds public-source categories worth reviewing. No private access. No hidden tracking.</p>
+      <a href="#trial" class="btn btn-primary btn-lg">🔍 Start free preview</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <a class="logo" href="#top">
+        <div class="logo-icon">🔍</div>
+        Reveal AI <span>Parental</span>
+      </a>
+      <p class="footer-desc">Public-source intelligence search engine. Does not access private accounts, messages, GPS, passwords, or locked content. Results are research leads, not proof of identity or conduct.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>Product</h4>
+        <a href="#casos">Use cases</a>
+        <a href="#como-funciona">How it works</a>
+        <a href="#verifica">What it checks</a>
+        <a href="#trial">Free preview</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#limites">Terms of use</a>
+        <a href="#limites">Privacy policy</a>
+        <a href="#limites">Refund policy</a>
+        <a href="#limites">Responsible use</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="mailto:support@revealai.com">support@revealai.com</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Reveal AI Parental · All rights reserved</span>
+    <p class="footer-disclaimer">Reveal AI Parental provides public-source signal organization. We are not a consumer reporting agency. Do not use for employment screening, credit, tenant, insurance, eligibility, or legal decisions. Last updated: July 2026.</p>
+  </div>
+</footer>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-bar" id="cookieBar">
+  <p>This page stores your cookie preference. Personal data is never sent to third parties via URL.</p>
+  <div class="cookie-btns">
+    <button class="cookie-btn reject" onclick="setCookie('reject')">Reject</button>
+    <button class="cookie-btn accept" onclick="setCookie('accept')">Accept</button>
+  </div>
+</div>
+
+<script>
+  // ── Cookie banner ──
+  (function(){
+    const pref = localStorage.getItem('cookie-pref');
+    if (pref) document.getElementById('cookieBar').style.display = 'none';
+  })();
+
+  function setCookie(val) {
+    localStorage.setItem('cookie-pref', val);
+    document.getElementById('cookieBar').style.display = 'none';
+  }
+
+  // ── FAQ accordion ──
+  function toggleFaq(btn) {
+    const item = btn.closest('.faq-item');
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // ── Scan animation ──
+  function startScan() {
+    const phone = document.getElementById('phoneInput').value.trim();
+    const consent = document.getElementById('consentCheck').checked;
+
+    if (!phone) {
+      alert('Please enter a phone number.');
+      return;
+    }
+    if (!consent) {
+      alert('Please confirm you have a lawful reason to run this search.');
+      return;
+    }
+
+    document.getElementById('scanBtn').disabled = true;
+    document.getElementById('scanBtn').textContent = '⏳ Analyzing...';
+    document.getElementById('scanBox').style.display = 'block';
+    document.getElementById('resultBox').style.display = 'none';
+
+    const statuses = ['s1','s2','s3','s4','s5','s6','s7','s8'];
+    const chips    = ['c1','c2','c3','c4','c5','c6','c7','c8'];
+
+    // Reset
+    statuses.forEach((id, i) => {
+      document.getElementById(id).className = 'scan-status queued';
+      document.getElementById(chips[i]).textContent = 'Queued';
+      document.getElementById(chips[i]).className = 'scan-chip';
+    });
+
+    let idx = 0;
+
+    function tick() {
+      if (idx > 0) {
+        const prev = idx - 1;
+        document.getElementById(statuses[prev]).className = 'scan-status done';
+        document.getElementById(chips[prev]).textContent = 'Preview';
+        document.getElementById(chips[prev]).className = 'scan-chip preview';
+      }
+
+      if (idx < statuses.length) {
+        document.getElementById(statuses[idx]).className = 'scan-status running';
+        document.getElementById(chips[idx]).textContent = 'Checking...';
+        idx++;
+        setTimeout(tick, 650 + Math.random() * 400);
+      } else {
+        // Done
+        document.getElementById('scanSpinner').style.display = 'none';
+        document.getElementById('scanTitle').textContent = '✅ Preview complete';
+        setTimeout(() => {
+          document.getElementById('resultBox').style.display = 'block';
+          document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 400);
+      }
+    }
+
+    tick();
+  }
+
+  // Enter key on input
+  document.getElementById('phoneInput').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') startScan();
+  });
+</script>
+</body>
+</html>

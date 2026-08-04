@@ -1,0 +1,242 @@
+:root {
+    --whatsapp-green: #128C7E;
+    --whatsapp-light-green: #25D366;
+    --whatsapp-bg: #E5DDD5;
+    --chat-bg: #FFFFFF;
+    --text-primary: #111B21;
+    --text-secondary: #667781;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: #fff;
+}
+
+.whatsapp-container {
+    max-width: 100%;
+    margin: 0 auto;
+    background: #e5ddd5;
+    min-height: 100vh;
+}
+
+.whatsapp-header {
+    background: #008069;
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.header-info {
+    color: #fff;
+}
+
+.header-info h1 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.chat-container {
+    padding: 16px;
+}
+
+.message {
+    margin-bottom: 8px;
+}
+
+.message-bubble {
+    background: #fff;
+    padding: 6px 7px 8px 9px;
+    border-radius: 7.5px;
+    display: inline-block;
+    max-width: 85%;
+    position: relative;
+    box-shadow: 0 1px 0.5px rgba(11,20,26,.13);
+}
+
+.message-bubble p {
+    margin: 0;
+    font-size: 14.2px;
+    line-height: 19px;
+    color: #111b21;
+}
+
+.message-time {
+    font-size: 11px;
+    color: #667781;
+    margin-top: 2px;
+    margin-left: 6px;
+}
+
+.image-preview {
+    background: #fff;
+    padding: 4px;
+    border-radius: 7.5px;
+    margin-bottom: 8px;
+    max-width: 85%;
+    box-shadow: 0 1px 0.5px rgba(11,20,26,.13);
+}
+
+.blurred-image {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    background: #f0f2f5;
+}
+
+.blurred-image img {
+    width: 100%;
+    filter: blur(10px);
+    opacity: 0.9;
+}
+
+.info-list {
+    background: #fff;
+    border-radius: 7.5px;
+    padding: 14px 16px;
+    margin: 8px 0;
+    box-shadow: 0 1px 0.5px rgba(11,20,26,.13);
+}
+
+.info-list ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.info-list li {
+    font-size: 14.2px;
+    line-height: 20px;
+    color: #111b21;
+    margin-bottom: 4px;
+}
+
+.bonus-section {
+    background: #e7f7e8;
+    border-radius: 7.5px;
+    padding: 14px 16px;
+    margin: 16px 0;
+}
+
+.bonus-section h3 {
+    margin: 0;
+    font-size: 14.2px;
+    font-weight: 600;
+    color: #111b21;
+    margin-bottom: 4px;
+}
+
+.bonus-section p {
+    margin: 0;
+    font-size: 14.2px;
+    line-height: 20px;
+    color: #111b21;
+}
+
+.discount-section {
+    background: #e7f7e8;
+    border-radius: 7.5px;
+    padding: 14px 16px;
+    margin: 16px 0;
+    text-align: center;
+}
+
+.discount-section h3 {
+    margin: 0;
+    font-size: 14.2px;
+    font-weight: 600;
+    color: #111b21;
+    margin-bottom: 12px;
+}
+
+.price {
+    font-size: 24px;
+    font-weight: 600;
+    color: #111b21;
+    margin: 12px 0;
+}
+
+.features {
+    text-align: left;
+    margin: 16px 0;
+}
+
+.features li {
+    font-size: 14.2px;
+    line-height: 20px;
+    color: #111b21;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.features li::before {
+    content: "✓";
+    color: #25D366;
+}
+
+.cta-button {
+    background: #25D366;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 32px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    display: inline-block;
+    margin: 8px 0;
+}
+
+.security-info {
+    text-align: center;
+    color: #667781;
+    font-size: 13px;
+    margin: 12px 0;
+}
+
+.received {
+    background: white;
+    margin-right: auto;
+    border-top-left-radius: 0;
+}
+
+.sent {
+    background: #D9FDD3;
+    margin-left: auto;
+    border-top-right-radius: 0;
+}
+
+.price-tag {
+    background: var(--whatsapp-light-green);
+    color: white;
+    padding: 12px 24px;
+    border-radius: 24px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 16px 0;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.price-display .currency {
+    font-size: 1.5rem;
+    vertical-align: super;
+    margin-right: 2px;
+} 

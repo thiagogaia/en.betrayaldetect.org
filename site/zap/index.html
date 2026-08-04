@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- UTMify tracking -->
+    <script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xq3x58b2lj");
+</script>
+    <!-- Meta Pixel Code -->
+    <script>
+    
+    var userData = {};
+    try {
+        var em = localStorage.getItem('userEmail');
+        var ph = localStorage.getItem('userWhatsApp');
+        var fn = localStorage.getItem('userName');
+        var ct = localStorage.getItem('userCity');
+        var co = localStorage.getItem('userCountryCode');
+        var ge = localStorage.getItem('targetGender');
+        var st = localStorage.getItem('userState');
+        if (em) userData.em = em.toLowerCase().trim();
+        if (ph) userData.ph = ph.replace(/\D/g, '');
+        if (fn) {
+            var names = fn.trim().split(' ');
+            userData.fn = names[0].toLowerCase();
+            if (names.length > 1) userData.ln = names.slice(1).join(' ').toLowerCase();
+        }
+        if (ct) userData.ct = ct.toLowerCase().replace(/[^a-z]/g, '');
+        if (co) userData.country = co.toLowerCase();
+        if (ge) userData.ge = ge === 'female' ? 'f' : 'm';
+        if (st) userData.st = st.toLowerCase().replace(/[^a-z]/g, '');
+    } catch(e) {}
+    
+    </script>
+    
+    
+    <script>
+        // Visitor ID na primeira página (melhora external_id no CAPI)
+        if (!localStorage.getItem('funnelVisitorId')) {
+            localStorage.setItem('funnelVisitorId', 'v_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9));
+        }
+        var params = window.location.search;
+        setTimeout(function() { window.location.replace('landing.html' + params); }, 400);
+    </script>
+    
+    <style>
+        body {
+            background: #000;
+            color: #25D366;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <p>Redirecting...</p>
+    <script src="js/facebook-capi.js"></script>
+    <script>
+    if (typeof FacebookCAPI !== 'undefined') {
+        FacebookCAPI.init();
+        FacebookCAPI.trackViewContent('Home Page', 'Funnel - Entry', 49);
+    }
+    </script>
+    <script>
+    (function() {
+        if (!localStorage.getItem('userCity') || !localStorage.getItem('userState')) {
+            fetch('https://ipapi.co/json/').then(r => r.json()).then(function(data) {
+                if (data.city) localStorage.setItem('userCity', data.city);
+                if (data.region) localStorage.setItem('userState', data.region);
+                if (data.country_code && !localStorage.getItem('userCountryCode')) {
+                    localStorage.setItem('userCountryCode', data.country_code);
+                }
+            }).catch(function(e) { console.log('Geo detection error:', e); });
+        }
+    })();
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+#bloco tirado das outras paginas.
+
+ <!-- Enhanced Tracking -->
+    <script src="js/tracking.js"></script>
+    
+    <!-- Facebook CAPI Client -->
+    <script src="js/facebook-capi.js"></script>
+    <script>
+        // Initialize CAPI and track PageView to both browser and server
+        document.addEventListener('DOMContentLoaded', function() {
+            // Early geo detection for CAPI quality
+            (function() {
+                if (!localStorage.getItem('userCity') || !localStorage.getItem('userState')) {
+                    fetch('https://ipapi.co/json/').then(r => r.json()).then(function(data) {
+                        if (data.city) localStorage.setItem('userCity', data.city);
+                        if (data.region) localStorage.setItem('userState', data.region);
+                        if (data.country_code && !localStorage.getItem('userCountryCode')) {
+                            localStorage.setItem('userCountryCode', data.country_code);
+                        }
+                    }).catch(function(e) { console.log('Geo detection error:', e); });
+                }
+            })();
+
+            if (typeof FacebookCAPI !== 'undefined') {
+                FacebookCAPI.init('Landing Page');
+                // Track ViewContent on landing page
+                FacebookCAPI.trackViewContent('Landing Page', 'Funnel - Entry', 49);
+            }
+        });
+    </script>
+    
+    <!-- Enhanced Tracking -->
+    <script src="js/tracking-utils.js"></script>
+    <script src="js/funnel-tracking.js"></script>
+
+
+
+
+
+      // ============================================
+        // CAPTURE AND PRESERVE ORIGINAL UTMs FROM META ADS
+        // ============================================
+        (function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            // List of UTM parameters to capture
+            const utmParams = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+            
+            // Only save if we have UTM params in URL (fresh visit from ad)
+            if (urlParams.has('utm_source') || urlParams.has('utm_campaign')) {
+                utmParams.forEach(param => {
+                    const value = urlParams.get(param);
+                    if (value) {
+                        localStorage.setItem(param, value);
+                    }
+                });
+                console.log('[UTM] Captured UTMs from URL:', Object.fromEntries(utmParams.map(p => [p, urlParams.get(p)])));
+            }
+        })();
+        
