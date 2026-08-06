@@ -2421,7 +2421,7 @@ img,video,iframe{max-width:100%;height:auto;}
             const msg = messages[variant % messages.length];
             const div = document.createElement('div');
             div.className = 'widget-deleted-reveal';
-            div.onclick = () => openConversation({name: 'Deleted', blur: 'full', tags: ['deleted']});
+            div.onclick = () => openConversation({name: 'Eliminado', blur: 'full', tags: ['deleted']});
             div.innerHTML = `
                 <div class="wdr-header">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff3b30" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
@@ -2468,7 +2468,7 @@ img,video,iframe{max-width:100%;height:auto;}
             const avatarSrc = generateAvatarSvg('Frequent', 90, {deleted: true, tags: ['suspicious']});
             const div = document.createElement('div');
             div.className = 'widget-frequent';
-            div.onclick = () => openConversation({name: 'Frequent Contact', blur: 'full', tags: ['evidence']});
+            div.onclick = () => openConversation({name: 'Contacto Frecuente', blur: 'full', tags: ['evidence']});
             div.innerHTML = `
                 <div class="wf-avatar"><img src="${avatarSrc}" alt="" loading="lazy" decoding="async"></div>
                 <div class="wf-info">
@@ -2483,7 +2483,7 @@ img,video,iframe{max-width:100%;height:auto;}
         function createAudioWidget() {
             const div = document.createElement('div');
             div.className = 'widget-audio';
-            div.onclick = () => openConversation({name: 'Audio', blur: 'full', tags: ['deleted']});
+            div.onclick = () => openConversation({name: '🎤 Audio', blur: 'full', tags: ['deleted']});
             let bars = '';
             for (let i = 0; i < 35; i++) {
                 const h = Math.floor(Math.random() * 22) + 4;

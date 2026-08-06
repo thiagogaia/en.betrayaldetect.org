@@ -3791,10 +3791,12 @@ body.theme-light .ca-microcopy { color: #b45309; }
             var cl = document.getElementById('convList');
             if (!cl) return;
             var p = window.location.pathname;
-            var lang = 'en';
-            if (p.indexOf('/espanhol/') !== -1) lang = 'es';
-            else if (p.indexOf('/portugues/') !== -1) lang = 'pt';
-            else if (p.indexOf('/frances/') !== -1) lang = 'fr';
+            var lang = (document.documentElement.getAttribute('lang') || 'en').toLowerCase().slice(0,2);
+            if (lang !== 'es' && lang !== 'pt' && lang !== 'fr') {
+                if (p.indexOf('/espanhol/') !== -1 || p.indexOf('/es-m/') !== -1 || p.indexOf('/es/') !== -1) lang = 'es';
+                else if (p.indexOf('/portugues/') !== -1 || p.indexOf('/pt-m/') !== -1 || p.indexOf('/pt/') !== -1) lang = 'pt';
+                else if (p.indexOf('/frances/') !== -1 || p.indexOf('/fr-m/') !== -1 || p.indexOf('/fr/') !== -1) lang = 'fr';
+            }
 
             var labels = {
                 en: { title: 'Suspicious conversations detected', deleted: 'deleted', suspicious: 'suspicious', evidence: 'evidence' },
@@ -3808,18 +3810,18 @@ body.theme-light .ca-microcopy { color: #b45309; }
             for (var h = 0; h < heights.length; h++) audioBars += '<span style="height:' + heights[h] + 'px"></span>';
 
             var convsFemale = [
-                { img: 'mulher1.jpg', name: 'Jes***', msg: 'Delete this after rea***...', tags: ['deleted','suspicious'], unread: 12 },
-                { img: 'mulher3.jpg', name: 'Ash***', msg: 'I still thin* abo** us...', tags: ['deleted','evidence'], unread: 18 },
-                { img: 'mulher5.jpg', name: 'Blocked Contact', msg: 'I miss y** so much...', tags: ['deleted','evidence'], unread: 6 },
-                { img: 'mulher7.jpg', name: 'Sam***', msg: 'audio', tags: ['deleted','suspicious'], unread: 3 },
-                { img: 'mulher9.jpg', name: 'Deleted Contact', msg: 'Nobody has to kn***...', tags: ['deleted','suspicious','evidence'], unread: 11 }
+                { img: 'mulher1.jpg', name: 'Luc***', msg: 'Borra esto después de le***...', tags: ['deleted','suspicious'], unread: 12 },
+                { img: 'mulher3.jpg', name: 'Cam***', msg: 'Todavía pien** en nosotr**...', tags: ['deleted','evidence'], unread: 18 },
+                { img: 'mulher5.jpg', name: 'Contacto Bloqueado', msg: 'Te extrañ** much**...', tags: ['deleted','evidence'], unread: 6 },
+                { img: 'mulher7.jpg', name: 'Sof***', msg: 'audio', tags: ['deleted','suspicious'], unread: 3 },
+                { img: 'mulher9.jpg', name: 'Contacto Eliminado', msg: 'Nadie tiene que sab***...', tags: ['deleted','suspicious','evidence'], unread: 11 }
             ];
             var convsMale = [
-                { img: 'homem1.jpg', name: 'Mic***', msg: 'Delete this after rea***...', tags: ['deleted','suspicious'], unread: 12 },
-                { img: 'homem3.jpg', name: 'Kev** (Work)', msg: 'I still thin* abo** us...', tags: ['deleted','evidence'], unread: 18 },
-                { img: 'homem5.jpg', name: 'Blocked Contact', msg: 'I miss y** so much...', tags: ['deleted','evidence'], unread: 6 },
-                { img: 'homem2.jpg', name: 'Dan***', msg: 'audio', tags: ['deleted','suspicious'], unread: 3 },
-                { img: 'homem4.jpg', name: 'Deleted Contact', msg: 'Nobody has to kn***...', tags: ['deleted','suspicious','evidence'], unread: 11 }
+                { img: 'homem1.jpg', name: 'Mar***', msg: 'Borra esto después de le***...', tags: ['deleted','suspicious'], unread: 12 },
+                { img: 'homem3.jpg', name: 'And*** (Trabajo)', msg: 'Todavía pien** en nosotr**...', tags: ['deleted','evidence'], unread: 18 },
+                { img: 'homem5.jpg', name: 'Contacto Bloqueado', msg: 'Te extrañ** much**...', tags: ['deleted','evidence'], unread: 6 },
+                { img: 'homem2.jpg', name: 'Die***', msg: 'audio', tags: ['deleted','suspicious'], unread: 3 },
+                { img: 'homem4.jpg', name: 'Contacto Eliminado', msg: 'Nadie tiene que sab***...', tags: ['deleted','suspicious','evidence'], unread: 11 }
             ];
 
             if (lang === 'es') {

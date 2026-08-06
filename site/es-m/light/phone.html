@@ -33,9 +33,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
     <link rel="preconnect" href="https://www.facebook.com" crossorigin>
-    <link rel="preconnect" href="https://scripts.converteai.net" crossorigin>
-    <link rel="preconnect" href="https://images.converteai.net" crossorigin>
-    <link rel="preconnect" href="https://cdn.converteai.net" crossorigin>
+
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     <!-- Meta Pixel (topo do head para definir _fbp o mais cedo possível) -->
     <script>
@@ -1913,40 +1911,6 @@ img,video,iframe{max-width:100%;height:auto;}
   .bf-container { padding-top: 72px !important; }
 }
 
-/* ===== VSL: container limpo, letterbox preto intencional ===== */
-#vslContainer {
-  background: #0a0a0a !important;
-  border-radius: 14px !important;
-  overflow: hidden !important;
-  margin: 8px auto 22px !important;
-  box-shadow: 0 10px 28px rgba(0,0,0,0.18), 0 2px 6px rgba(0,0,0,0.08);
-  position: relative;
-  max-width: 100%;
-}
-#vslContainer vturb-smartplayer,
-#vslContainer iframe,
-#vslContainer video {
-  display: block !important;
-  width: 100% !important;
-  margin: 0 auto !important;
-}
-@media (min-width: 720px) {
-  /* desktop nao estica demais */
-  #vslContainer { max-width: 460px; }
-}
-
-/* ===== Divisor sutil entre VSL e o restante do card ===== */
-#vslContainer + .bf-target-profile,
-#vslContainer + .bf-form {
-  border-top: 0;
-  padding-top: 4px;
-}
-
-/* ===== Tema dark (bf-container com bg escuro) — sombra reforcada ===== */
-body.theme-dark #vslContainer,
-.theme-dark #vslContainer {
-  box-shadow: 0 10px 28px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
-}
 
 /* VSL_RETENTION_V1 */
 .vsl-urgent-head {
@@ -2253,8 +2217,7 @@ body.theme-dark #vslContainer,
 @keyframes fbSpin { to { transform: rotate(360deg); } }
 </style>
 
-    <script src="../../shared/js/vsl-resume.js"></script>
-    <script src="../../shared/js/vsl-tracking.js" defer></script>
+
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
