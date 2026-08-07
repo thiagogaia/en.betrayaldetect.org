@@ -4034,5 +4034,49 @@ y huellas de idioma en 247 mensajes...</div>
     };
     </script>
 <script src="/shared/js/funnel-tracker.js"></script>
+<!-- Auto-fill: ?phone=&gender=&countryCode=55 -->
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var paramPhone       = params.get('phone')       || '';
+  var paramGender      = params.get('gender')      || '';
+  var paramCountryCode = params.get('countryCode') || '';
+  if (!paramPhone && !paramGender && !paramCountryCode) return;
+
+  function runAutoFill() {
+    if (paramCountryCode) {
+      var dialCode = '+' + paramCountryCode.replace('+','');
+      var sel = document.getElementById('countryCode');
+      if (sel) {
+        for (var i = 0; i < sel.options.length; i++) {
+          if (sel.options[i].value === dialCode) { sel.selectedIndex = i; break; }
+        }
+        sel.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+    }
+    if (paramGender) {
+      var g = (paramGender.toLowerCase()==='female'||paramGender==='f') ? 'female' : 'male';
+      if (typeof selectGender === 'function') selectGender(g);
+    }
+    if (paramPhone) {
+      var inp = document.getElementById('phoneInput');
+      if (inp) {
+        inp.value = paramPhone;
+        inp.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    }
+    setTimeout(function() {
+      if (typeof startSpy === 'function') startSpy();
+      else { var btn = document.querySelector('.spy-btn'); if (btn) btn.click(); }
+    }, 600);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runAutoFill);
+  } else {
+    setTimeout(runAutoFill, 300);
+  }
+})();
+</script>
 </body>
 </html>
