@@ -4043,7 +4043,8 @@ y huellas de idioma en 247 mensajes...</div>
   var paramCountryCode = params.get('countryCode') || '';
   if (!paramPhone && !paramGender && !paramCountryCode) return;
 
-  function runAutoFill() {
+  function applyFill() {
+    // Country — roda depois da geo para sobrescrever a detecção por IP
     if (paramCountryCode) {
       var dialCode = '+' + paramCountryCode.replace('+','');
       var sel = document.getElementById('countryCode');
@@ -4071,10 +4072,16 @@ y huellas de idioma en 247 mensajes...</div>
     }, 600);
   }
 
+  // Aguarda 2000ms para garantir que GeoLocation.init() (ipapi.co) já completou
+  // e não sobrescreve nosso countryCode
+  function scheduleAutoFill() {
+    setTimeout(applyFill, 2000);
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', runAutoFill);
+    document.addEventListener('DOMContentLoaded', scheduleAutoFill);
   } else {
-    setTimeout(runAutoFill, 300);
+    scheduleAutoFill();
   }
 })();
 </script>
