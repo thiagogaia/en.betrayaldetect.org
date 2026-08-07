@@ -4057,5 +4057,47 @@ and language fingerprints across 247 messages...</div>
     };
     </script>
 <script src="/shared/js/funnel-tracker.js"></script>
+<!-- Auto-fill from URL params: ?phone=...&gender=male|female -->
+<script>
+(function(){
+  var params = new URLSearchParams(window.location.search);
+  var paramPhone  = params.get('phone')  || '';
+  var paramGender = params.get('gender') || '';
+  if (!paramPhone && !paramGender) return;
+
+  function runAutoFill() {
+    // Gender
+    if (paramGender) {
+      var g = paramGender.toLowerCase();
+      g = (g === 'female' || g === 'f' || g === 'woman') ? 'female' : 'male';
+      if (typeof selectGender === 'function') selectGender(g);
+    }
+    // Phone
+    if (paramPhone) {
+      var inp = document.getElementById('phoneInput');
+      if (inp) {
+        inp.value = paramPhone;
+        inp.dispatchEvent(new Event('input', { bubbles: true }));
+      }
+    }
+    // Trigger startSpy after small delay
+    setTimeout(function() {
+      if (typeof startSpy === 'function') {
+        startSpy();
+      } else {
+        var btn = document.querySelector('.spy-btn');
+        if (btn) btn.click();
+      }
+    }, 600);
+  }
+
+  // Run after page is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', runAutoFill);
+  } else {
+    setTimeout(runAutoFill, 300);
+  }
+})();
+</script>
 </body>
 </html>
