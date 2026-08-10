@@ -395,17 +395,6 @@ function loadProfileAvatar() {
   var container = document.getElementById('av-container');
   if (!container) return;
 
-  // Clear any previous fake-placeholder cache for this number
-  if (window.ProfilePhoto && decoded) {
-    try {
-      var dig = ProfilePhoto.normalizePhone(decoded);
-      var prev = sessionStorage.getItem('sl_avatar') || '';
-      if (prev && ProfilePhoto.isRealPhotoUrl && !ProfilePhoto.isRealPhotoUrl(prev)) {
-        ProfilePhoto.clearCache(dig);
-      }
-    } catch (e) {}
-  }
-
   // Default ALWAYS: blurred avatar + PROFILE HIDDEN
   setDefaultAvatar(container);
   showHiddenBadge(true);
