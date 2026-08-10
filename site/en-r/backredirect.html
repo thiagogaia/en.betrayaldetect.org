@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App Spy — Wait! Special Offer</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script>
+function buildForwardUrl(targetUrl, params) {
+  var url = new URL(targetUrl, window.location.href);
+  var currentParams = new URLSearchParams(window.location.search);
+  currentParams.forEach(function(value, key) {
+    if (!url.searchParams.has(key)) url.searchParams.set(key, value);
+  });
+  if (params) {
+    Object.keys(params).forEach(function(key) {
+      var value = params[key];
+      if (value !== undefined && value !== null && value !== '') url.searchParams.set(key, value);
+    });
+  }
+  return url.toString();
+}
+function navigateWithQuery(targetUrl, params) {
+  window.location.href = buildForwardUrl(targetUrl, params);
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --g:#25D366;--gd:#128C7E;--bg:#f0f2f5;--w:#fff;
+  --t:#111b21;--t2:#667781;--bd:#e9edef;--red:#ef4444;
+}
+body{
+  font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:1.5rem 1rem 2rem;
+}
+.overlay{
+  width:100%;max-width:420px;animation:up .45s ease both;
+}
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.card{
+  background:var(--w);border-radius:20px;padding:1.75rem 1.35rem 1.5rem;
+  box-shadow:0 12px 40px rgba(15,23,42,.1);border:1px solid var(--bd);
+  text-align:center;position:relative;overflow:hidden;
+}
+
+.live-badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:#fff0f0;border:1px solid #fecaca;border-radius:30px;
+  padding:.35rem .85rem;font-size:.72rem;font-weight:700;color:var(--red);
+  margin-bottom:1rem;letter-spacing:.02em;
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:pulse 1.3s ease infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+
+.popup-icon{
+  width:64px;height:64px;margin:0 auto .9rem;border-radius:50%;
+  background:#f0fdf4;border:2px solid #bbf7d0;
+  display:flex;align-items:center;justify-content:center;font-size:1.75rem;
+  box-shadow:0 4px 16px rgba(37,211,102,.15);
+}
+
+.popup-label{
+  font-size:.78rem;font-weight:700;color:var(--gd);text-transform:uppercase;
+  letter-spacing:.06em;margin-bottom:.45rem;
+}
+.popup-title{
+  font-size:clamp(1.35rem,5vw,1.65rem);font-weight:900;color:var(--t);
+  line-height:1.25;letter-spacing:-.03em;margin-bottom:.7rem;
+}
+.popup-title .hi{color:var(--g);}
+.popup-sub{
+  font-size:.88rem;color:var(--t2);line-height:1.55;margin-bottom:1.2rem;
+}
+.popup-sub strong{color:var(--t);font-weight:600;}
+
+/* Price block */
+.price-block{
+  display:flex;align-items:center;justify-content:center;gap:1rem;
+  background:var(--bg);border:1px solid var(--bd);border-radius:14px;
+  padding:1rem 1.1rem;margin-bottom:1.1rem;
+}
+.price-old,.price-new{text-align:center;flex:1;}
+.price-old-label,.price-new-label{
+  font-size:.68rem;font-weight:600;color:var(--t2);text-transform:uppercase;
+  letter-spacing:.04em;margin-bottom:.25rem;
+}
+.price-old-val{
+  font-size:1.5rem;font-weight:800;color:var(--t2);text-decoration:line-through;
+}
+.price-arrow{font-size:1.2rem;color:var(--t2);font-weight:700;}
+.price-new-label{color:var(--gd);}
+.price-new-val{
+  font-size:2.1rem;font-weight:900;color:var(--g);line-height:1;letter-spacing:-.03em;
+}
+.savings-badge{
+  display:inline-block;margin-top:.35rem;background:#dcfce7;color:#166534;
+  font-size:.68rem;font-weight:800;padding:.22rem .55rem;border-radius:20px;
+}
+
+/* Timer */
+.timer-row{
+  display:flex;align-items:center;justify-content:center;gap:.55rem;
+  font-size:.8rem;font-weight:600;color:var(--t2);margin-bottom:1.15rem;flex-wrap:wrap;
+}
+.t-block{
+  min-width:40px;background:#111b21;color:#fff;font-weight:900;font-size:1.05rem;
+  padding:.4rem .45rem;border-radius:8px;font-variant-numeric:tabular-nums;
+  letter-spacing:.04em;
+}
+.t-sep{font-weight:900;color:var(--t);font-size:1.1rem;}
+
+/* CTA */
+.cta-btn{
+  width:100%;padding:1.05rem 1rem;border:none;border-radius:13px;
+  background:linear-gradient(135deg,var(--g),#22c55e);
+  color:#fff;font-family:'Inter',sans-serif;font-size:1rem;font-weight:800;
+  cursor:pointer;box-shadow:0 4px 24px rgba(37,211,102,.35);
+  transition:transform .2s,box-shadow .2s;animation:ctaPulse 2s infinite;
+}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,211,102,.45);}
+@keyframes ctaPulse{
+  0%,100%{box-shadow:0 4px 24px rgba(37,211,102,.3)}
+  50%{box-shadow:0 6px 32px rgba(37,211,102,.55)}
+}
+
+.skip-btn{
+  display:block;width:100%;margin-top:.85rem;background:none;border:none;
+  font-family:'Inter',sans-serif;font-size:.8rem;font-weight:600;color:var(--t2);
+  cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:.4rem;
+}
+.skip-btn:hover{color:var(--t);}
+
+.popup-footer{
+  margin-top:1.1rem;font-size:.7rem;color:var(--t2);line-height:1.4;
+}
+.trust-row{
+  display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin-top:.85rem;
+}
+.trust-row span{
+  font-size:.68rem;color:var(--t2);font-weight:600;
+  display:inline-flex;align-items:center;gap:.25rem;
+}
+
+/* Checkout loading overlay */
+.checkout-loading-overlay{
+  position:fixed;inset:0;z-index:99998;
+  background:rgba(255,255,255,.97);
+  display:none;flex-direction:column;align-items:center;justify-content:center;gap:1.1rem;
+  animation:clFadeIn .25s ease both;
+}
+@keyframes clFadeIn{from{opacity:0}to{opacity:1}}
+.checkout-spin{
+  width:64px;height:64px;border-radius:50%;
+  border:5px solid var(--bd);border-top-color:var(--g);
+  animation:clSpin .85s linear infinite;
+}
+@keyframes clSpin{to{transform:rotate(360deg)}}
+.checkout-loading-text{
+  font-size:.85rem;font-weight:700;color:var(--t2);letter-spacing:.01em;text-align:center;
+}
+</style>
+<script src="js/urgency-bar.js"></script>
+</head>
+<body>
+
+<!-- Checkout loading overlay -->
+<div class="checkout-loading-overlay" id="checkout-loading">
+  <div class="checkout-spin"></div>
+  <div class="checkout-loading-text">Redirecting to secure checkout...</div>
+</div>
+
+<div class="overlay">
+  <div class="card">
+    <div class="live-badge">
+      <div class="live-dot"></div>
+      Exclusive Offer
+    </div>
+
+    <div class="popup-icon">🔓</div>
+    <div class="popup-label">Wait — Don't Leave!</div>
+
+    <h1 class="popup-title">
+      Get Full Access for<br>
+      <span class="hi">$29 Instead of $39</span>
+    </h1>
+
+    <p class="popup-sub">
+      You're about to miss out. Unlock deleted messages, hidden photos and secret chats with a
+      <strong>one-time exclusive discount</strong>
+      of $10 off — only available right now on this page.
+    </p>
+
+    <div class="price-block">
+      <div class="price-old">
+        <div class="price-old-label">Original Price</div>
+        <div class="price-old-val">$39</div>
+      </div>
+      <div class="price-arrow">→</div>
+      <div class="price-new">
+        <div class="price-new-label">Your Price Now</div>
+        <div class="price-new-val">$29</div>
+        <div class="savings-badge">Save $10</div>
+      </div>
+    </div>
+
+    <div class="timer-row">
+      ⏱ Offer expires in:
+      <div style="display:flex;align-items:center;gap:.3rem;">
+        <div class="t-block" id="tm">--</div>
+        <span class="t-sep">:</span>
+        <div class="t-block" id="ts">--</div>
+      </div>
+    </div>
+
+    <button class="cta-btn JS-initiate-checkout js-initiate-checkout" type="button" data-plan="backredirect" data-value="29" onclick="claimOffer()">
+      Yes! Claim My $10 Discount Now
+    </button>
+
+    <button class="skip-btn" type="button" onclick="skipOffer()">
+      No thanks, I'll pay full price later
+    </button>
+
+    <div class="popup-footer">
+      🔒 Secure Payment · 30-Day Guarantee · Instant Access
+    </div>
+    <div class="trust-row">
+      <span>✅ 100% Anonymous</span>
+      <span>✅ Undetectable</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// Offer countdown = SAME remaining time as top bar (never restarts here)
+(function syncOfferTimer() {
+  var COUNTDOWN_KEY = 'sl_accessExpiresAt';
+  var tmEl = document.getElementById('tm');
+  var tsEl = document.getElementById('ts');
+
+  function getExpiresAt() {
+    // Prefer existing deadline from the funnel — do NOT create a new 15:00
+    var stored = parseInt(localStorage.getItem(COUNTDOWN_KEY), 10);
+    if (stored && !isNaN(stored)) return stored;
+    var backup = parseInt(sessionStorage.getItem(COUNTDOWN_KEY), 10);
+    if (backup && !isNaN(backup)) return backup;
+    // No timer yet (opened offer alone) — show zero, don't invent a new countdown
+    return Date.now();
+  }
+
+  function tick() {
+    var expiresAt = getExpiresAt();
+    var rem = Math.max(0, expiresAt - Date.now());
+    var mins = Math.floor(rem / 60000);
+    var secs = Math.floor((rem % 60000) / 1000);
+    if (tmEl) tmEl.textContent = String(mins).padStart(2, '0');
+    if (tsEl) tsEl.textContent = String(secs).padStart(2, '0');
+    setTimeout(tick, 250);
+  }
+  tick();
+})();
+
+// Same checkout as reference backredirect (special offer product)
+function claimOffer() {
+  var overlay = document.getElementById('checkout-loading');
+  if (overlay) overlay.style.display = 'flex';
+
+  setTimeout(function () {
+    var p = sessionStorage.getItem('sl_phone') || sessionStorage.getItem('buyer_phone') || '';
+    var n = sessionStorage.getItem('buyer_name') || '';
+    var e = sessionStorage.getItem('buyer_email') || '';
+    navigateWithQuery('https://go.centerpag.com/PPU38CQF0SJ', {
+      phone: p,
+      name: n,
+      email: e,
+      plan: 'backredirect'
+    });
+  }, 1400);
+}
+
+function skipOffer() {
+  // Allow step6 exit trap again, then return to CTA
+  try { sessionStorage.removeItem('sl_goingToBackredirect'); } catch (e) {}
+  navigateWithQuery('step6.html');
+}
+
+// Stay on offer if user presses back again (don't leave the funnel empty)
+(function () {
+  function trap() {
+    try { history.pushState({ slOffer: 1 }, '', location.href); } catch (e) {}
+  }
+  trap();
+  setTimeout(trap, 50);
+  setTimeout(trap, 200);
+  window.addEventListener('popstate', function () {
+    trap();
+    // Keep user on special offer (or re-load self)
+    // do nothing — already on offer page
+  });
+  // Clear navigation flag so offer can be shown again if they return to step6 and leave
+  try { sessionStorage.removeItem('sl_goingToBackredirect'); } catch (e) {}
+})();
+</script>
+</body>
+</html>

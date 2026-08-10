@@ -1,0 +1,9 @@
+{
+  "name": "App Spy",
+  "short_name": "App Spy",
+  "description": "App Spy funnel",
+  "display": "standalone",
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "theme_color": "#0f172a"
+}
