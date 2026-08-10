@@ -408,7 +408,9 @@ function loadProfileAvatar() {
       var real = url && (!ProfilePhoto.isRealPhotoUrl || ProfilePhoto.isRealPhotoUrl(url));
       try { fillGenderProfile(ProfilePhoto.getLastMeta ? ProfilePhoto.getLastMeta() : null); } catch (eF) {}
       if (real) {
-        // Real WhatsApp photo → sharp, hide badge
+        // Real WhatsApp photo → set img src + sharp, hide badge
+        var imgEl = container.querySelector('img');
+        if (imgEl) imgEl.src = url;
         container.classList.remove('blurred', 'av-blurred');
         container.classList.add('has-photo');
         container.style.filter = 'none';
