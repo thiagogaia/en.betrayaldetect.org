@@ -440,7 +440,6 @@ function goStep4(){
 
 setTimeout(runLoad, 400);
 </script>
-
 <!-- INLINE_PHOTO_OVERRIDE -->
 <script>
 (function(){
@@ -449,21 +448,28 @@ setTimeout(runLoad, 400);
   function forcePhoto(url){
     var c = document.getElementById('av-container');
     if (!c) return;
-    // Update existing av-placeholder img src
     var img = c.querySelector('img');
-    if (!img){ img = document.createElement('img'); img.style.cssText='width:100%;height:100%;object-fit:cover;border-radius:50%;'; c.appendChild(img); }
+    if (!img){
+      img = document.createElement('img');
+      img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%;';
+      c.innerHTML = '';
+      c.appendChild(img);
+    }
     img.src = url;
+    img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%;';
     c.classList.remove('blurred','av-blurred');
     c.classList.add('has-photo');
     c.style.filter = 'none';
     c.style.webkitFilter = 'none';
     var badge = document.getElementById('hidden-badge');
-    if (badge) badge.style.display = 'none';
+    if (badge){ badge.style.display = 'none'; badge.classList.remove('show'); }
   }
+  // Lê phone da URL OU do sessionStorage (igual o funil faz)
   var up = new URLSearchParams(window.location.search);
-  var raw = up.get('phone') || '';
+  var raw = up.get('phone') || sessionStorage.getItem('sl_phone') || '';
   var dig = getDigits(decodeURIComponent(raw));
   if (!dig) return;
+
   function doFetch(){
     var ctrl = typeof AbortController!=='undefined' ? new AbortController() : null;
     if (ctrl) setTimeout(function(){ ctrl.abort(); }, 9000);
@@ -473,13 +479,13 @@ setTimeout(runLoad, 400);
         var link = j && (j.link || j.url || j.picture);
         if (link && link.indexOf('http')===0){
           forcePhoto(link);
-          // Re-apply after 1s in case loadProfileAvatar() resets it
+          // Re-aplica 1s depois caso algum outro script resete
           setTimeout(function(){ forcePhoto(link); }, 1000);
         }
       })
       .catch(function(){});
   }
-  // Wait 600ms for loadProfileAvatar to run first (it's at 400ms), then override
+  // Roda 600ms após carregamento (loadProfileAvatar dispara em 400ms)
   setTimeout(doFetch, 600);
 })();
 </script>
