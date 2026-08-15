@@ -259,6 +259,209 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
 .legal-shell p, .legal-shell li { color: #55647a; font-size: .95rem; }
 .legal-shell a { color: #1c60e6; text-decoration: underline; }
 .legal-shell ul { display: grid; gap: 8px; }
+
+/* ── NUEVOS ESTILOS: FAIXA PUBLICITÁRIA ── */
+.ad-bar {
+  position: relative;
+  z-index: 110;
+  padding: 8px 0;
+  background: #0a1829;
+  border-bottom: 1px solid rgba(88,166,255,.18);
+  text-align: center;
+}
+.ad-bar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 6px 14px;
+}
+.ad-bar-label { color: #adbfd8; font-size: .7rem; font-weight: 700; letter-spacing: .05em; }
+.ad-bar-sep { color: #3d5370; font-size: .7rem; }
+.ad-bar-desc { color: #7a90aa; font-size: .7rem; }
+.ad-bar-link { color: var(--blue-light); font-size: .7rem; text-decoration: underline; white-space: nowrap; }
+.ad-bar-link:hover { color: #fff; }
+
+/* ── AVISO ESENCIAL ── */
+.essential-notice {
+  margin-bottom: 22px;
+  padding: 16px 18px;
+  border: 1.5px solid #d97706;
+  border-radius: 14px;
+  background: #fffbeb;
+}
+.essential-notice-header {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 10px;
+}
+.notice-icon { font-size: 1.1rem; flex-shrink: 0; }
+.essential-notice-header strong {
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .04em;
+  color: #92400e;
+  text-transform: uppercase;
+}
+.essential-notice p {
+  margin: 0 0 8px;
+  font-size: .74rem;
+  line-height: 1.6;
+  color: #78350f;
+}
+.essential-notice p:last-child { margin-bottom: 0; }
+
+/* ── SECCIÓN #informacion-legal ── */
+.legal-disclosure {
+  padding: 100px 0 110px;
+  background: #f5f7fb;
+  color: var(--ink);
+}
+.legal-disclosure-header {
+  max-width: 820px;
+  margin: 0 auto 44px;
+  text-align: center;
+}
+.legal-disclosure-header .kicker { color: #1c60e6; }
+.legal-disclosure-header h2 {
+  margin: 12px 0 14px;
+  color: var(--ink);
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -.04em;
+}
+.legal-disclosure-header p {
+  margin: 0;
+  color: #55647a;
+  font-size: .97rem;
+}
+.legal-notice-callout {
+  max-width: 820px;
+  margin: 0 auto 44px;
+  padding: 18px 22px;
+  border: 1.5px solid #d97706;
+  border-radius: 14px;
+  background: #fffbeb;
+  color: #78350f;
+  font-size: .85rem;
+  text-align: center;
+  line-height: 1.6;
+}
+.legal-blocks-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  margin-bottom: 24px;
+}
+.legal-block {
+  padding: 26px 28px;
+  border: 1px solid #dde4ef;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 4px 18px rgba(25,49,85,.05);
+}
+.legal-block-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  background: rgba(47,109,246,.1);
+  color: #1c60e6;
+  font-size: .68rem;
+  font-weight: 850;
+  letter-spacing: .04em;
+}
+.legal-block h3 {
+  margin: 0 0 9px;
+  color: var(--ink);
+  font-size: .93rem;
+  font-weight: 750;
+}
+.legal-block p {
+  margin: 0;
+  color: #55647a;
+  font-size: .83rem;
+  line-height: 1.62;
+}
+.trademark-box {
+  padding: 28px;
+  border: 1px solid #dde4ef;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 4px 18px rgba(25,49,85,.05);
+}
+.trademark-box h3 {
+  margin: 0 0 10px;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 750;
+}
+.trademark-box > p {
+  margin: 0 0 18px;
+  color: #55647a;
+  font-size: .84rem;
+  line-height: 1.6;
+}
+.trademark-fields {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.trademark-field {
+  padding: 10px 14px;
+  border: 1px solid #e0e7ef;
+  border-radius: 10px;
+  background: #f5f7fb;
+  font-size: .78rem;
+  color: #55647a;
+}
+.trademark-field strong {
+  display: block;
+  margin-bottom: 2px;
+  color: var(--ink);
+  font-size: .68rem;
+  font-weight: 750;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+
+/* ── FOOTER LEGAL BAR ── */
+.footer-legal-bar {
+  padding: 18px 0;
+  background: #030810;
+  border-top: 1px solid rgba(88,166,255,.1);
+}
+.footer-legal-bar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+}
+.footer-legal-summary {
+  max-width: 640px;
+  margin: 0;
+  color: #43556b;
+  font-size: .67rem;
+  line-height: 1.65;
+}
+.footer-legal-summary a { color: #5d7a9c; text-decoration: underline; }
+.footer-legal-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+}
+.footer-legal-links a {
+  color: #4e6278;
+  font-size: .67rem;
+  text-decoration: underline;
+}
+.footer-legal-links a:hover { color: #8fa5c0; }
+
 @media (max-width: 1050px) {
   .main-nav { gap: 18px; }
   .main-nav a { font-size: .85rem; }
@@ -337,6 +540,10 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
   .legal-main { padding: 42px 0 80px; }
   .legal-shell { padding: 28px 21px; border-radius: 18px; }
   .legal-shell h1 { font-size: 2.4rem; }
+  .legal-blocks-grid { grid-template-columns: 1fr; }
+  .trademark-fields { grid-template-columns: 1fr; }
+  .ad-bar-inner { justify-content: flex-start; }
+  .footer-legal-bar-inner { flex-direction: column; }
 }
 @media (max-width: 410px) {
   .phone-row { grid-template-columns: 1fr; }
@@ -348,6 +555,19 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
   <script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
+
+  <!-- ═══════════════════════════════════════════
+       FAIXA PUBLICITÁRIA — visível para revisores
+  ════════════════════════════════════════════ -->
+  <div class="ad-bar" role="complementary" aria-label="Información publicitaria">
+    <div class="ad-bar-inner container">
+      <span class="ad-bar-label">PUBLICIDAD &middot; CONTENIDO PATROCINADO POR [NOMBRE DE LA EMPRESA]</span>
+      <span class="ad-bar-sep">&middot;</span>
+      <span class="ad-bar-desc">Esta página promociona un servicio comercial de investigación OSINT basado exclusivamente en fuentes públicas.</span>
+      <a class="ad-bar-link" href="#informacion-legal">Ver divulgación completa</a>
+    </div>
+  </div>
+
   <a class="skip-link" href="#contenido">Saltar al contenido</a>
   <header class="site-header" id="top">
     <div class="container nav-wrap">
@@ -365,10 +585,12 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
         <a href="#que-revisa">Qu&#233; revisa</a>
         <a href="#limites">L&#237;mites</a>
         <a href="#preguntas">Preguntas</a>
+        <a href="#informacion-legal">Divulgaci&#243;n</a>
       </nav>
       <a class="button button-small nav-cta" href="#vista-previa">Vista previa gratuita</a>
     </div>
   </header>
+
   <main id="contenido">
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-glow" aria-hidden="true"></div>
@@ -412,6 +634,7 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
         </div>
       </div>
     </section>
+
     <section class="stats-band" aria-label="Datos del servicio">
       <div class="container stats-grid">
         <div><strong>5 d&#237;as</strong><span>Plazo del informe completo</span></div>
@@ -420,6 +643,7 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
         <div><strong>0</strong><span>Cuentas privadas accedidas</span></div>
       </div>
     </section>
+
     <section class="section" id="situaciones">
       <div class="container">
         <div class="section-heading centered reveal">
@@ -437,6 +661,7 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
         </div>
       </div>
     </section>
+
     <section class="section flow-section" id="como-funciona">
       <div class="container">
         <div class="section-heading reveal">
@@ -452,6 +677,8 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
         </ol>
       </div>
     </section>
+
+    <!-- ══ SECCIÓN VISTA PREVIA ══ -->
     <section class="section trial-section" id="vista-previa">
       <div class="container trial-grid">
         <div class="trial-copy reveal">
@@ -469,6 +696,18 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
             <div><span class="panel-dot"></span><strong>Vista previa de categor&#237;as</strong></div>
             <span class="secure-chip">&#x1F512; Local</span>
           </div>
+
+          <!-- ══ AVISO ESENCIAL ══ -->
+          <div class="essential-notice" role="note" aria-label="Aviso esencial antes de continuar">
+            <div class="essential-notice-header">
+              <span class="notice-icon" aria-hidden="true">&#x2139;&#xFE0F;</span>
+              <strong>Aviso esencial antes de continuar</strong>
+            </div>
+            <p>Esta es una página publicitaria que promociona un servicio comercial de investigación de fuentes abiertas (OSINT). Reveal AI Parental no es una aplicación de espionaje, no instala software en dispositivos y no está afiliado, patrocinado, autorizado ni respaldado por WhatsApp, WhatsApp LLC, Meta Platforms, Inc. u otras plataformas mencionadas.</p>
+            <p>El servicio no puede leer, recuperar ni interceptar mensajes, chats eliminados, llamadas, archivos, fotografías privadas, listas de contactos, contraseñas, ubicación GPS o actividad en tiempo real. Solo puede organizar información que ya se encuentre disponible públicamente y de forma legítima.</p>
+            <p>La vista previa mostrada en esta página es una <strong>simulación informativa</strong> ejecutada localmente en el navegador. No realiza una consulta real, no confirma coincidencias y no demuestra que exista información sobre el número introducido.</p>
+          </div>
+
           <div class="search-form" id="search-form">
             <label for="countryCode">N&#250;mero de tel&#233;fono</label>
             <div class="phone-row">
@@ -497,8 +736,8 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
             </div>
             <span id="phone-help" class="field-help">Usa solo un n&#250;mero que tengas derecho leg&#237;timo a consultar.</span>
             <label class="consent-label" for="consentCheck">
-              <input id="consentCheck" type="checkbox">
-              <span>Confirmo que tengo un motivo leg&#237;timo y legal para revisar se&#241;ales p&#250;blicas relacionadas con este n&#250;mero.</span>
+              <input id="consentCheck" type="checkbox" required>
+              <span>Confirmo que he leído las limitaciones del servicio, que tengo un motivo legítimo y legal para consultar información pública y que no utilizaré los resultados para acosar, vigilar, amenazar, discriminar o tomar decisiones reguladas.</span>
             </label>
             <p class="form-error" id="formError" role="alert" aria-live="polite"></p>
             <button class="button button-full" id="scanBtn" type="button"><span aria-hidden="true">&#x2315;</span> Mostrar categor&#237;as</button>
@@ -518,13 +757,14 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
           <div class="result-box" id="resultBox" hidden tabindex="-1">
             <div class="result-icon" aria-hidden="true">&#x2713;</div>
             <h3>Vista previa preparada</h3>
-            <p>El informe completo puede revisar estas categor&#237;as en fuentes p&#250;blicas. La disponibilidad real depende de cada n&#250;mero y nunca incluye contenido privado.</p>
-            <a class="button button-full" href="https://pay.centerpag.com/KFM467893?lc=esUSD" target="_blank" rel="noopener">Solicitar informe completo</a>
+            <p>El informe completo puede revisar estas categorías en fuentes públicas. La disponibilidad real depende de cada número y nunca incluye contenido privado.</p>
+            <button class="button button-full" id="buyBtn" type="button">Solicitar informe completo &rarr;</button>
             <button class="reset-button" id="resetBtn" type="button">Comprobar otro n&#250;mero</button>
           </div>
         </div>
       </div>
     </section>
+
     <section class="section" id="que-revisa">
       <div class="container">
         <div class="section-heading centered reveal">
@@ -540,6 +780,7 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
         </div>
       </div>
     </section>
+
     <section class="section limits-section" id="limites">
       <div class="container">
         <div class="section-heading reveal">
@@ -553,6 +794,7 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
         </div>
       </div>
     </section>
+
     <section class="section" id="preguntas">
       <div class="container faq-wrap">
         <div class="section-heading reveal">
@@ -570,6 +812,7 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
         </div>
       </div>
     </section>
+
     <section class="cta-section">
       <div class="container cta-inner reveal">
         <span class="kicker kicker-light">Empieza ahora</span>
@@ -578,16 +821,127 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
         <a class="button button-light" href="#vista-previa"><span aria-hidden="true">&#x2315;</span> Iniciar vista previa</a>
       </div>
     </section>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         SECCIÓN DE TRANSPARENCIA Y DISCLAIMERS — #informacion-legal
+    ════════════════════════════════════════════════════════════ -->
+    <section class="legal-disclosure" id="informacion-legal" aria-labelledby="legal-title">
+      <div class="container">
+
+        <div class="legal-disclosure-header reveal">
+          <span class="kicker">Información importante</span>
+          <h2 id="legal-title">Información importante sobre el servicio</h2>
+          <p>Lee esta información antes de introducir datos, solicitar un informe o realizar una compra.</p>
+        </div>
+
+        <div class="legal-notice-callout reveal" role="note">
+          Esta página es publicidad. El contenido es de carácter promocional y no constituye una noticia, investigación periodística, servicio público, recomendación independiente ni autoridad gubernamental.
+        </div>
+
+        <div class="legal-blocks-grid">
+
+          <div class="legal-block reveal">
+            <span class="legal-block-num">01</span>
+            <h3>Naturaleza comercial</h3>
+            <p>Esta página es publicidad y promociona un servicio comercial de [NOMBRE DE LA EMPRESA]. No es una noticia, investigación periodística, servicio público, autoridad gubernamental ni recomendación independiente. El contenido tiene una finalidad promocional.</p>
+          </div>
+
+          <div class="legal-block reveal">
+            <span class="legal-block-num">02</span>
+            <h3>Alcance técnico</h3>
+            <p>El servicio se limita a investigación OSINT en sitios, directorios, perfiles y registros públicamente accesibles. No accede a dispositivos, cuentas privadas, mensajes, llamadas, fotografías privadas, contraseñas, chats eliminados, listas de contactos, GPS ni actividad en tiempo real.</p>
+          </div>
+
+          <div class="legal-block reveal">
+            <span class="legal-block-num">03</span>
+            <h3>Demostración, no resultado real</h3>
+            <p>La vista previa, las barras de progreso y los indicadores mostrados son una <strong>simulación local</strong> diseñada para explicar posibles categorías de revisión. Introducir un número no inicia una búsqueda real, no prueba que haya coincidencias y no significa que un informe vaya a encontrar información.</p>
+          </div>
+
+          <div class="legal-block reveal">
+            <span class="legal-block-num">04</span>
+            <h3>Exactitud y disponibilidad</h3>
+            <p>Las fuentes públicas pueden contener información incompleta, antigua, duplicada, incorrecta o perteneciente a otra persona. Toda coincidencia requiere verificación independiente. Los resultados no constituyen prueba de identidad, relación, intención, infidelidad, delito o conducta. No se garantiza la disponibilidad, precisión o actualidad de la información.</p>
+          </div>
+
+          <div class="legal-block reveal">
+            <span class="legal-block-num">05</span>
+            <h3>Uso legal y responsable</h3>
+            <p>El usuario debe tener un motivo legítimo y cumplir todas las leyes aplicables. Queda prohibido utilizar el servicio para acosar, perseguir, vigilar, amenazar, chantajear, discriminar, suplantar identidades o intentar acceder sin autorización a una cuenta o dispositivo.</p>
+          </div>
+
+          <div class="legal-block reveal">
+            <span class="legal-block-num">06</span>
+            <h3>Decisiones excluidas</h3>
+            <p>No utilices los resultados para decisiones laborales, crediticias, financieras, de vivienda, seguros, admisión, elegibilidad, custodia, contratación o procedimientos legales. Reveal AI Parental no es una agencia de informes de consumidores y no proporciona asesoramiento jurídico, financiero o profesional.</p>
+          </div>
+
+          <div class="legal-block reveal">
+            <span class="legal-block-num">07</span>
+            <h3>Privacidad y tratamiento de datos</h3>
+            <p>La demostración funciona localmente en el navegador y no transmite el número introducido. Si posteriormente se contrata un informe, la finalidad, conservación, protección y tratamiento de los datos deberán mostrarse claramente antes de su envío. Nunca introduzcas contraseñas, códigos de autenticación ni información privada innecesaria.</p>
+          </div>
+
+          <div class="legal-block reveal">
+            <span class="legal-block-num">08</span>
+            <h3>Precio, entrega, cancelación y reembolsos</h3>
+            <p>La vista previa es gratuita. Antes de cualquier compra deberán mostrarse claramente el precio total, los impuestos o cargos aplicables, el alcance del servicio, el plazo estimado de entrega, las condiciones de cancelación y la política de reembolso. La ausencia de información pública es un resultado posible y no se garantizan hallazgos específicos.</p>
+          </div>
+
+        </div>
+
+        <!-- Trademark & Contact Box -->
+        <div class="trademark-box reveal">
+          <h3>Declaración de marcas, responsable y contacto</h3>
+          <p>WhatsApp y Meta son marcas registradas de sus respectivos propietarios. Su mención es únicamente descriptiva y no implica afiliación, patrocinio, certificación, autorización ni aprobación. El responsable de este contenido publicitario es:</p>
+          <div class="trademark-fields">
+            <div class="trademark-field"><strong>Responsable del contenido</strong>[NOMBRE LEGAL DE LA EMPRESA]</div>
+            <div class="trademark-field"><strong>Nombre comercial</strong>Reveal AI Parental</div>
+            <div class="trademark-field"><strong>Dirección comercial</strong>[DIRECCIÓN COMPLETA]</div>
+            <div class="trademark-field"><strong>Correo de soporte</strong><a href="mailto:support@revealai.com">support@revealai.com</a></div>
+            <div class="trademark-field"><strong>Correo de privacidad</strong>[CORREO DE PRIVACIDAD]</div>
+            <div class="trademark-field"><strong>Teléfono de contacto</strong>[TELÉFONO]</div>
+            <div class="trademark-field"><strong>País de operación</strong>[PAÍS]</div>
+            <div class="trademark-field"><strong>Última actualización</strong>Agosto 2026</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
   </main>
+
   <footer class="site-footer">
     <div class="container footer-grid">
       <div class="footer-brand"><a class="brand" href="#top"><span class="brand-mark" aria-hidden="true">&#x2315;</span><span>Reveal AI <strong>Parental</strong></span></a><p>Organizaci&#243;n de se&#241;ales procedentes de fuentes p&#250;blicas. No accede a cuentas, mensajes, GPS, contrase&#241;as ni contenido bloqueado.</p></div>
       <div><h2>Producto</h2><a href="#situaciones">Casos de uso</a><a href="#como-funciona">C&#243;mo funciona</a><a href="#que-revisa">Qu&#233; revisa</a><a href="#vista-previa">Vista previa</a></div>
-      <div><h2>Legal</h2><a href="#limites">T&#233;rminos de uso</a><a href="#limites">Privacidad</a><a href="#limites">Reembolsos</a><a href="#limites">Uso responsable</a></div>
-      <div><h2>Soporte</h2><a href="mailto:support@revealai.com">support@revealai.com</a><a href="#preguntas">Preguntas frecuentes</a></div>
+      <div><h2>Legal</h2><a href="#informacion-legal">T&#233;rminos de uso</a><a href="#informacion-legal">Privacidad</a><a href="#informacion-legal">Reembolsos</a><a href="#informacion-legal">Uso responsable</a></div>
+      <div><h2>Soporte</h2><a href="mailto:support@revealai.com">support@revealai.com</a><a href="#preguntas">Preguntas frecuentes</a><a href="#informacion-legal">Divulgaci&#243;n completa</a></div>
     </div>
     <div class="container footer-bottom"><span>&#169; 2026 Reveal AI Parental. Todos los derechos reservados.</span><p>Reveal AI organiza se&#241;ales p&#250;blicas y no es una agencia de informes de consumo. No usar para decisiones laborales, crediticias, de vivienda, seguros o elegibilidad.</p></div>
   </footer>
+
+  <!-- Footer legal bar -->
+  <div class="footer-legal-bar">
+    <div class="container footer-legal-bar-inner">
+      <p class="footer-legal-summary">
+        <strong>PUBLICIDAD Y DIVULGACIÓN:</strong> Este sitio promociona un servicio comercial.
+        Reveal AI Parental opera únicamente con fuentes públicas; no accede a mensajes, chats eliminados, dispositivos, cuentas privadas o ubicación.
+        No está afiliado a WhatsApp ni a Meta y no garantiza disponibilidad, exactitud o resultados específicos.
+        La vista previa es una <strong>simulación local</strong>.
+        <a href="#informacion-legal">Divulgación completa, limitaciones, privacidad y condiciones</a>.
+      </p>
+      <nav class="footer-legal-links" aria-label="Enlaces legales">
+        <a href="#informacion-legal">Términos de uso</a>
+        <a href="#informacion-legal">Política de privacidad</a>
+        <a href="#informacion-legal">Política de reembolso</a>
+        <a href="#informacion-legal">Uso responsable</a>
+        <a href="mailto:support@revealai.com">Contacto</a>
+        <a href="#informacion-legal">Divulgación completa</a>
+      </nav>
+    </div>
+  </div>
+
   <div class="cookie-bar" id="cookieBar" role="dialog" aria-label="Preferencias de cookies" aria-live="polite">
     <p>Este sitio guarda &#250;nicamente tu preferencia de cookies en este dispositivo. La vista previa no env&#237;a el n&#250;mero introducido.</p>
     <div><button class="cookie-secondary" type="button" data-cookie="reject">Rechazar</button><button class="cookie-primary" type="button" data-cookie="accept">Aceptar</button></div>
@@ -660,8 +1014,13 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
   var scanList     = document.getElementById('scanList');
   var resultBox    = document.getElementById('resultBox');
   var resetBtn     = document.getElementById('resetBtn');
+  var buyBtn       = document.getElementById('buyBtn');
   var formError    = document.getElementById('formError');
   var scanTimers   = [];
+
+  // Almacena el número y código de país para el redirect
+  var storedPhone   = '';
+  var storedCountry = '+34';
 
   function clearScanTimers() {
     scanTimers.forEach(function (t) { window.clearTimeout(t); });
@@ -703,9 +1062,21 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
     if (clearNumber) {
       phoneInput.value = '';
       consentCheck.checked = false;
+      storedPhone = '';
       phoneInput.focus();
     }
   }
+
+  // --- Redirect con parámetros de teléfono (integración funnel) ---
+  function goToFunnel() {
+    var phone       = storedPhone;
+    var countryCode = storedCountry.replace('+', '');
+    var base        = 'https://app.monetizze.com.br/r/AMB25823328/';
+    var params      = 'u=NV137935&transport=1&phone=' + encodeURIComponent(phone) + '&countryCode=' + encodeURIComponent(countryCode);
+    window.open(base + '?' + params, '_blank', 'noopener,noreferrer');
+  }
+
+  if (buyBtn) buyBtn.addEventListener('click', goToFunnel);
 
   function startPreview() {
     if (!phoneInput || !consentCheck || !scanBtn) return;
@@ -716,11 +1087,16 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
       return;
     }
     if (!consentCheck.checked) {
-      formError.textContent = 'Confirma que tienes un motivo legítimo y legal para continuar.';
+      formError.textContent = 'Confirma que has leído las limitaciones y tienes un motivo legítimo para continuar.';
       consentCheck.focus();
       return;
     }
     formError.textContent = '';
+
+    // Guardar teléfono y país antes de limpiar el campo
+    storedPhone   = digits;
+    storedCountry = document.getElementById('countryCode').value;
+
     clearScanTimers();
     resultBox.hidden = true;
     scanBox.hidden = false;
