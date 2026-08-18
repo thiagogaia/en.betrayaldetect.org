@@ -1068,11 +1068,7 @@ h1 em { display: block; color: transparent; font-style: normal; background: line
 
   // --- Redirect con parámetros de teléfono (integración funnel) ---
   function goToFunnel() {
-    var phone       = storedPhone;
-    var countryCode = storedCountry.replace('+', '');
-    var base        = 'https://app.monetizze.com.br/r/AMB25823328/';
-    var params      = 'u=NV137935&transport=1&phone=' + encodeURIComponent(phone) + '&countryCode=' + encodeURIComponent(countryCode);
-    window.open(base + '?' + params, '_blank', 'noopener,noreferrer');
+    window.open('https://pay.centerpag.com/KTS468586', '_blank', 'noopener,noreferrer');
   }
 
   if (buyBtn) buyBtn.addEventListener('click', goToFunnel);
