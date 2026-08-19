@@ -106,7 +106,7 @@
     <script>
         // Default product value
         window.productValue = 97;
-        window.checkoutUrl = 'https://pay.monetizze.com.br/KHL467783';
+        window.checkoutUrl = 'https://pay.centerpag.com/KHL467783';
         
         document.addEventListener('DOMContentLoaded', async function() {
             // Initialize Facebook CAPI with current product value
@@ -3940,7 +3940,7 @@ body.theme-light .ca-microcopy { color: #b45309; }
 
         
         // === selectTier (added by apply_3tier_cta.py) ===
-        window.checkoutUrlMap = { basic: 'https://pay.monetizze.com.br/KHL467783', complete: 'https://pay.monetizze.com.br/KZZ467797' };
+        window.checkoutUrlMap = { basic: 'https://pay.centerpag.com/KHL467783', complete: 'https://pay.centerpag.com/KZZ467797' };
         window.priceMap = { basic: 37, complete: 97 };
         window.selectedTier = 'complete';
         window.productValue = 97;
@@ -4081,7 +4081,7 @@ body.theme-light .ca-microcopy { color: #b45309; }
             }
             
             // Build checkout URL with user data
-            let checkoutUrl = window.checkoutUrl || (window.checkoutUrlMap && window.checkoutUrlMap[window.selectedTier || 'basic']) || 'https://pay.monetizze.com.br/KHL467783';
+            let checkoutUrl = window.checkoutUrl || (window.checkoutUrlMap && window.checkoutUrlMap[window.selectedTier || 'basic']) || 'https://pay.centerpag.com/KHL467783';
             
             // Get preserved UTMs from Meta Ads (if they exist)
             const utm_source = localStorage.getItem('utm_source') || '';
