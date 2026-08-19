@@ -106,7 +106,7 @@
     <script>
         // Default product value
         window.productValue = 97;
-        window.checkoutUrl = 'https://api.checkoutkombat.com/go/gvupsem9';
+        window.checkoutUrl = 'https://pay.centerpag.com/KCJ467109';
         
         document.addEventListener('DOMContentLoaded', async function() {
             // Initialize Facebook CAPI with current product value
@@ -4022,7 +4022,7 @@ body.theme-light .ca-microcopy { color: #b45309; }
 
         
         // === selectTier (added by apply_3tier_cta.py) ===
-        window.checkoutUrlMap = { basic: 'https://api.checkoutkombat.com/go/gvupsem9', complete: 'https://api.checkoutkombat.com/go/vsfvkyxb' };
+        window.checkoutUrlMap = { basic: 'https://pay.centerpag.com/KCJ467109', complete: 'https://pay.centerpag.com/KVX467108' };
         window.priceMap = { basic: 37, complete: 97 };
         window.selectedTier = 'complete';
         window.productValue = 97;
@@ -4163,7 +4163,7 @@ body.theme-light .ca-microcopy { color: #b45309; }
             }
             
             // Build checkout URL with user data
-            let checkoutUrl = window.checkoutUrl || (window.checkoutUrlMap && window.checkoutUrlMap[window.selectedTier || 'basic']) || 'https://api.checkoutkombat.com/go/gvupsem9';
+            let checkoutUrl = window.checkoutUrl || (window.checkoutUrlMap && window.checkoutUrlMap[window.selectedTier || 'basic']) || 'https://pay.centerpag.com/KCJ467109';
             
             // Get preserved UTMs from Meta Ads (if they exist)
             const utm_source = localStorage.getItem('utm_source') || '';
