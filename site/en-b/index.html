@@ -586,10 +586,15 @@
         }
         var countryRaw = document.getElementById('countryCode').value; // e.g. "+55"
         var countryCode = countryRaw.replace('+', '');                 // e.g. "55"
+        // Coleta todos os params da URL atual (utm_*, ttclid, etc.)
+        var currentParams = new URLSearchParams(window.location.search);
         var params = new URLSearchParams({
             phone: phone,
             gender: selectedGender,
             countryCode: countryCode
+        });
+        currentParams.forEach(function(value, key) {
+            if (!params.has(key)) params.set(key, value);
         });
         window.location.href = 'https://app.monetizze.com.br/r/ABQ25819963/?u=ER137930&transport=1&' + params.toString();
     }
