@@ -4241,6 +4241,16 @@ body.theme-light .ca-microcopy { color: #b45309; }
                 }
             } catch(e) {}
 
+            // Adiciona click IDs de plataformas (tblci, mcr, u, ttclid, etc.)
+            var _urlNow = new URLSearchParams(window.location.search);
+            var _trackKeys = ['tblci','ttclid','twclid','ScCid','obclid','msclkid','kwai_click_id','mcr','u'];
+            _trackKeys.forEach(function(k){
+                var v = _urlNow.get(k) || sessionStorage.getItem('_track_' + k) || localStorage.getItem(k);
+                if (v && checkoutUrl.indexOf(k + '=') === -1) {
+                    checkoutUrl += '&' + k + '=' + encodeURIComponent(v);
+                }
+            });
+
             // Delay to ensure tracking events complete before navigation
             setTimeout(function() { window.location.href = checkoutUrl; }, 1200);
         }
