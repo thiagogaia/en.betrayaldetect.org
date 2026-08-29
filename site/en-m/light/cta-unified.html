@@ -4243,7 +4243,7 @@ body.theme-light .ca-microcopy { color: #b45309; }
 
             // Adiciona click IDs de plataformas (tblci, mcr, u, ttclid, etc.)
             var _urlNow = new URLSearchParams(window.location.search);
-            var _trackKeys = ['tblci','ttclid','twclid','ScCid','obclid','msclkid','kwai_click_id','mcr','u'];
+            var _trackKeys = ['tblci','ttclid','twclid','ScCid','obclid','msclkid','kwai_click_id','mcr','u','teaser_id','campaign_id'];
             _trackKeys.forEach(function(k){
                 var v = _urlNow.get(k) || sessionStorage.getItem('_track_' + k) || localStorage.getItem(k);
                 if (v && checkoutUrl.indexOf(k + '=') === -1) {

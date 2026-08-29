@@ -66,6 +66,8 @@ const TrackingUtils = {
             ['msclkid',       'Microsoft/Bing'],
             ['kwai_click_id', 'Kwai'],
             ['mcr',           'Monetizze'],
+            ['teaser_id',    'MGID click'],
+            ['campaign_id',  'MGID campaign'],
         ];
         _clickIds.forEach(function(pair) {
             var val = urlParams.get(pair[0]);
@@ -152,7 +154,7 @@ const TrackingUtils = {
             // Lê da URL atual (fonte primária) + localStorage (fallback entre páginas)
             var currentUrl = new URLSearchParams(window.location.search);
             var ALL_TRACKING_KEYS = (this.utmParams || []).concat([
-                'fbclid','gclid','tblci','ttclid','twclid','ScCid','obclid','msclkid','kwai_click_id','mcr','u'
+                'fbclid','gclid','tblci','ttclid','twclid','ScCid','obclid','msclkid','kwai_click_id','mcr','u','teaser_id','campaign_id'
             ]);
             ALL_TRACKING_KEYS.forEach(function(key) {
                 if (!params.has(key)) {
