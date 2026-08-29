@@ -50,6 +50,13 @@ const TrackingUtils = {
             console.log('[TrackingUtils] Captured gclid:', gclid);
         }
 
+        // Capture Taboola tblci (click ID)
+        const tblci = urlParams.get('tblci');
+        if (tblci) {
+            localStorage.setItem('tblci', tblci);
+            console.log('[TrackingUtils] Captured tblci:', tblci);
+        }
+
         // Capture affiliate ref (PerfectPay/Centerpag/Monetizze affiliate tracking)
         // Accept ref / src / aff / afiliado / afil
         var _affNames = ['ref','src','aff','afiliado','afil'];
@@ -132,6 +139,8 @@ const TrackingUtils = {
             });
             var fbclid = localStorage.getItem('fbclid_raw');
             if (fbclid && !params.has('fbclid')) params.set('fbclid', fbclid);
+            var tblci = localStorage.getItem('tblci');
+            if (tblci && !params.has('tblci')) params.set('tblci', tblci);
             var ppRef = localStorage.getItem('affiliateRef') || localStorage.getItem('pp_ref');
             var ppName = localStorage.getItem('affiliateRefName') || 'ref';
             if (ppRef && !params.has(ppName) && !params.has('ref') && !params.has('src')) {
