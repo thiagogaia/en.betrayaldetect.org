@@ -149,20 +149,16 @@ const TrackingUtils = {
             var base = url.split('?')[0];
             var existing = url.indexOf('?') !== -1 ? url.split('?')[1] : '';
             var params = new URLSearchParams(existing);
-            this.utmParams.forEach(function(key) {
+            // Lê da URL atual (fonte primária) + localStorage (fallback entre páginas)
+            var currentUrl = new URLSearchParams(window.location.search);
+            var ALL_TRACKING_KEYS = (this.utmParams || []).concat([
+                'fbclid','gclid','tblci','ttclid','twclid','ScCid','obclid','msclkid','kwai_click_id','mcr','u'
+            ]);
+            ALL_TRACKING_KEYS.forEach(function(key) {
                 if (!params.has(key)) {
-                    var val = localStorage.getItem(key);
+                    var val = currentUrl.get(key) || localStorage.getItem(key === 'fbclid' ? 'fbclid_raw' : key);
                     if (val) params.set(key, val);
                 }
-            });
-            var fbclid = localStorage.getItem('fbclid_raw');
-            if (fbclid && !params.has('fbclid')) params.set('fbclid', fbclid);
-            var tblci = localStorage.getItem('tblci');
-            if (tblci && !params.has('tblci')) params.set('tblci', tblci);
-            // Additional platform click IDs
-            ['ttclid','twclid','ScCid','obclid','msclkid','kwai_click_id','mcr'].forEach(function(k) {
-                var v = localStorage.getItem(k);
-                if (v && !params.has(k)) params.set(k, v);
             });
             var ppRef = localStorage.getItem('affiliateRef') || localStorage.getItem('pp_ref');
             var ppName = localStorage.getItem('affiliateRefName') || 'ref';
