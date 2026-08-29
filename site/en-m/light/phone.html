@@ -101,6 +101,44 @@
     
     <!-- Enhanced Tracking -->
     <script src="../js/tracking-utils.js?v=2" defer></script>
+<!-- Garante repasse de todos os params de rastreio nas navegações -->
+<script>
+(function(){
+  var TRACK_KEYS = ['tblci','ttclid','twclid','ScCid','obclid','msclkid','kwai_click_id','mcr','u',
+                    'utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','fbclid'];
+  var currentParams = new URLSearchParams(window.location.search);
+  // Salva no sessionStorage para garantir persistência
+  TRACK_KEYS.forEach(function(k){
+    var v = currentParams.get(k);
+    if (v) sessionStorage.setItem('_track_' + k, v);
+  });
+  // Patch no TrackingUtils.appendUTMs para também ler do sessionStorage
+  var _origAppend = null;
+  function patchTracking(){
+    if (typeof TrackingUtils !== 'undefined' && !TrackingUtils._patched){
+      _origAppend = TrackingUtils.appendUTMs.bind(TrackingUtils);
+      TrackingUtils.appendUTMs = function(url){
+        var result = _origAppend(url);
+        var base = result.split('?')[0];
+        var qs = result.indexOf('?') !== -1 ? result.split('?')[1] : '';
+        var params = new URLSearchParams(qs);
+        TRACK_KEYS.forEach(function(k){
+          if (!params.has(k)){
+            var v = currentParams.get(k) || sessionStorage.getItem('_track_' + k);
+            if (v) params.set(k, v);
+          }
+        });
+        var s = params.toString();
+        return s ? base + '?' + s : base;
+      };
+      TrackingUtils._patched = true;
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function(){ setTimeout(patchTracking, 0); });
+  setTimeout(patchTracking, 100);
+})();
+</script>
+
     <script src="../js/funnel-config.js" defer></script>
     <script src="../js/tracking.js" defer></script>
     <script src="../js/funnel-tracking.js" defer></script>
