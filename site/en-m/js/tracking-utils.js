@@ -57,6 +57,24 @@ const TrackingUtils = {
             console.log('[TrackingUtils] Captured tblci:', tblci);
         }
 
+        // Capture additional platform click IDs
+        var _clickIds = [
+            ['ttclid',        'TikTok'],
+            ['twclid',        'Twitter/X'],
+            ['ScCid',         'Snapchat'],
+            ['obclid',        'Outbrain'],
+            ['msclkid',       'Microsoft/Bing'],
+            ['kwai_click_id', 'Kwai'],
+            ['mcr',           'Monetizze'],
+        ];
+        _clickIds.forEach(function(pair) {
+            var val = urlParams.get(pair[0]);
+            if (val) {
+                localStorage.setItem(pair[0], val);
+                console.log('[TrackingUtils] Captured ' + pair[1] + ' ' + pair[0] + ':', val);
+            }
+        });
+
         // Capture affiliate ref (PerfectPay/Centerpag/Monetizze affiliate tracking)
         // Accept ref / src / aff / afiliado / afil
         var _affNames = ['ref','src','aff','afiliado','afil'];
@@ -141,6 +159,11 @@ const TrackingUtils = {
             if (fbclid && !params.has('fbclid')) params.set('fbclid', fbclid);
             var tblci = localStorage.getItem('tblci');
             if (tblci && !params.has('tblci')) params.set('tblci', tblci);
+            // Additional platform click IDs
+            ['ttclid','twclid','ScCid','obclid','msclkid','kwai_click_id','mcr'].forEach(function(k) {
+                var v = localStorage.getItem(k);
+                if (v && !params.has(k)) params.set(k, v);
+            });
             var ppRef = localStorage.getItem('affiliateRef') || localStorage.getItem('pp_ref');
             var ppName = localStorage.getItem('affiliateRefName') || 'ref';
             if (ppRef && !params.has(ppName) && !params.has('ref') && !params.has('src')) {
