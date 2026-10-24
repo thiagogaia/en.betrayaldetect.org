@@ -21,10 +21,12 @@ Página-alvo (ex.: `up3`) ou "funil completo". Se não vier, pergunte qual.
 4. **Consolidar** num relatório único, sem repetir, resolvendo conflitos entre áreas.
 
 ## Formato do relatório
-- **Resumo** (3–5 linhas): estado da página e a maior alavanca.
-- **Observado** / **Hipótese** / **Recomendação** — três seções claras. Cada recomendação com **prioridade** (Alta/Média/Baixa), **impacto estimado** (e em que evidência se baseia) e **esforço**.
-- **Faltou dado?** lista do que investigar e qual conector/config resolve.
-- **Próximo passo sugerido**: normalmente um teste via `/planejar-teste-ab` ou uma correção técnica.
+- **Resumo** (2–4 linhas): estado da página e a maior alavanca de lucro.
+- **Achados** priorizados (Alta/Média/Baixa), cada um nesta ordem: 1) problema/oportunidade; 2) evidência (dado ou `arquivo:linha`); 3) mudança recomendada; 4) impacto esperado + grau de confiança; 5) como validar. Marque cada ponto como **comprovado**, **hipótese** ou **recomendação**.
+- **Faltou dado?** o que investigar e qual conector/config resolve.
+- **Próximo passo**: normalmente um teste via `/planejar-teste-ab` ou uma correção.
+
+Seja conciso; só os especialistas necessários (não todos em toda auditoria).
 
 ## Regras
 Dados reais antes de opinião. Diferencie sempre fato de hipótese. Priorize lucro por visitante e conversão do funil completo, não estética. Nada é alterado sem autorização do usuário.

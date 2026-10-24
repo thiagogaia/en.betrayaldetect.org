@@ -52,7 +52,7 @@ Trabalhamos SÓ nestes 4 funis por ora; todo planejamento é em cima deles:
 **Microsoft Clarity** — FUNCIONA (token testado: 6.066 sessões/dia). Projeto único nos 4 funis: **`xq3x58b2lj`** (en-r, en-l, en-p/upsell já tinham; instalado no upsmtz em 24/10, carregamento confirmado no browser). O projeto `t8xlagi0nl` existe só no `zap` (fora do escopo). Fora dos 4 funis, `ingles-gts/`, `en-pd`, `es` seguem sem Clarity.
 
 **Google Analytics (GA4)** — property **`G-XLQQWM3D3N`** (nova, criada pelo usuário) instalada nas **24 páginas dos 4 funis** em 24/10; hit `g/collect` confirmado no browser (dados fluindo). A property antiga `G-W52R29LK1K` (morta, só 2 páginas do zap) foi abandonada — não usar.
-- Pendente (passo separado): para LER o GA aqui dentro, configurar um service account da GA Data API. O tag client-side já coleta; a leitura por API ainda não existe.
+- Pendente (passo separado): LER o GA aqui dentro via GA Data API. Service account `lovevision-ga-reader@idyllic-chimera-512622-c0.iam.gserviceaccount.com` já criado, mas a criação da chave JSON está **bloqueada pela política da organização** `iam.disableServiceAccountKeyCreation` (tentou liberar, não liberou). Retomar depois: liberar a política no projeto OU usar `gcloud auth application-default login` (ADC, sem chave). Falta também dar acesso Leitor ao e-mail no GA4 e pegar o Property ID numérico. O tag client-side já coleta normalmente.
 
 **Outros:** Meta Pixel `726299943423075` (up4–up7 do upsmtz/Monetizze); UTMify (cdn.utmify.com.br); Auralink (`app.auralink.com.br`) em páginas do zap; CAPI `zapspy-funnel-production.up.railway.app`.
 
@@ -104,7 +104,21 @@ No Utmify, o dashboard **"USD"** (`6865e9e706b636fc540b31ab`) é o deste funil (
 ## Skills (`.claude/skills/`)
 - `/auditar-upsell` — auditoria multidisciplinar de uma página ou do funil.
 - `/planejar-teste-ab` — hipótese, variantes, métrica, amostra, critério de decisão.
-- `/validar-funil` — checagem técnica de regressão antes de publicar.
+- `/validar-funil` — checagem técnica de regressão (links, params, diff vs original) antes de publicar.
+- `/testar-funil-mobile` — testes mobile automáticos (Playwright chromium+webkit) + checklist de validação real nos navegadores internos de Facebook/Instagram/TikTok.
 
-## Fluxo de trabalho
-1. Auditar com dados reais (`/auditar-upsell`) → 2. priorizar por impacto no lucro → 3. planejar teste (`/planejar-teste-ab`) ou correção → 4. **pedir autorização** → 5. aplicar na cópia → 6. `/validar-funil` → 7. publicar só com aprovação.
+## Como trabalhar neste projeto
+Objetivo: **aumentar conversão e lucro do funil completo**, com ótima experiência mobile — foco nos **navegadores internos de Facebook, Instagram e TikTok**. É HTML/CSS/JS puro; não criar arquitetura complexa, dependências externas nem cópias redundantes.
+
+**Economia de tokens.** Resolva tarefas simples direto no agente principal. Acione só o(s) especialista(s) necessários — nunca todos, nem em paralelo, quando um resolve. Reutilize o que já está documentado aqui (páginas, produtos, estrutura) em vez de reanalisar. Leia só os arquivos relevantes. Respostas e relatórios curtos; resuma saídas de ferramentas/testes preservando o que importa para diagnóstico; não despeje logs/HTML/screenshots inteiros quando um recorte basta. Não sacrifique qualidade/segurança de mudanças críticas para poupar token.
+
+**Quando usar cada especialista** (via Task; `.claude/agents/`): frontend-engineer (HTML/CSS/JS, performance, bug, integração/rastreio), ux-ui-designer (visual, mobile, hierarquia, usabilidade), cro-strategist (estratégia de oferta, hipóteses, experimentos), conversion-copywriter (headline, copy, objeções), analytics-specialist (Clarity/GA, dados, interpretação). Para análise completa de uma página ou mudança grande, coordene os relevantes e consolide — não consulte todos em toda auditoria.
+
+**Fluxo por complexidade.**
+- *Simples* (texto, espaçamento, CSS, um link): faça direto, sem subagente; mudança pequena e localizada; valide; informe em 1–2 linhas o que mudou.
+- *Intermediária* (layout mobile, componente de oferta, bug de JS): investigue o trecho; acione 1 especialista se preciso; plano curto se houver decisão; implemente **após aprovação**; teste os pontos afetados.
+- *Complexa* (reformular upsell, mudar fluxo/oferta, teste A/B, queda de conversão): use **Plan Mode**; consulte os especialistas certos; use dados reais; apresente hipóteses e recomendações priorizadas; implemente só o aprovado; valide e diga como medir o impacto.
+
+**Testes proporcionais ao risco** (ver `/testar-funil-mobile`). Não rode a bateria toda a cada ajuste de CSS. Priorize: preview local; Playwright pontual (Chromium e WebKit, mobile); erros de JS; botões/vídeos/links/redirects; **preservação de params de URL (mcr, UTMs) entre etapas**; performance e estabilidade visual; navegação entre etapas. A simulação de User-Agent é só complementar — não reproduz fielmente os navegadores internos; validação real é no iPhone/Android dentro dos apps (checklist no skill).
+
+**Formato das respostas.** Objetivo. Tarefa simples: o que foi feito + resultado da validação. Análise de CRO, nesta ordem: 1) problema/oportunidade; 2) evidência; 3) mudança recomendada; 4) impacto esperado + grau de confiança; 5) como validar. Sem explicações técnicas irrelevantes. Separe sempre **comprovado × hipótese × recomendação**; não conclua que algo converteu mais só porque parece melhor.
