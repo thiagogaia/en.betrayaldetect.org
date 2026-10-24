@@ -257,6 +257,15 @@ body{font-family:'Inter',sans-serif;background:var(--bg);min-height:100vh;paddin
 var up = new URLSearchParams(window.location.search);
 var phone = up.get('phone') || sessionStorage.getItem('sl_phone') || '';
 var decoded = phone ? decodeURIComponent(phone) : '';
+
+// If phone doesn't already include a country code (+), join with countryCode param
+if (decoded && decoded.charAt(0) !== '+') {
+  var countryCode = up.get('countryCode') || '';
+  if (countryCode) {
+    decoded = '+' + countryCode + decoded;
+  }
+}
+
 if (decoded) sessionStorage.setItem('sl_phone', decoded);
 
 document.getElementById('lphone').textContent = decoded || '+1 (555) 000-0000';
