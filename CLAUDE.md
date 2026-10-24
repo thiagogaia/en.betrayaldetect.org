@@ -13,9 +13,11 @@ Ambiente de otimização de funis com foco em CRO, UX, copy, frontend e análise
 
 ## Estrutura
 - `site/` — tudo que vai ao ar (Nginx via `Dockerfile`). Site 100% estático (HTML/CSS/JS), sem backend.
-- `site/upsmtz/` — **funil de upsell novo (cópia de trabalho).** É aqui que trabalhamos.
-- `site/ingles-gts/upsell/` — original do upsell (referência, não mexer).
-- Demais pastas em `site/` são outros funis (en-m, en-p, zap, ultra, es-*, etc.) — fora do escopo atual.
+- **Dois funis de upsell em produção:**
+  - `site/en-p/upsell/` — funil **PerfectPay** (no ar em `love-vision.site/en-p/upsell/up1`).
+  - `site/upsmtz/` — funil **Monetizze** (cópia de trabalho nova, origem em `ingles-gts/upsell`). É o que estamos montando.
+- `site/ingles-gts/upsell/` — original de referência do upsell Monetizze (não mexer).
+- Demais pastas em `site/` são outros funis/idiomas (en-m, en-b, zap, ultra, es-*, etc.).
 - Dados e relatórios ficam na pasta irmã `~/LoveVision` (banco `monetizze.db`, scripts de sync, relatórios). Não é repositório git.
 
 ### Rodar localmente
@@ -37,6 +39,24 @@ Upsells pós-compra do "Whats Spy". Cada página: animação de "processando" �
 | thankyou | Instruções de acesso + área de membros | — | — | — | — |
 
 Checkouts: Monetizze via `buy1click.js` (compra 1-clique); PerfectPay via `go.centerpag.com/<ID>`. Contato no thankyou: `contacto@love-vision.site`.
+
+## Escopo de trabalho (funis ativos)
+Trabalhamos SÓ nestes 4 funis por ora; todo planejamento é em cima deles:
+- **en-r** — funil de venda principal (mais visitado).
+- **en-l** — importante, vem de afiliado.
+- **upsmtz** — upsell Monetizze (cópia de trabalho).
+- **en-p/upsell** — upsell PerfectPay (em produção).
+
+## Analytics / rastreio — estado real (atualizado em 2026-10-24)
+
+**Microsoft Clarity** — FUNCIONA (token testado: 6.066 sessões/dia). Projeto único nos 4 funis: **`xq3x58b2lj`** (en-r, en-l, en-p/upsell já tinham; instalado no upsmtz em 24/10, carregamento confirmado no browser). O projeto `t8xlagi0nl` existe só no `zap` (fora do escopo). Fora dos 4 funis, `ingles-gts/`, `en-pd`, `es` seguem sem Clarity.
+
+**Google Analytics (GA4)** — property **`G-XLQQWM3D3N`** (nova, criada pelo usuário) instalada nas **24 páginas dos 4 funis** em 24/10; hit `g/collect` confirmado no browser (dados fluindo). A property antiga `G-W52R29LK1K` (morta, só 2 páginas do zap) foi abandonada — não usar.
+- Pendente (passo separado): para LER o GA aqui dentro, configurar um service account da GA Data API. O tag client-side já coleta; a leitura por API ainda não existe.
+
+**Outros:** Meta Pixel `726299943423075` (up4–up7 do upsmtz/Monetizze); UTMify (cdn.utmify.com.br); Auralink (`app.auralink.com.br`) em páginas do zap; CAPI `zapspy-funnel-production.up.railway.app`.
+
+Snippets padrão (inserir após `<head>`): Clarity com id `xq3x58b2lj`; GA4 `gtag/js?id=G-XLQQWM3D3N` + `gtag('config',...)`.
 
 ## Tecnologias e rastreio
 - Frontend estático; fontes Google; sem framework.
