@@ -58,20 +58,16 @@ Trabalhamos SÓ nestes 4 funis por ora; todo planejamento é em cima deles:
 
 Snippets padrão (inserir após `<head>`): Clarity com id `xq3x58b2lj`; GA4 `gtag/js?id=G-XLQQWM3D3N` + `gtag('config',...)`.
 
-## Tecnologias e rastreio
-- Frontend estático; fontes Google; sem framework.
-- **Meta Pixel** `726299943423075` em up4–up7 (**dono a confirmar**).
-- **UTMify** (`cdn.utmify.com.br`) em up4–up7.
-- **CAPI/backend**: `zapspy-funnel-production.up.railway.app` via `fc.js`/`upsell-tracking.js` (**dono a confirmar**).
-- **GA4** `G-W52R29LK1K`: instalado em páginas antigas, **não no upsmtz**.
-- **Clarity**: tag **não** está no upsmtz.
+## Tecnologias
+- Frontend estático (HTML/CSS/JS), fontes Google, sem framework. Produção: Nginx (`Dockerfile`) servindo `site/`.
+- Rastreio/analytics: ver "Analytics / rastreio" acima — é a fonte única da verdade.
 
 ## Dívidas técnicas / a investigar (não resolver sem autorização)
 - **"No thanks" que cobra o cliente**: em páginas do upsell, o script final reescreve o botão de recusa para o link de compra quando é cliente real (e esconde o preço). Em up1/up2 falta `customerMode` e o script quebra. Corrigir para recusa honesta + preço sempre visível.
 - **Scripts que quebram no upsmtz** (pasta subiu de nível): `../../js/sentry-init.js`, `../../js/fc.js` (up4–up7), `../../../shared/js/_zs-guard.js` (up4–up7, arquivo nem existe). Decidir: remover ou religar.
 - **Lixo provável**: honeypot (`data-zs-hp`) sem formulário; `sentry-init.js` sem DSN; feed de "prova social" com nomes aleatórios; comentário/guard `zs-canary` do dono anterior.
 - **Confirmar com o usuário**: o Pixel `726299943423075` e o backend Railway são dele? Se não, remover.
-- **GA4 e Clarity no upsmtz**: decidir se instala a tag no funil novo.
+- (Resolvido 24/10: GA4 `G-XLQQWM3D3N` + Clarity `xq3x58b2lj` instalados nos 4 funis.)
 
 ## Integrações de dados (estado real)
 | Fonte | Acesso | O que dá | Limite |
@@ -80,7 +76,7 @@ Snippets padrão (inserir após `<head>`): Clarity com id `xq3x58b2lj`; GA4 `gta
 | PerfectPay | Token no `.env` + tabela `pp_vendas` | Vendas up4–up7 | Sem MCP; via banco/sync |
 | Utmify | MCP conectado + tabelas `gasto_ads`,`utmify_resumo`,`v_vendas_utm` | Tráfego, campanhas, custo, ROI | — |
 | Microsoft Clarity | `CLARITY_TOKEN` no `.env`; script `sync_clarity.mjs` (desativado) → `clarity_insights` | **Data Export API** (leitura): scroll, rage/dead clicks, erros JS, por URL/OS/Device | Só 1–3 dias, 10 chamadas/dia, 3 dimensões, 1.000 linhas. **Sem heatmap/gravações por API** (só painel) |
-| GA4 | Tag existe; **sem credencial da Data API** | Nada por API hoje | Precisa (1) tag no upsmtz e (2) configurar GA Data API (service account) |
+| GA4 | Tag `G-XLQQWM3D3N` nos 4 funis; **leitura por API pendente** | Nada por API ainda (a tag coleta) | Service account criado, chave bloqueada pela política da org; usar ADC `gcloud` ou liberar política + pegar Property ID numérico |
 
 Banco de dados: `~/LoveVision/monetizze.db` (SQLite). Tabelas úteis: `vendas`, `pp_vendas`, `v_vendas_dia`, `v_vendas_utm`, `gasto_ads`, `utmify_resumo`. (A tabela `clarity_insights` só existe depois que `sync_clarity.mjs` rodar; hoje não existe.)
 
@@ -125,6 +121,6 @@ Objetivo: **aumentar conversão e lucro do funil completo**, com ótima experiê
 
 **Devoluções / chargebacks.** A atração e a oferta são propositalmente **agressivas — não suavizar por conta própria** para baixar reembolso. A alavanca de reembolso que tratamos no funil é o **fluxo de comunicação na compra e na entrega**: clareza do que foi comprado, o que chega, próximos passos, página de obrigado e expectativa pós-venda. (Educar o cliente dentro do conteúdo do app é outra camada, fora do funil.) Qualquer mudança que reduza a agressividade só acontece se o dono **pedir** e deve ser estruturada como **teste A/B com retorno medido** (não trocar venda por "sensação de melhor"). Acompanhar a taxa de devolução/chargeback é guardrail dos testes.
 
-**Colaboração (2–3 pessoas).** Branch compartilhada `love-vision.site`. Antes de editar: `git pull` (rebase). Não editar os mesmos arquivos que outra pessoa está mexendo; avisar o que está em andamento. Commits pequenos e descritivos. **Deploy (push) só com autorização do dono.** `.claude/` e `CLAUDE.md` ficam versionados (todos usam a mesma estrutura); `.claude/launch.json` é local.
+**Colaboração (2–3 pessoas).** Branch compartilhada `love-vision.site`. Antes de editar: `git pull` (rebase). Não editar os mesmos arquivos que outra pessoa está mexendo; avisar o que está em andamento. Commits pequenos e descritivos. **Deploy (push) só com autorização do dono.** `.claude/` e `CLAUDE.md` ficam versionados (todos usam a mesma estrutura); `.claude/launch.json` é local. Este ambiente do Claude Code **não tem a chave SSH do GitHub** — `fetch`/`push` rodam no terminal do dono (pede passphrase da chave). Onboarding de colaborador: arquivo `ONBOARDING.md` na raiz; link Claude Code: https://claude.ai/claude-code/onboard/EQSn6N5HCcyH
 
 **Atribuição e multi-checkout.** Conferir sempre: venda de **afiliado (en-l)** creditada corretamente, e cada etapa apontando para o **checkout certo** — Monetizze (`buy1click.js`, up1–up3 do upsmtz) vs PerfectPay (`go.centerpag.com`, up4–up7 e en-p/upsell). Parâmetros `mcr`/UTMs preservados ponta a ponta.
