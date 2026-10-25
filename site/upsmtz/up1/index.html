@@ -29,9 +29,11 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             transition: opacity 0.8s ease, transform 0.8s ease;
-            overflow: hidden;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: calc(24px + env(safe-area-inset-top)) 0 calc(24px + env(safe-area-inset-bottom));
         }
         .loading-overlay.fade-out {
             opacity: 0;
@@ -72,6 +74,7 @@
             width: 90%;
             max-width: 440px;
             text-align: center;
+            margin: auto 0;
         }
 
         /* Top icon */
@@ -83,6 +86,17 @@
         @keyframes iconFloat {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-8px); }
+        }
+        .loading-logo {
+            margin-bottom: 10px;
+        }
+        .loading-logo img {
+            display: block;
+            width: 100%;
+            max-width: 320px;
+            height: auto;
+            margin: 0 auto;
+            animation: iconFloat 3s ease-in-out infinite;
         }
 
         .loading-title {
@@ -136,30 +150,42 @@
             padding: 0;
             margin: 0;
             text-align: left;
+            display: flex;
+            flex-direction: column-reverse;
         }
         .loading-step {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 10px 16px;
-            margin-bottom: 6px;
+            padding: 0 16px;
+            margin: 0;
+            max-height: 0;
             border-radius: 10px;
             opacity: 0;
-            transform: translateX(-20px);
-            transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+            transform: translateY(12px);
+            overflow: hidden;
+            transition: max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                        opacity 0.45s ease,
+                        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+                        padding 0.45s ease,
+                        margin 0.45s ease;
             font-family: 'DM Sans', sans-serif;
             font-size: 14px;
             color: rgba(255,255,255,0.6);
         }
-        .loading-step.active {
+        .loading-step.active,
+        .loading-step.done {
             opacity: 1;
-            transform: translateX(0);
+            transform: translateY(0);
+            max-height: 72px;
+            padding: 10px 16px;
+            margin-bottom: 6px;
+        }
+        .loading-step.active {
             color: rgba(255,255,255,0.9);
             background: rgba(255,255,255,0.03);
         }
         .loading-step.done {
-            opacity: 1;
-            transform: translateX(0);
             color: rgba(255,255,255,0.5);
         }
         .loading-step .step-icon {
@@ -207,6 +233,8 @@
         }
         .loading-step .step-text {
             flex: 1;
+            overflow-wrap: anywhere;
+            word-break: break-word;
         }
         .loading-step .step-dots {
             display: none;
@@ -234,16 +262,27 @@
 
         /* Discovery alert */
         .discovery-alert {
-            display: none;
-            margin-top: 20px;
-            padding: 16px 20px;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+            margin-top: 0;
+            padding: 0 20px;
             border-radius: 12px;
             background: rgba(255, 193, 7, 0.08);
             border: 1px solid rgba(255, 193, 7, 0.25);
-            animation: alertSlide 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            transform: translateY(10px) scale(0.98);
+            transition: max-height 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                        opacity 0.4s ease,
+                        transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+                        margin 0.5s ease,
+                        padding 0.5s ease;
         }
         .discovery-alert.visible {
-            display: block;
+            max-height: 260px;
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            margin-top: 20px;
+            padding: 16px 20px;
         }
         @keyframes alertSlide {
             0% { opacity: 0; transform: translateY(20px) scale(0.95); }
@@ -274,6 +313,98 @@
         }
         .discovery-alert .alert-text strong {
             color: #fff;
+        }
+
+        /* Keep-on-page hold note */
+        .loading-hold {
+            margin-top: 22px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12px;
+            line-height: 1.5;
+            color: rgba(255,255,255,0.55);
+            padding: 11px 14px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+        .loading-hold strong { color: #fff; }
+
+        /* Confirmation summary card ("what happens next") */
+        .confirm-card {
+            display: none;
+            margin-top: 18px;
+            padding: 16px 18px;
+            border-radius: 12px;
+            text-align: left;
+            background: rgba(0, 200, 83, 0.07);
+            border: 1px solid rgba(0, 200, 83, 0.30);
+            animation: alertSlide 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .confirm-card.visible { display: block; }
+        .confirm-card .confirm-head {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            color: #22c55e;
+            margin-bottom: 10px;
+        }
+        .confirm-card .confirm-row {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 12.5px;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.78);
+            margin-bottom: 7px;
+        }
+        .confirm-card .confirm-row:last-child { margin-bottom: 0; }
+        .confirm-card .confirm-row strong { color: #fff; }
+
+        /* Literal name chips — what the buyer will SEE elsewhere */
+        .fact-chip {
+            display: inline-block;
+            font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+            font-size: 0.9em;
+            font-weight: 700;
+            color: #fff;
+            background: rgba(255,255,255,0.10);
+            border: 1px solid rgba(255,255,255,0.22);
+            border-radius: 5px;
+            padding: 1px 6px;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+        .confirm-card .fact-chip {
+            background: rgba(0, 200, 83, 0.14);
+            border-color: rgba(0, 200, 83, 0.40);
+        }
+        .confirm-card .confirm-row.fact {
+            border-left: 2px solid rgba(0, 200, 83, 0.55);
+            padding-left: 10px;
+        }
+
+        /* Smooth collapse of steps/hold when the confirm card takes over */
+        #loadingSteps.collapsing,
+        #loadingHold.collapsing {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.35s ease;
+        }
+        #genStatus {
+            overflow: hidden;
+            max-height: 120px;
+            transition: max-height 0.4s cubic-bezier(0.22,1,0.36,1), opacity 0.35s ease, margin 0.4s ease, padding 0.4s ease;
+        }
+        #genStatus.collapsing {
+            max-height: 0;
+            opacity: 0;
+            margin-top: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+            pointer-events: none;
+        }
+
+        @media (max-width: 480px) {
+            .loading-step { font-size: 13.5px; }
+            .loading-step.active, .loading-step.done { padding: 9px 12px; }
         }
 
         /* Particles */
@@ -332,42 +463,61 @@ img,video,iframe{max-width:100%;height:auto;}
     <!-- ========== LOADING OVERLAY ========== -->
     <div class="loading-overlay" id="loadingOverlay" >
         <div class="loading-container">
-            <div class="loading-icon">🔐</div>
-            <div class="loading-title">Setting Up Your Account</div>
-            <div class="loading-subtitle">Please wait while we configure your access...</div>
+            <div class="loading-logo"><img src="../assets/love-vision-logo.png" alt="Love Vision — Whats Spy" /></div>
+            <div class="loading-title" id="loadingTitle">Setting Up Your Account</div>
+            <div class="loading-subtitle" id="loadingSubtitle">Setting up your account — this usually takes about a minute. Please keep this page open while we finish.</div>
 
             <div class="progress-wrapper">
                 <div class="progress-bar" id="progressBar"></div>
             </div>
             <div class="progress-percent" id="progressPercent">0%</div>
 
-            <ul class="loading-steps" id="loadingSteps">
-                <li class="loading-step" data-step="0">
-                    <span class="step-icon pending"></span>
-                    <span class="step-text">Confirming your payment<span class="step-dots"></span></span>
-                </li>
-                <li class="loading-step" data-step="1">
-                    <span class="step-icon pending"></span>
-                    <span class="step-text">Activating Whats Spy license<span class="step-dots"></span></span>
-                </li>
-                <li class="loading-step" data-step="2">
-                    <span class="step-icon pending"></span>
-                    <span class="step-text">Connecting to secure servers<span class="step-dots"></span></span>
-                </li>
-                <li class="loading-step" data-step="3">
-                    <span class="step-icon pending"></span>
-                    <span class="step-text">Loading monitoring dashboard<span class="step-dots"></span></span>
-                </li>
-                <li class="loading-step" data-step="4">
-                    <span class="step-icon pending"></span>
-                    <span class="step-text">Scanning available services<span class="step-dots"></span></span>
-                </li>
-            </ul>
-
             <div class="discovery-alert" id="discoveryAlert">
                 <span class="alert-icon">⚡</span>
                 <div class="alert-title">NEW SERVICE UNLOCKED</div>
                 <div class="alert-text">As a new member, this <strong>additional service has been unlocked</strong> for your account — available to add for the next 15 minutes.</div>
+            </div>
+
+            <div class="loading-hold" id="genStatus" style="display:none;">
+                ⏳ <strong>Almost done</strong> — finalizing your account and generating your secure access link…
+            </div>
+
+            <div class="confirm-card" id="confirmCard">
+                <div class="confirm-head">✓ <span id="confirmName">You're all set</span></div>
+                <div class="confirm-row fact">📧 Your login is on its way to <strong id="confirmEmail">the address you used at checkout</strong> — sent from <span class="fact-chip">UncoverAI</span>. Don't see it? Check <strong>Spam / Promotions</strong>.</div>
+                <div class="confirm-row fact">💳 On your card statement, the charge shows as <span class="fact-chip">CENTERPAG</span> — that's us.</div>
+                <div class="confirm-row" id="confirmOrderRow" style="display:none;">🔑 Your order number: <strong id="confirmOrder"></strong></div>
+            </div>
+
+            <ul class="loading-steps" id="loadingSteps">
+                <li class="loading-step" data-step="0">
+                    <span class="step-icon pending"></span>
+                    <span class="step-text">✅ Payment confirmed — Love Vision · Whats Spy<span class="step-dots"></span></span>
+                </li>
+                <li class="loading-step" data-step="1">
+                    <span class="step-icon pending"></span>
+                    <span class="step-text">🔐 Creating your secure account<span class="step-dots"></span></span>
+                </li>
+                <li class="loading-step" data-step="2">
+                    <span class="step-icon pending"></span>
+                    <span class="step-text">💳 Confirming your charge — shows as <span class="fact-chip">CENTERPAG</span> on your statement<span class="step-dots"></span></span>
+                </li>
+                <li class="loading-step" data-step="3">
+                    <span class="step-icon pending"></span>
+                    <span class="step-text">🔑 Generating your private login<span class="step-dots"></span></span>
+                </li>
+                <li class="loading-step" data-step="4">
+                    <span class="step-icon pending"></span>
+                    <span class="step-text" id="stepEmail">📧 Preparing your access email — from <span class="fact-chip">UncoverAI</span><span class="step-dots"></span></span>
+                </li>
+                <li class="loading-step" data-step="5">
+                    <span class="step-icon pending"></span>
+                    <span class="step-text">🛡️ Encrypting your connection<span class="step-dots"></span></span>
+                </li>
+            </ul>
+
+            <div class="loading-hold" id="loadingHold">
+                ⏳ This takes about a minute. <strong>Please keep this page open</strong> so we can finish setting up your account. Your access email is already on its way.
             </div>
         </div>
     </div>
@@ -391,7 +541,7 @@ img,video,iframe{max-width:100%;height:auto;}
                     <p class="final-cta-subtitle">Every second counts. Deleted messages contain the answers you need — but once they're gone, they're gone forever. Add this service to your account now.</p>
                     <div id="geoPrice" style="display:none; text-align:center; margin:20px 0 8px;">
                         <span style="display:inline-block; background:linear-gradient(135deg,#22c55e,#16a34a); color:#fff; font-size:11px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; padding:4px 14px; border-radius:20px; margin-bottom:10px;">Limited Offer</span><br>
-                        <span style="font-size:42px; font-weight:900; background:linear-gradient(135deg,#22c55e,#4ade80); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1;">$47</span><br>
+                        <span style="font-size:42px; font-weight:900; background:linear-gradient(135deg,#22c55e,#4ade80); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1;">$49</span><br>
                         <span style="font-size:12px; color:#6b7280; letter-spacing:0.5px; margin-top:6px; display:inline-block;">ONE-TIME PAYMENT &nbsp;·&nbsp; LIFETIME ACCESS</span>
                     </div>
 <a href='#monetizzeCompra?id=17caea4794183f1085a9a43779c4769e' class="btn btn-primary btn-large btn-pulse btn-mega" aria-label="Recover deleted WhatsApp conversations now" role="button">Yes, Add Message Recovery to My Account</a>
@@ -401,7 +551,7 @@ img,video,iframe{max-width:100%;height:auto;}
 
         </main>
 <footer class="footer">
-            <div class="smallprint">© <span id="year"></span><script>document.getElementById('year').textContent=new Date().getFullYear()</script> Whats Spy. All rights reserved.</div>
+            <div class="smallprint">© <span id="year"></span><script>document.getElementById('year').textContent=new Date().getFullYear()</script> Love Vision – Whats Spy. All rights reserved.</div>
         </footer>
     </div>
 
@@ -409,24 +559,68 @@ img,video,iframe{max-width:100%;height:auto;}
     <script type="text/javascript" src="https://app.monetizze.com.br/buy1click.js"></script>
     <script>
 (function(){
-    function reviewMode() {
+    var qp = new URLSearchParams(window.location.search);
+    // fp=10 => Apple Pay (Monetizze "forma de pagamento" na URL de obrigado)
+    var isApplePay = qp.get('fp') === '10' || localStorage.getItem('_ap') === '1';
+
+    function showPrice() {
         var el = document.getElementById('geoPrice'); if (el) el.style.display = '';
-        var links = document.querySelectorAll('.decline-link');
-        for (var i = 0; i < links.length; i++) { links[i].href = '../up2/'; }
     }
+    function setDecline(href) {
+        var links = document.querySelectorAll('.decline-link');
+        for (var i = 0; i < links.length; i++) { links[i].href = href; }
+    }
+
+    // QA/preview (sem params): mostra preço e "No thanks" avança
+    function reviewMode() { showPrice(); setDecline('../up2/'); }
+
+    // TESTE — só Apple Pay: fluxo honesto (preço visível, "No thanks" vai pro DOWNSELL, não cobra)
+    function customerModeApplePay() {
+        try { localStorage.setItem('_cm', '1'); localStorage.setItem('_ap', '1'); } catch (e) {}
+        showPrice();
+        setDecline('../up1-ds/');
+    }
+
+    // CONTROLE — demais pagamentos: comportamento atual inalterado (preço oculto, decline = link de compra padrão)
+    function customerModeControl() { /* no-op de propósito, pra manter o grupo de controle idêntico */ }
 
     var hasParams = window.location.search.length > 1;
     var hasFlag = localStorage.getItem('_cm') === '1';
-    if (hasParams || hasFlag) { customerMode(); } else { reviewMode(); }
+    if (hasParams || hasFlag) {
+        if (isApplePay) { customerModeApplePay(); } else { customerModeControl(); }
+    } else {
+        reviewMode();
+    }
+})();
+</script>
+
+<script>
+/* Medição do "No thanks" (e do CTA), sem atrapalhar a navegação (beacon). Vale pros 2 grupos. */
+(function(){
+    function track(name, extra){
+        try { if (window.gtag) gtag('event', name, Object.assign({ transport_type: 'beacon' }, extra || {})); } catch (e) {}
+        try { if (window.clarity) { clarity('event', name); if (extra && extra.up1_outcome) clarity('set', 'up1_outcome', extra.up1_outcome); } } catch (e) {}
+    }
+    var fp = new URLSearchParams(location.search).get('fp') || '';
+    var seg = (fp === '10') ? 'applepay' : (location.search.length > 1 ? 'other' : 'review');
+    document.addEventListener('click', function(e){
+        var a = e.target && e.target.closest ? e.target.closest('a') : null;
+        if (!a) return;
+        if (a.classList.contains('decline-link')) track('up1_decline_click', { segment: seg, up1_outcome: 'decline' });
+        else if (a.classList.contains('btn-mega')) track('up1_cta_click', { segment: seg, up1_outcome: 'cta' });
+    }, true);
 })();
 </script>
     
 
     <script>
     // ==========================================
-    // LOADING OVERLAY - 15 second delay
-    // Prevents payment processor decline due to
-    // rapid successive purchases
+    // LOADING OVERLAY - deliberate setup (~13s of steps,
+    // then a confirmation card that reveals the offer on
+    // tap/scroll — or after a short idle wait).
+    // Keeps the buyer on-page while the account/email
+    // are provisioned, and spaces out the 1-click
+    // purchase to avoid processor declines.
     // ==========================================
     (function() {
         var overlay = document.getElementById('loadingOverlay');
@@ -439,18 +633,113 @@ img,video,iframe{max-width:100%;height:auto;}
         if (!overlay || !mainPage) return;
 
         // Configuration: step timing (ms from start)
+        // Longer, deliberate setup so the buyer stays on-page while the
+        // account/email are provisioned. To make it shorter/longer, scale
+        // these numbers together with CONFIRM_AT / ALERT_AT / TOTAL_DURATION.
+        // Steps 0/2/4 carry the info we want READ (product, CENTERPAG, email/UncoverAI)
+        // → longer dwell. Steps 1/3/5 are "process" → quicker.
         var stepTimeline = [
-            { activateAt: 0,    completeAt: 800,   progress: 20 },
-            { activateAt: 800,  completeAt: 1700,  progress: 40 },
-            { activateAt: 1700, completeAt: 2500,  progress: 60 },
-            { activateAt: 2500, completeAt: 3300,  progress: 80 },
-            { activateAt: 3300, completeAt: 4200,  progress: 95 }
+            { activateAt:  300, completeAt:  2900, progress: 16 },  // ✅ payment (info)
+            { activateAt: 3150, completeAt:  4450, progress: 28 },  // 🔐 creating
+            { activateAt: 4700, completeAt:  7300, progress: 46 },  // 💳 CENTERPAG (info)
+            { activateAt: 7550, completeAt:  8850, progress: 58 },  // 🔑 login
+            { activateAt: 9100, completeAt: 11700, progress: 80 },  // 📧 email/UncoverAI (info)
+            { activateAt:11950, completeAt: 13250, progress: 92 }   // 🛡️ encrypt
         ];
 
-        var TOTAL_DURATION = 5000;
+        var CONFIRM_AT = 13550;          // collapse steps + show the confirmation card
+        var CARD_HOLD_FALLBACK = 10000;  // auto-reveal the offer if the buyer stays idle on the card
         var startTime = Date.now();
         var currentProgress = 0;
         var alertShown = false;
+        var confirmShown = false;
+        var revealArmed = false;
+        var revealed = false;
+        var finished = false;
+
+        // Personalize from the checkout redirect params (Monetizze: nome, e, venda)
+        var confirmCard = document.getElementById('confirmCard');
+        (function personalize(){
+            try {
+                var qp = new URLSearchParams(window.location.search);
+                var first = (qp.get('nome') || '').trim().split(/\s+/)[0];
+                var email = (qp.get('e') || qp.get('email') || '').trim();
+                var order = (qp.get('venda') || qp.get('transacao') || qp.get('cod_transacao') || '').trim();
+                var esc = function(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+                if (first) {
+                    var cn = document.getElementById('confirmName'); if (cn) cn.textContent = "You're all set, " + first;
+                    var lt = document.getElementById('loadingTitle'); if (lt) lt.textContent = 'Setting Up Your Account, ' + first;
+                }
+                if (order) {
+                    var ls = document.getElementById('loadingSubtitle');
+                    if (ls) ls.textContent = 'Setting up your account for order #' + order + ' — this usually takes about a minute. Please keep this page open while we finish.';
+                }
+                if (email) {
+                    var ce = document.getElementById('confirmEmail'); if (ce) ce.textContent = email;
+                    var se = document.getElementById('stepEmail'); if (se) se.innerHTML = '📧 Preparing your access email for ' + esc(email) + ' — from <span class="fact-chip">UncoverAI</span><span class="step-dots"></span>';
+                }
+                if (order) {
+                    var co = document.getElementById('confirmOrder'); var cor = document.getElementById('confirmOrderRow');
+                    if (co) co.textContent = '#' + order;
+                    if (cor) cor.style.display = '';
+                }
+            } catch (e) {}
+        })();
+
+        function showConfirm() {
+            if (confirmShown || !confirmCard) return;
+            confirmShown = true;
+            var sl = document.getElementById('loadingSteps');
+            var lh = document.getElementById('loadingHold');
+            var ls = document.getElementById('loadingSubtitle');
+            var gs = document.getElementById('genStatus');
+            var lc = document.querySelector('.loading-container');
+            if (sl) sl.classList.add('collapsing');
+            if (lh) lh.classList.add('collapsing');
+            if (ls) ls.style.display = 'none';
+            if (lc) lc.style.margin = '0 auto';
+            setTimeout(function() {
+                if (sl) sl.style.display = 'none';
+                if (lh) lh.style.display = 'none';
+                if (gs) gs.style.display = '';
+                confirmCard.classList.add('visible');
+            }, 350);
+        }
+
+        // After the confirmation card shows, reveal the offer on the first
+        // tap/scroll/keypress — or after a short idle wait as a fallback.
+        var REVEAL_EVENTS = ['click', 'touchstart', 'keydown', 'wheel'];
+        function onInteract() { revealOffer(); }
+        function armReveal() {
+            if (revealArmed) return;
+            revealArmed = true;
+            for (var i = 0; i < REVEAL_EVENTS.length; i++) {
+                window.addEventListener(REVEAL_EVENTS[i], onInteract, { capture: true, passive: true });
+            }
+            setTimeout(revealOffer, CARD_HOLD_FALLBACK);
+        }
+        function revealOffer() {
+            if (revealed) return;
+            revealed = true;
+            for (var i = 0; i < REVEAL_EVENTS.length; i++) {
+                window.removeEventListener(REVEAL_EVENTS[i], onInteract, { capture: true });
+            }
+            var gs = document.getElementById('genStatus'); if (gs) gs.classList.add('collapsing');
+            showAlert();
+            try { overlay.scrollTo({ top: 0, behavior: 'smooth' }); } catch (e) { overlay.scrollTop = 0; }
+            // Let the "NEW SERVICE UNLOCKED" banner breathe ~5s; a tap skips the wait.
+            var t = setTimeout(finishLoading, 5000);
+            var skip = function () {
+                clearTimeout(t);
+                window.removeEventListener('click', skip, true);
+                window.removeEventListener('touchstart', skip, true);
+                finishLoading();
+            };
+            setTimeout(function () {
+                window.addEventListener('click', skip, { capture: true, passive: true });
+                window.addEventListener('touchstart', skip, { capture: true, passive: true });
+            }, 500);
+        }
 
         // Create floating particles
         function createParticles() {
@@ -511,6 +800,8 @@ img,video,iframe{max-width:100%;height:auto;}
         }
 
         function finishLoading() {
+            if (finished) return;
+            finished = true;
             updateProgress(100);
             progressPercent.textContent = '100%';
 
@@ -549,8 +840,10 @@ img,video,iframe{max-width:100%;height:auto;}
                 }
             }
 
-            if (elapsed >= 4200 && !alertShown) {
-                showAlert();
+            if (elapsed >= CONFIRM_AT && !confirmShown) {
+                showConfirm();
+                armReveal();
+                return;
             }
 
             // Smooth progress interpolation between steps
@@ -563,12 +856,6 @@ img,video,iframe{max-width:100%;height:auto;}
                     updateProgress(interpolated);
                     break;
                 }
-            }
-
-            // Finish at TOTAL_DURATION
-            if (elapsed >= TOTAL_DURATION) {
-                finishLoading();
-                return;
             }
 
             requestAnimationFrame(tick);
