@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="icon" href="/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/favicon-180x180.png">
     <!-- Google Analytics (GA4) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XLQQWM3D3N"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XLQQWM3D3N');</script>
@@ -39,6 +43,23 @@ img,video,iframe{max-width:100%;height:auto;}
   }
 }
 </style>
+<style>
+.lv-logo{text-align:center;margin:6px 0 2px}
+.lv-logo img{width:100%;max-width:300px;height:auto;display:inline-block}
+.ty-confirm{background:rgba(0,200,83,.07);border:1px solid rgba(0,200,83,.30);border-radius:14px;padding:16px 18px;margin:18px 0;text-align:left}
+.ty-confirm .cc-row{font-size:14px;line-height:1.6;color:rgba(255,255,255,.82);margin-bottom:9px}
+.ty-confirm .cc-row:last-child{margin-bottom:0}
+.ty-confirm .cc-row strong{color:#fff}
+.ty-confirm .chip{display:inline-block;font-family:ui-monospace,Menlo,monospace;font-weight:700;font-size:.9em;color:#fff;background:rgba(0,200,83,.14);border:1px solid rgba(0,200,83,.4);border-radius:5px;padding:1px 6px;white-space:nowrap}
+.ty-confirm a{color:#4ade80;font-weight:700;text-decoration:underline}
+.ty-console{background:rgba(0,200,83,.06);border:1px solid rgba(0,200,83,.30);border-radius:14px;padding:24px 18px;margin:18px 0;text-align:center}
+.ty-console .console-label{color:#22c55e;font-weight:800;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px}
+.ty-console .console-title{color:#fff;font-size:22px;font-weight:800;margin:0 0 6px}
+.ty-console .console-sub{color:rgba(255,255,255,.7);font-size:14px;margin:0 0 16px}
+.ty-console .console-btn{display:inline-block;background:linear-gradient(135deg,#22c55e,#16a34a);color:#06281a;font-weight:800;font-size:16px;text-decoration:none;padding:14px 34px;border-radius:12px;min-height:44px;box-shadow:0 6px 18px rgba(34,197,94,.3)}
+.ty-console .console-btn:active{transform:translateY(1px)}
+.ty-console .console-note{color:rgba(255,255,255,.5);font-size:12px;margin:14px 0 0}
+</style>
 </head>
 <body>
 <div data-zs-hp="v1" aria-hidden="true" style="position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;opacity:0;pointer-events:none" tabindex="-1">
@@ -48,29 +69,27 @@ img,video,iframe{max-width:100%;height:auto;}
 </div>
 
     <div class="container">
+        <div class="lv-logo"><img src="../assets/love-vision-logo.png" alt="Love Vision — Whats Spy"></div>
+
         <div class="success-header">
             <div class="checkmark"></div>
-            <h1>Thank you for purchasing Whats Spy!</h1>
-            <p class="subtitle">Your Whats Spy account has been activated and your access is ready</p>
+            <h1>Thank you<span id="tyName"></span>! Your access is ready</h1>
+            <p class="subtitle">Your Love Vision · Whats Spy account has been activated</p>
         </div>
 
-        <div class="email-info">
-            ⚡ <strong>Important:</strong> Check your email inbox for your login credentials. If you don't see it, check your spam folder.
+        <div class="ty-confirm">
+            <div class="cc-row">✅ Order confirmed — <strong>Love Vision · Whats Spy</strong><span id="tyOrder"></span></div>
+            <div class="cc-row">📧 Your login was emailed to <strong id="tyEmail">the address you used at checkout</strong> — sent from <span class="chip">UncoverAI</span>. Don't see it? Check <strong>Spam / Promotions</strong>.</div>
+            <div class="cc-row">💳 On your card statement, the charge appears as <span class="chip">CENTERPAG</span> — that's us.</div>
+            <div class="cc-row">🆘 Didn't get your access? <a href="mailto:contacto@love-vision.site">Talk to us</a> and we'll fix it fast.</div>
         </div>
 
-        <div class="members-area-alert">
-            <div class="members-icon">🎓</div>
-            <div>
-                <h3>Exclusive Members Area with Video Lessons!</h3>
-                <p>In addition to Whats Spy access, you'll receive <strong>exclusive access to our members area</strong> with:</p>
-                <ul>
-                    <li>✓ Step-by-step video tutorials on how to use all features</li>
-                    <li>✓ Advanced monitoring strategies and techniques</li>
-                    <li>✓ Tips to identify suspicious behaviors</li>
-                    <li>✓ Regular updates with new features</li>
-                </ul>
-                <p class="email-notice">📧 <strong>Your members area access will be sent to your email within the next 10 minutes!</strong></p>
-            </div>
+        <div class="ty-console">
+            <div class="console-label">Your access is ready</div>
+            <h2 class="console-title">Open your console now</h2>
+            <p class="console-sub">No password. Use the same email you bought with.</p>
+            <a href="https://app.zappdetect.com/login?src=thankyou&amp;lang=en" class="console-btn" target="_blank" rel="noopener">Open my console</a>
+            <p class="console-note">If the button does not open, check the purchase email — including spam.</p>
         </div>
 
         <div class="access-card">
@@ -142,7 +161,7 @@ img,video,iframe{max-width:100%;height:auto;}
         </div>
 
         <div class="footer">
-            <p>© <span id="current-year"></span> Whats Spy. All rights reserved.</p>
+            <p>© <span id="current-year"></span> Love Vision – Whats Spy. All rights reserved.</p>
             <p class="footer-disclaimer">This product is not affiliated with WhatsApp Inc.</p>
         </div>
     </div>
@@ -150,6 +169,22 @@ img,video,iframe{max-width:100%;height:auto;}
     <script>
         // Set dynamic year
         document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Personaliza com os params da Monetizze (nome, e, venda)
+        (function(){
+            try {
+                var qp = new URLSearchParams(window.location.search);
+                var esc = function(s){ return String(s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); };
+                var first = (qp.get('nome')||'').trim().split(/\s+/)[0];
+                var email = (qp.get('e')||qp.get('email')||'').trim();
+                var order = (qp.get('venda')||qp.get('transacao')||'').trim();
+                if (first) { var n=document.getElementById('tyName'); if(n) n.textContent = ', ' + first; }
+                if (email) { var e=document.getElementById('tyEmail'); if(e) e.textContent = email; }
+                if (order) { var o=document.getElementById('tyOrder'); if(o) o.innerHTML = ' &middot; Order <strong>#' + esc(order) + '</strong>'; }
+                var cbtn=document.querySelector('.console-btn');
+                if(cbtn) cbtn.addEventListener('click',function(){ try{if(window.gtag)gtag('event','ty_open_console',{transport_type:'beacon'});}catch(_){} try{if(window.clarity)clarity('event','ty_open_console');}catch(_){} });
+            } catch(e){}
+        })();
 
         // Add staggered fade-in animation to elements
         (function() {
