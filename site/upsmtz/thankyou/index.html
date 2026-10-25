@@ -77,7 +77,7 @@ img,video,iframe{max-width:100%;height:auto;}
             <p class="subtitle">Your Love Vision · Whats Spy account has been activated</p>
         </div>
 
-        <div class="ty-confirm">
+        <div class="ty-confirm" id="tyConfirm">
             <div class="cc-row">✅ Order confirmed — <strong>Love Vision · Whats Spy</strong><span id="tyOrder"></span></div>
             <div class="cc-row">📧 Your login was emailed to <strong id="tyEmail">the address you used at checkout</strong> — sent from <span class="chip">UncoverAI</span>. Don't see it? Check <strong>Spam / Promotions</strong>.</div>
             <div class="cc-row">💳 On your card statement, the charge appears as <span class="chip">CENTERPAG</span> — that's us.</div>
@@ -85,10 +85,18 @@ img,video,iframe{max-width:100%;height:auto;}
         </div>
 
         <div class="ty-console">
+            <div class="console-label">Your report is ready</div>
+            <h2 class="console-title">Access your UncoverAI report</h2>
+            <p class="console-sub">Your report is ready on UncoverAI. Just click below and log in with the email you purchased with.</p>
+            <a href="https://lovefinds.site/wizard/start" class="console-btn" data-ty="report" target="_blank" rel="noopener">Open my report</a>
+            <p class="console-note">If the button does not open, check the purchase email — including spam.</p>
+        </div>
+
+        <div class="ty-console">
             <div class="console-label">Your access is ready</div>
             <h2 class="console-title">Open your console now</h2>
             <p class="console-sub">No password. Use the same email you bought with.</p>
-            <a href="https://app.zappdetect.com/login?src=thankyou&amp;lang=en" class="console-btn" target="_blank" rel="noopener">Open my console</a>
+            <a href="https://app.zappdetect.com/login?src=thankyou&amp;lang=en" class="console-btn" data-ty="console" target="_blank" rel="noopener">Open my console</a>
             <p class="console-note">If the button does not open, check the purchase email — including spam.</p>
         </div>
 
@@ -181,8 +189,11 @@ img,video,iframe{max-width:100%;height:auto;}
                 if (first) { var n=document.getElementById('tyName'); if(n) n.textContent = ', ' + first; }
                 if (email) { var e=document.getElementById('tyEmail'); if(e) e.textContent = email; }
                 if (order) { var o=document.getElementById('tyOrder'); if(o) o.innerHTML = ' &middot; Order <strong>#' + esc(order) + '</strong>'; }
-                var cbtn=document.querySelector('.console-btn');
-                if(cbtn) cbtn.addEventListener('click',function(){ try{if(window.gtag)gtag('event','ty_open_console',{transport_type:'beacon'});}catch(_){} try{if(window.clarity)clarity('event','ty_open_console');}catch(_){} });
+                // Sem nenhum param (nome/email/venda) -> esconde o box de confirmacao
+                if (!first && !email && !order) { var cc=document.getElementById('tyConfirm'); if(cc) cc.style.display='none'; }
+                // Rastreio dos botoes de acesso (report / console)
+                var btns=document.querySelectorAll('.console-btn');
+                for (var i=0;i<btns.length;i++){ (function(b){ b.addEventListener('click',function(){ var ev='ty_open_'+(b.getAttribute('data-ty')||'console'); try{if(window.gtag)gtag('event',ev,{transport_type:'beacon'});}catch(_){} try{if(window.clarity)clarity('event',ev);}catch(_){} }); })(btns[i]); }
             } catch(e){}
         })();
 
