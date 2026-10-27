@@ -286,7 +286,11 @@ function claimOffer() {
     var p = sessionStorage.getItem('sl_phone') || sessionStorage.getItem('buyer_phone') || '';
     var n = sessionStorage.getItem('buyer_name') || '';
     var e = sessionStorage.getItem('buyer_email') || '';
-    navigateWithQuery('https://api.checkoutkombat.com/go/rujezuwf', {
+    var mcr = new URLSearchParams(window.location.search).get('mcr');
+    var checkoutUrl = (mcr && mcr.trim() !== '')
+      ? 'https://pay.centerpag.com/CBJ486027'
+      : 'https://api.checkoutkombat.com/go/rujezuwf';
+    navigateWithQuery(checkoutUrl, {
       phone: p,
       name: n,
       email: e,
