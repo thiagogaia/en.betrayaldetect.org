@@ -187,7 +187,8 @@ body{
   <div class="checkout-loading-text">Redirecting to secure checkout...</div>
 </div>
 
-<!-- Teste A/B (desde 18/11/2026): esta página é o braço a39 (US$ 39,20, cupom 20%, CAQ486450).
+<!-- Teste A/B (desde 18/11/2026): esta página é o braço a39 (US$ 39,20, cupom Backredict 20%).
+     O checkout é o A/B do bump (RKW4941) com ?cupom=Backredict, que dá $39,20 nos dois lados.
      O braço n49 (sem desconto) é a reserved.html. O sorteio acontece na step6 (slBrAssign). -->
 <div class="overlay">
   <div class="card">
@@ -298,7 +299,8 @@ function claimOffer() {
   var overlay = document.getElementById('checkout-loading');
   if (overlay) overlay.style.display = 'flex';
   setTimeout(function () {
-    navigateWithQuery('https://pay.centerpag.com/CAQ486450', {
+    navigateWithQuery('https://pay.centerpag.com/RKW4941', {
+      cupom: 'Backredict',
       phone: slGet('sl_phone') || slGet('buyer_phone'),
       name: slGet('buyer_name'),
       email: slGet('buyer_email'),

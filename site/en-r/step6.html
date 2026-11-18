@@ -819,7 +819,9 @@ function toggleFaq(el){
   a.classList.toggle('show');
 }
 
-// Checkout — single plan $49 Full Access (Centerpag KCL468706)
+// Checkout — single plan $49 Full Access
+// Checkout pelo A/B da Monetizze "Com e Sem OB Front 49" (RKW4941, desde 18/11/2026): 50/50 entre
+// KCL468706 (com order bump) e KBV474280 (sem bump), fixo por cookie g_ab_KW4941.
 var CHECKOUT_CODE = 'PPU38CQF7JU';
 var PLAN_VALUE = 49;
 var PLAN_LABEL = '$49 Full Access';
@@ -835,8 +837,8 @@ function slSetL(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
 
 // ─── Teste A/B do back-redirect (desde 18/11/2026) ───
 // Só quem aperta Voltar ou tira o mouse pelo topo entra no sorteio (50/50, fixo por pessoa):
-//   a39 = backredirect.html, US$ 39,20 (cupom 20%, CAQ486450)
-//   n49 = reserved.html, sem desconto, US$ 49 (KCL468706)
+//   a39 = backredirect.html, US$ 39,20 (cupom Backredict 20%, via A/B do bump RKW4941)
+//   n49 = reserved.html, sem desconto, US$ 49 (A/B do bump RKW4941)
 // A variante vai no link do checkout (brv=...) e aparece no query_string da venda na Monetizze.
 function slBrVariant() {
   var v = slGetL('sl_br_var') || slGet('sl_br_var');
@@ -860,7 +862,7 @@ function goCheckout() {
     slSet('sl_goingToBackredirect', '1');
     window.__slLeavingForCheckout = true;
     // Checkout direto da Centerpag (US$ 49). brv = variante do teste do back-redirect, se a pessoa entrou nele.
-    navigateWithQuery('https://pay.centerpag.com/KCL468706', {
+    navigateWithQuery('https://pay.centerpag.com/RKW4941', {
       name: slGet('buyer_name'),
       email: slGet('buyer_email'),
       phone: slGet('buyer_phone') || dec || '',

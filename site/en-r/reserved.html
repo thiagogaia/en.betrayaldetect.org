@@ -187,7 +187,7 @@ body{
   <div class="checkout-loading-text">Redirecting to secure checkout...</div>
 </div>
 
-<!-- Duas funções, mesmo conteúdo (sem desconto extra, US$ 49, direto ao checkout KCL468706):
+<!-- Duas funções, mesmo conteúdo (sem desconto extra, US$ 49, direto ao checkout pelo A/B do bump RKW4941):
      1) braço n49 do teste A/B do back-redirect (Voltar / mouse saindo, sorteado na step6);
      2) puxar para baixo no celular na step6 (fora do teste, eventos br_soft_*). -->
 <div class="overlay">
@@ -312,7 +312,7 @@ function claimOffer() {
   var overlay = document.getElementById('checkout-loading');
   if (overlay) overlay.style.display = 'flex';
   setTimeout(function () {
-    navigateWithQuery('https://pay.centerpag.com/KCL468706', {
+    navigateWithQuery('https://pay.centerpag.com/RKW4941', {
       phone: slGet('sl_phone') || slGet('buyer_phone'),
       name: slGet('buyer_name'),
       email: slGet('buyer_email'),
