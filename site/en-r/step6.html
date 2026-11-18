@@ -819,7 +819,7 @@ function toggleFaq(el){
   a.classList.toggle('show');
 }
 
-// Checkout — single plan $49 Full Access
+// Checkout — single plan $49 Full Access (Centerpag KCL468706)
 var CHECKOUT_CODE = 'PPU38CQF7JU';
 var PLAN_VALUE = 49;
 var PLAN_LABEL = '$49 Full Access';
@@ -838,15 +838,15 @@ function goCheckout() {
     var n = sessionStorage.getItem('buyer_name') || '';
     var e = sessionStorage.getItem('buyer_email') || '';
     var p = sessionStorage.getItem('buyer_phone') || dec || '';
-    var mcr = new URLSearchParams(window.location.search).get('mcr');
-    var checkoutUrl = (mcr && mcr.trim() !== '')
-      ? 'https://pay.centerpag.com/KCJ467109'
-      : 'https://api.checkoutkombat.com/go/gvupsem9';
-    navigateWithQuery(checkoutUrl, {
+    // Checkout direto da Centerpag (US$ 49). brv = variante do teste do back-redirect, se a pessoa viu.
+    var brv = '';
+    try { brv = localStorage.getItem('sl_br_var') || sessionStorage.getItem('sl_br_var') || ''; } catch (eBr) {}
+    navigateWithQuery('https://pay.centerpag.com/KCL468706', {
       name: n,
       email: e,
       phone: p,
-      plan: PLAN_TIER
+      plan: PLAN_TIER,
+      brv: brv
     });
   }, 1400);
 }
@@ -854,19 +854,20 @@ function goCheckout() {
 // ─── Last step ONLY: back button + exit attempt → backredirect ───
 (function setupLastStepExit() {
   var FLAG = 'sl_goingToBackredirect';
-  var OFFER = 'backredirect.html';
+  var OFFER = 'backredirect.html'; // botao voltar / mouse saindo pelo topo -> teste A/B de desconto
+  var SOFT = 'reserved.html';       // puxar para baixo no celular -> mesmo formato, sem desconto
 
-  function offerUrl() {
-    if (typeof buildForwardUrl === 'function') return buildForwardUrl(OFFER);
+  function offerUrl(page) {
+    if (typeof buildForwardUrl === 'function') return buildForwardUrl(page);
     var q = window.location.search || '';
-    return OFFER + q;
+    return page + q;
   }
 
-  function goToOffer() {
+  function goToOffer(trigger) {
     // Avoid double navigation / loops
     if (sessionStorage.getItem(FLAG) === '1') return;
-    try { sessionStorage.setItem(FLAG, '1'); } catch (e) {}
-    window.location.href = offerUrl();
+    try { sessionStorage.setItem(FLAG, '1'); sessionStorage.setItem('sl_br_trigger', trigger || 'back'); } catch (e) {}
+    window.location.href = offerUrl(trigger === 'pull' ? SOFT : OFFER);
   }
 
   // Clear flag when we land on step6 (so back can fire again after skip from offer)
@@ -891,7 +892,7 @@ function goCheckout() {
   window.addEventListener('popstate', function () {
     // Immediately re-trap then leave to offer (so back doesn't fall through to step5)
     trap();
-    goToOffer();
+    goToOffer('back');
   });
 
   // Exit intent (desktop): mouse leaves through top of window (close / tab / address bar)
@@ -902,7 +903,7 @@ function goCheckout() {
     if (!exitArmed) return;
     // relatedTarget null + leaving toward top chrome
     if (e.relatedTarget == null && e.clientY <= 0) {
-      goToOffer();
+      goToOffer('mouse');
     }
   });
 
@@ -915,7 +916,7 @@ function goCheckout() {
     if (!exitArmed || !e.touches || !e.touches[0]) return;
     var dy = e.touches[0].clientY - touchY;
     if (dy > 120 && window.scrollY < 10) {
-      goToOffer();
+      goToOffer('pull');
     }
   }, { passive: true });
 

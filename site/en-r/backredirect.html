@@ -199,13 +199,13 @@ body{
 
     <h1 class="popup-title">
       Get Full Access for<br>
-      <span class="hi">$39.20 Instead of $49</span>
+      <span class="hi"><span class="js-br-price">$39.20</span> Instead of $49</span>
     </h1>
 
     <p class="popup-sub">
       You're about to miss out. Unlock deleted messages, hidden photos and secret chats with a
       <strong>one-time exclusive discount</strong>
-      of 20% off — only available right now on this page.
+      of <span class="js-br-pct">20%</span> off — only available right now on this page.
     </p>
 
     <div class="price-block">
@@ -216,8 +216,8 @@ body{
       <div class="price-arrow">→</div>
       <div class="price-new">
         <div class="price-new-label">Your Price Now</div>
-        <div class="price-new-val">$39.20</div>
-        <div class="savings-badge">Save 20%</div>
+        <div class="price-new-val js-br-price">$39.20</div>
+        <div class="savings-badge">Save <span class="js-br-pct">20%</span></div>
       </div>
     </div>
 
@@ -230,8 +230,8 @@ body{
       </div>
     </div>
 
-    <button class="cta-btn JS-initiate-checkout js-initiate-checkout" type="button" data-plan="backredirect" data-value="39.20" onclick="claimOffer()">
-      Yes! Claim My 20% Discount Now
+    <button class="cta-btn JS-initiate-checkout js-initiate-checkout" id="br-cta" type="button" data-plan="backredirect" data-value="39.20" onclick="claimOffer()">
+      Yes! Claim My <span class="js-br-pct">20%</span> Discount Now
     </button>
 
     <button class="skip-btn" type="button" onclick="skipOffer()">
@@ -249,6 +249,39 @@ body{
 </div>
 
 <script>
+// ─── Teste A/B do back-redirect (iniciado em 17/11/2026) ───
+// a39 = US$ 39,20 (cupom 20%, CAQ486450) · b45 = US$ 44,90 (cupom 8,37%, CRL486523)
+// Sorteio 50/50 na 1ª visita; fica salvo para a pessoa sempre ver o mesmo preço.
+// A variante vai no link do checkout (brv=...) e a Monetizze guarda na venda.
+var BR_VARIANTS = {
+  a39: { price: '$39.20', value: '39.20', pct: '20%', checkout: 'https://pay.centerpag.com/CAQ486450' },
+  b45: { price: '$44.90', value: '44.90', pct: '8%',  checkout: 'https://pay.centerpag.com/CRL486523' }
+};
+var BR_VAR = (function () {
+  var v = '';
+  try { v = localStorage.getItem('sl_br_var') || sessionStorage.getItem('sl_br_var') || ''; } catch (e) {}
+  if (!BR_VARIANTS[v]) v = Math.random() < 0.5 ? 'a39' : 'b45';
+  try { localStorage.setItem('sl_br_var', v); } catch (e) {}
+  try { sessionStorage.setItem('sl_br_var', v); } catch (e) {}
+  return v;
+})();
+var BR_TRIGGER = (function () { try { return sessionStorage.getItem('sl_br_trigger') || 'direct'; } catch (e) { return 'direct'; } })();
+(function applyVariant() {
+  var cfg = BR_VARIANTS[BR_VAR];
+  document.querySelectorAll('.js-br-price').forEach(function (el) { el.textContent = cfg.price; });
+  document.querySelectorAll('.js-br-pct').forEach(function (el) { el.textContent = cfg.pct; });
+  var cta = document.getElementById('br-cta');
+  if (cta) cta.setAttribute('data-value', cfg.value);
+})();
+function brTrack(name) {
+  var props = { br_variant: BR_VAR, br_trigger: BR_TRIGGER };
+  try { if (window.gtag) gtag('event', name, props); } catch (e) {}
+  try {
+    if (window.clarity) { clarity('set', 'br_variant', BR_VAR); clarity('event', name); }
+  } catch (e) {}
+}
+brTrack('br_view');
+
 // Offer countdown = SAME remaining time as top bar (never restarts here)
 (function syncOfferTimer() {
   var COUNTDOWN_KEY = 'sl_accessExpiresAt';
@@ -279,6 +312,7 @@ body{
 
 // Same checkout as reference backredirect (special offer product)
 function claimOffer() {
+  brTrack('br_claim');
   var overlay = document.getElementById('checkout-loading');
   if (overlay) overlay.style.display = 'flex';
 
@@ -286,20 +320,18 @@ function claimOffer() {
     var p = sessionStorage.getItem('sl_phone') || sessionStorage.getItem('buyer_phone') || '';
     var n = sessionStorage.getItem('buyer_name') || '';
     var e = sessionStorage.getItem('buyer_email') || '';
-    var mcr = new URLSearchParams(window.location.search).get('mcr');
-    var checkoutUrl = (mcr && mcr.trim() !== '')
-      ? 'https://pay.centerpag.com/CAQ486450'
-      : 'https://api.checkoutkombat.com/go/rujezuwf';
-    navigateWithQuery(checkoutUrl, {
+    navigateWithQuery(BR_VARIANTS[BR_VAR].checkout, {
       phone: p,
       name: n,
       email: e,
-      plan: 'backredirect'
+      plan: 'backredirect',
+      brv: BR_VAR
     });
   }, 1400);
 }
 
 function skipOffer() {
+  brTrack('br_skip');
   // Allow step6 exit trap again, then return to CTA
   try { sessionStorage.removeItem('sl_goingToBackredirect'); } catch (e) {}
   navigateWithQuery('step6.html');
