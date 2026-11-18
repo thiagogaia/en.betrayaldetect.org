@@ -187,6 +187,8 @@ body{
   <div class="checkout-loading-text">Redirecting to secure checkout...</div>
 </div>
 
+<!-- Teste A/B (desde 18/11/2026): esta página é o braço a39 (US$ 39,20, cupom 20%, CAQ486450).
+     O braço n49 (sem desconto) é a reserved.html. O sorteio acontece na step6 (slBrAssign). -->
 <div class="overlay">
   <div class="card">
     <div class="live-badge">
@@ -199,25 +201,24 @@ body{
 
     <h1 class="popup-title">
       Get Full Access for<br>
-      <span class="hi"><span class="js-br-price">$39.20</span> Instead of $49</span>
+      <span class="hi">$39.20 Instead of $49</span>
     </h1>
 
     <p class="popup-sub">
-      You're about to miss out. Unlock deleted messages, hidden photos and secret chats with a
-      <strong>one-time exclusive discount</strong>
-      of <span class="js-br-pct">20%</span> off — only available right now on this page.
+      You're about to miss out. Unlock deleted messages, hidden photos and secret chats with an
+      <strong>extra $9.80 off</strong>, only available right now on this page.
     </p>
 
     <div class="price-block">
       <div class="price-old">
-        <div class="price-old-label">Original Price</div>
+        <div class="price-old-label">Today's Price</div>
         <div class="price-old-val">$49</div>
       </div>
       <div class="price-arrow">→</div>
       <div class="price-new">
         <div class="price-new-label">Your Price Now</div>
-        <div class="price-new-val js-br-price">$39.20</div>
-        <div class="savings-badge">Save <span class="js-br-pct">20%</span></div>
+        <div class="price-new-val">$39.20</div>
+        <div class="savings-badge">You save $9.80</div>
       </div>
     </div>
 
@@ -230,16 +231,16 @@ body{
       </div>
     </div>
 
-    <button class="cta-btn JS-initiate-checkout js-initiate-checkout" id="br-cta" type="button" data-plan="backredirect" data-value="39.20" onclick="claimOffer()">
-      Yes! Claim My <span class="js-br-pct">20%</span> Discount Now
+    <button class="cta-btn JS-initiate-checkout js-initiate-checkout" type="button" data-plan="backredirect" data-value="39.20" onclick="claimOffer()">
+      Yes! Unlock Full Access for $39.20
     </button>
 
     <button class="skip-btn" type="button" onclick="skipOffer()">
-      No thanks, I'll pay full price later
+      No thanks, I'll pay $49
     </button>
 
     <div class="popup-footer">
-      🔒 Secure Payment · 30-Day Guarantee · Instant Access
+      🔒 One-time payment · Secure Payment · 30-Day Guarantee · Instant Access
     </div>
     <div class="trust-row">
       <span>✅ 100% Anonymous</span>
@@ -249,36 +250,25 @@ body{
 </div>
 
 <script>
-// ─── Teste A/B do back-redirect (iniciado em 17/11/2026) ───
-// a39 = US$ 39,20 (cupom 20%, CAQ486450) · b45 = US$ 44,90 (cupom 8,37%, CRL486523)
-// Sorteio 50/50 na 1ª visita; fica salvo para a pessoa sempre ver o mesmo preço.
-// A variante vai no link do checkout (brv=...) e a Monetizze guarda na venda.
-var BR_VARIANTS = {
-  a39: { price: '$39.20', value: '39.20', pct: '20%', checkout: 'https://pay.centerpag.com/CAQ486450' },
-  b45: { price: '$44.90', value: '44.90', pct: '8%',  checkout: 'https://pay.centerpag.com/CRL486523' }
-};
-var BR_VAR = (function () {
-  var v = '';
-  try { v = localStorage.getItem('sl_br_var') || sessionStorage.getItem('sl_br_var') || ''; } catch (e) {}
-  if (!BR_VARIANTS[v]) v = Math.random() < 0.5 ? 'a39' : 'b45';
-  try { localStorage.setItem('sl_br_var', v); } catch (e) {}
-  try { sessionStorage.setItem('sl_br_var', v); } catch (e) {}
-  return v;
+function slGet(k) { try { return sessionStorage.getItem(k) || ''; } catch (e) { return ''; } }
+function slSet(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
+function slDel(k) { try { sessionStorage.removeItem(k); } catch (e) {} }
+function slGetL(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } }
+
+// Quem foi sorteado para o braço sem desconto nunca vê esta página
+(function () {
+  var v = slGetL('sl_br_var') || slGet('sl_br_var');
+  if (v === 'n49') { window.location.replace('reserved.html' + window.location.search); }
 })();
-var BR_TRIGGER = (function () { try { return sessionStorage.getItem('sl_br_trigger') || 'direct'; } catch (e) { return 'direct'; } })();
-(function applyVariant() {
-  var cfg = BR_VARIANTS[BR_VAR];
-  document.querySelectorAll('.js-br-price').forEach(function (el) { el.textContent = cfg.price; });
-  document.querySelectorAll('.js-br-pct').forEach(function (el) { el.textContent = cfg.pct; });
-  var cta = document.getElementById('br-cta');
-  if (cta) cta.setAttribute('data-value', cfg.value);
-})();
-function brTrack(name) {
+
+var BR_VAR = 'a39';
+var BR_TRIGGER = slGet('sl_br_trigger') || 'direct';
+slDel('sl_br_trigger'); // não deixa o gatilho velho contaminar a próxima visita
+function brTrack(name, beacon) {
   var props = { br_variant: BR_VAR, br_trigger: BR_TRIGGER };
+  if (beacon) props.transport_type = 'beacon';
   try { if (window.gtag) gtag('event', name, props); } catch (e) {}
-  try {
-    if (window.clarity) { clarity('set', 'br_variant', BR_VAR); clarity('event', name); }
-  } catch (e) {}
+  try { if (window.clarity) { clarity('set', 'br_variant', BR_VAR); clarity('event', name); } } catch (e) {}
 }
 brTrack('br_view');
 
@@ -287,43 +277,31 @@ brTrack('br_view');
   var COUNTDOWN_KEY = 'sl_accessExpiresAt';
   var tmEl = document.getElementById('tm');
   var tsEl = document.getElementById('ts');
-
   function getExpiresAt() {
-    // Prefer existing deadline from the funnel — do NOT create a new 15:00
-    var stored = parseInt(localStorage.getItem(COUNTDOWN_KEY), 10);
+    var stored = parseInt(slGetL(COUNTDOWN_KEY), 10);
     if (stored && !isNaN(stored)) return stored;
-    var backup = parseInt(sessionStorage.getItem(COUNTDOWN_KEY), 10);
+    var backup = parseInt(slGet(COUNTDOWN_KEY), 10);
     if (backup && !isNaN(backup)) return backup;
-    // No timer yet (opened offer alone) — show zero, don't invent a new countdown
-    return Date.now();
+    return Date.now(); // No timer yet — show zero, don't invent a new countdown
   }
-
   function tick() {
-    var expiresAt = getExpiresAt();
-    var rem = Math.max(0, expiresAt - Date.now());
-    var mins = Math.floor(rem / 60000);
-    var secs = Math.floor((rem % 60000) / 1000);
-    if (tmEl) tmEl.textContent = String(mins).padStart(2, '0');
-    if (tsEl) tsEl.textContent = String(secs).padStart(2, '0');
+    var rem = Math.max(0, getExpiresAt() - Date.now());
+    if (tmEl) tmEl.textContent = String(Math.floor(rem / 60000)).padStart(2, '0');
+    if (tsEl) tsEl.textContent = String(Math.floor((rem % 60000) / 1000)).padStart(2, '0');
     setTimeout(tick, 250);
   }
   tick();
 })();
 
-// Same checkout as reference backredirect (special offer product)
 function claimOffer() {
-  brTrack('br_claim');
+  brTrack('br_claim', true);
   var overlay = document.getElementById('checkout-loading');
   if (overlay) overlay.style.display = 'flex';
-
   setTimeout(function () {
-    var p = sessionStorage.getItem('sl_phone') || sessionStorage.getItem('buyer_phone') || '';
-    var n = sessionStorage.getItem('buyer_name') || '';
-    var e = sessionStorage.getItem('buyer_email') || '';
-    navigateWithQuery(BR_VARIANTS[BR_VAR].checkout, {
-      phone: p,
-      name: n,
-      email: e,
+    navigateWithQuery('https://pay.centerpag.com/CAQ486450', {
+      phone: slGet('sl_phone') || slGet('buyer_phone'),
+      name: slGet('buyer_name'),
+      email: slGet('buyer_email'),
       plan: 'backredirect',
       brv: BR_VAR
     });
@@ -331,27 +309,24 @@ function claimOffer() {
 }
 
 function skipOffer() {
-  brTrack('br_skip');
-  // Allow step6 exit trap again, then return to CTA
-  try { sessionStorage.removeItem('sl_goingToBackredirect'); } catch (e) {}
+  brTrack('br_skip', true);
+  slDel('sl_goingToBackredirect'); // Allow step6 exit trap again, then return to CTA
   navigateWithQuery('step6.html');
 }
 
+// Voltando do checkout pelo cache do navegador: tira o spinner
+window.addEventListener('pageshow', function (e) {
+  if (!e.persisted) return;
+  var o = document.getElementById('checkout-loading');
+  if (o) o.style.display = 'none';
+});
+
 // Stay on offer if user presses back again (don't leave the funnel empty)
 (function () {
-  function trap() {
-    try { history.pushState({ slOffer: 1 }, '', location.href); } catch (e) {}
-  }
-  trap();
-  setTimeout(trap, 50);
-  setTimeout(trap, 200);
-  window.addEventListener('popstate', function () {
-    trap();
-    // Keep user on special offer (or re-load self)
-    // do nothing — already on offer page
-  });
-  // Clear navigation flag so offer can be shown again if they return to step6 and leave
-  try { sessionStorage.removeItem('sl_goingToBackredirect'); } catch (e) {}
+  function trap() { try { history.pushState({ slOffer: 1 }, '', location.href); } catch (e) {} }
+  trap(); setTimeout(trap, 50); setTimeout(trap, 200);
+  window.addEventListener('popstate', function () { trap(); });
+  slDel('sl_goingToBackredirect');
 })();
 </script>
 </body>

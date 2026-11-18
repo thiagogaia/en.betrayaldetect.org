@@ -187,8 +187,9 @@ body{
   <div class="checkout-loading-text">Redirecting to secure checkout...</div>
 </div>
 
-<!-- Puxar para baixo no celular (step6) cai aqui: mesmo formato do back-redirect, SEM desconto extra.
-     Mostra o desconto que já está aplicado ($197 -> $49) e leva direto ao checkout de US$ 49. -->
+<!-- Duas funções, mesmo conteúdo (sem desconto extra, US$ 49, direto ao checkout KCL468706):
+     1) braço n49 do teste A/B do back-redirect (Voltar / mouse saindo, sorteado na step6);
+     2) puxar para baixo no celular na step6 (fora do teste, eventos br_soft_*). -->
 <div class="overlay">
   <div class="card">
     <div class="live-badge">
@@ -197,16 +198,16 @@ body{
     </div>
 
     <div class="popup-icon">🔒</div>
-    <div class="popup-label">Wait — Your Report Is Ready</div>
+    <div class="popup-label">Your Report Is Saved</div>
 
     <h1 class="popup-title">
-      Unlock the Full Report for<br>
-      <span class="hi">Just $49</span>
+      Your Report Is Ready.<br>
+      <span class="hi">Unlock It for $49</span>
     </h1>
 
     <p class="popup-sub">
-      Your report on <strong id="rs-phone">this number</strong> is reserved. The
-      <strong>75% discount is already applied</strong> — unlock deleted messages, hidden photos and secret chats now, before your reservation expires.
+      Your report on <strong id="rs-phone">this number</strong> is reserved with
+      <strong>75% OFF already applied ($197 → $49)</strong>. Unlock deleted messages, hidden photos and secret chats before your reservation expires.
     </p>
 
     <div class="price-block">
@@ -232,11 +233,11 @@ body{
     </div>
 
     <button class="cta-btn JS-initiate-checkout js-initiate-checkout" type="button" data-plan="reserved" data-value="49" onclick="claimOffer()">
-      Yes! Unlock My Full Report — $49
+      Unlock My Report Now — $49
     </button>
 
     <button class="skip-btn" type="button" onclick="skipOffer()">
-      Go back to my report
+      ← Keep viewing my report
     </button>
 
     <div class="popup-footer">
@@ -250,20 +251,35 @@ body{
 </div>
 
 <script>
-// Variante do teste do back-redirect, se a pessoa já viu (para a venda a $49 contar na variante certa)
-var BR_VAR = (function () { try { return localStorage.getItem('sl_br_var') || sessionStorage.getItem('sl_br_var') || ''; } catch (e) { return ''; } })();
-function rsTrack(name) {
-  var props = { br_variant: BR_VAR || 'none', br_trigger: 'pull' };
-  try { if (window.gtag) gtag('event', name, props); } catch (e) {}
-  try { if (window.clarity) { clarity('set', 'br_page', 'reserved'); clarity('event', name); } } catch (e) {}
+function slGet(k) { try { return sessionStorage.getItem(k) || ''; } catch (e) { return ''; } }
+function slDel(k) { try { sessionStorage.removeItem(k); } catch (e) {} }
+function slGetL(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } }
+
+var BR_VAR = slGetL('sl_br_var') || slGet('sl_br_var') || '';
+var BR_TRIGGER = slGet('sl_br_trigger') || 'direct';
+slDel('sl_br_trigger');
+// Braço n49 do teste = chegou por Voltar/mouse com a variante n49. Senão é o "puxar para baixo" (fora do teste).
+var IN_TEST = BR_VAR === 'n49' && (BR_TRIGGER === 'back' || BR_TRIGGER === 'mouse');
+var EV = IN_TEST ? 'br_' : 'br_soft_';
+function rsTrack(name, beacon) {
+  var props = { br_variant: BR_VAR || 'none', br_trigger: BR_TRIGGER };
+  if (beacon) props.transport_type = 'beacon';
+  try { if (window.gtag) gtag('event', EV + name, props); } catch (e) {}
+  try {
+    if (window.clarity) {
+      if (BR_VAR) clarity('set', 'br_variant', BR_VAR);
+      clarity('set', 'br_page', 'reserved');
+      clarity('event', EV + name);
+    }
+  } catch (e) {}
 }
-rsTrack('br_soft_view');
+rsTrack('view');
 
 // Número mascarado, igual à step6
 (function () {
   try {
     var up = new URLSearchParams(window.location.search);
-    var ph = up.get('phone') || sessionStorage.getItem('sl_phone') || '';
+    var ph = up.get('phone') || slGet('sl_phone');
     var dec = ph ? decodeURIComponent(ph) : '';
     var masked = dec.replace(/\d(?=\d{2})/g, '*').replace(/\*+/, '****');
     if (masked) document.getElementById('rs-phone').textContent = masked;
@@ -276,9 +292,9 @@ rsTrack('br_soft_view');
   var tmEl = document.getElementById('tm');
   var tsEl = document.getElementById('ts');
   function getExpiresAt() {
-    var stored = parseInt(localStorage.getItem(COUNTDOWN_KEY), 10);
+    var stored = parseInt(slGetL(COUNTDOWN_KEY), 10);
     if (stored && !isNaN(stored)) return stored;
-    var backup = parseInt(sessionStorage.getItem(COUNTDOWN_KEY), 10);
+    var backup = parseInt(slGet(COUNTDOWN_KEY), 10);
     if (backup && !isNaN(backup)) return backup;
     return Date.now();
   }
@@ -292,14 +308,14 @@ rsTrack('br_soft_view');
 })();
 
 function claimOffer() {
-  rsTrack('br_soft_claim');
+  rsTrack('claim', true);
   var overlay = document.getElementById('checkout-loading');
   if (overlay) overlay.style.display = 'flex';
   setTimeout(function () {
     navigateWithQuery('https://pay.centerpag.com/KCL468706', {
-      phone: sessionStorage.getItem('sl_phone') || sessionStorage.getItem('buyer_phone') || '',
-      name: sessionStorage.getItem('buyer_name') || '',
-      email: sessionStorage.getItem('buyer_email') || '',
+      phone: slGet('sl_phone') || slGet('buyer_phone'),
+      name: slGet('buyer_name'),
+      email: slGet('buyer_email'),
       plan: 'reserved',
       brv: BR_VAR || 'soft'
     });
@@ -307,17 +323,24 @@ function claimOffer() {
 }
 
 function skipOffer() {
-  rsTrack('br_soft_skip');
-  try { sessionStorage.removeItem('sl_goingToBackredirect'); } catch (e) {}
+  rsTrack('skip', true);
+  slDel('sl_goingToBackredirect');
   navigateWithQuery('step6.html');
 }
+
+// Voltando do checkout pelo cache do navegador: tira o spinner
+window.addEventListener('pageshow', function (e) {
+  if (!e.persisted) return;
+  var o = document.getElementById('checkout-loading');
+  if (o) o.style.display = 'none';
+});
 
 // Botão voltar aqui não sai do funil
 (function () {
   function trap() { try { history.pushState({ slOffer: 1 }, '', location.href); } catch (e) {} }
   trap(); setTimeout(trap, 50); setTimeout(trap, 200);
   window.addEventListener('popstate', function () { trap(); });
-  try { sessionStorage.removeItem('sl_goingToBackredirect'); } catch (e) {}
+  slDel('sl_goingToBackredirect');
 })();
 </script>
 </body>

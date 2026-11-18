@@ -826,68 +826,96 @@ var PLAN_LABEL = '$49 Full Access';
 var PLAN_TIER = 'full';
 
 
+// Acesso ao storage que nunca quebra a página (modo privado / webview com storage bloqueado)
+function slGet(k) { try { return sessionStorage.getItem(k) || ''; } catch (e) { return ''; } }
+function slSet(k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} }
+function slDel(k) { try { sessionStorage.removeItem(k); } catch (e) {} }
+function slGetL(k) { try { return localStorage.getItem(k) || ''; } catch (e) { return ''; } }
+function slSetL(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+
+// ─── Teste A/B do back-redirect (desde 18/11/2026) ───
+// Só quem aperta Voltar ou tira o mouse pelo topo entra no sorteio (50/50, fixo por pessoa):
+//   a39 = backredirect.html, US$ 39,20 (cupom 20%, CAQ486450)
+//   n49 = reserved.html, sem desconto, US$ 49 (KCL468706)
+// A variante vai no link do checkout (brv=...) e aparece no query_string da venda na Monetizze.
+function slBrVariant() {
+  var v = slGetL('sl_br_var') || slGet('sl_br_var');
+  if (v !== 'a39' && v !== 'n49') v = '';
+  return v;
+}
+function slBrAssign() {
+  var v = slBrVariant();
+  if (!v) v = Math.random() < 0.5 ? 'a39' : 'n49';
+  slSetL('sl_br_var', v); slSet('sl_br_var', v);
+  return v;
+}
+
 function goCheckout() {
   var overlay = document.getElementById('checkout-loading');
   if (overlay) overlay.style.display = 'flex';
 
-  try { sessionStorage.setItem('sl_plan', PLAN_TIER); } catch (e) {}
+  slSet('sl_plan', PLAN_TIER);
 
   setTimeout(function () {
-    try { sessionStorage.setItem('sl_goingToBackredirect', '1'); } catch (e) {}
+    slSet('sl_goingToBackredirect', '1');
     window.__slLeavingForCheckout = true;
-    var n = sessionStorage.getItem('buyer_name') || '';
-    var e = sessionStorage.getItem('buyer_email') || '';
-    var p = sessionStorage.getItem('buyer_phone') || dec || '';
-    // Checkout direto da Centerpag (US$ 49). brv = variante do teste do back-redirect, se a pessoa viu.
-    var brv = '';
-    try { brv = localStorage.getItem('sl_br_var') || sessionStorage.getItem('sl_br_var') || ''; } catch (eBr) {}
+    // Checkout direto da Centerpag (US$ 49). brv = variante do teste do back-redirect, se a pessoa entrou nele.
     navigateWithQuery('https://pay.centerpag.com/KCL468706', {
-      name: n,
-      email: e,
-      phone: p,
+      name: slGet('buyer_name'),
+      email: slGet('buyer_email'),
+      phone: slGet('buyer_phone') || dec || '',
       plan: PLAN_TIER,
-      brv: brv
+      brv: slBrVariant()
     });
   }, 1400);
 }
 
-// ─── Last step ONLY: back button + exit attempt → backredirect ───
+// Voltando do checkout pelo cache do navegador (bfcache, comum no iPhone): tira o spinner e religa as armadilhas
+window.addEventListener('pageshow', function (e) {
+  if (!e.persisted) return;
+  var o = document.getElementById('checkout-loading');
+  if (o) o.style.display = 'none';
+  slDel('sl_goingToBackredirect');
+  window.__slLeavingForCheckout = false;
+});
+
+// ─── Last step ONLY: Voltar / mouse saindo → teste A/B; puxar para baixo no celular → reserved.html ───
 (function setupLastStepExit() {
   var FLAG = 'sl_goingToBackredirect';
-  var OFFER = 'backredirect.html'; // botao voltar / mouse saindo pelo topo -> teste A/B de desconto
-  var SOFT = 'reserved.html';       // puxar para baixo no celular -> mesmo formato, sem desconto
 
-  function offerUrl(page) {
+  function pageUrl(page) {
     if (typeof buildForwardUrl === 'function') return buildForwardUrl(page);
-    var q = window.location.search || '';
-    return page + q;
+    return page + (window.location.search || '');
   }
 
   function goToOffer(trigger) {
     // Avoid double navigation / loops
-    if (sessionStorage.getItem(FLAG) === '1') return;
-    try { sessionStorage.setItem(FLAG, '1'); sessionStorage.setItem('sl_br_trigger', trigger || 'back'); } catch (e) {}
-    window.location.href = offerUrl(trigger === 'pull' ? SOFT : OFFER);
+    if (slGet(FLAG) === '1') return;
+    slSet(FLAG, '1');
+    slSet('sl_br_trigger', trigger);
+    var page;
+    if (trigger === 'pull') {
+      page = 'reserved.html';
+    } else {
+      page = slBrAssign() === 'a39' ? 'backredirect.html' : 'reserved.html';
+    }
+    window.location.href = pageUrl(page);
   }
 
   // Clear flag when we land on step6 (so back can fire again after skip from offer)
-  try {
-    if (sessionStorage.getItem(FLAG) === '1') {
-      // Coming back from offer via "No thanks" is fine; allow future triggers
-      sessionStorage.removeItem(FLAG);
-    }
-  } catch (e) {}
+  slDel(FLAG);
 
-  // Build history traps so browser Back always hits popstate on this page first
+  // Build history traps so browser Back always hits popstate on this page first.
+  // Chrome/WebView pode ignorar entradas criadas sem gesto do usuário → refaz no 1º toque/clique.
   function trap() {
-    try {
-      history.pushState({ slStep6: 1, t: Date.now() }, '', location.href);
-    } catch (e) {}
+    try { history.pushState({ slStep6: 1, t: Date.now() }, '', location.href); } catch (e) {}
   }
   trap();
   setTimeout(trap, 50);
   setTimeout(trap, 200);
   setTimeout(trap, 500);
+  document.addEventListener('touchstart', trap, { once: true, passive: true });
+  document.addEventListener('click', trap, { once: true });
 
   window.addEventListener('popstate', function () {
     // Immediately re-trap then leave to offer (so back doesn't fall through to step5)
@@ -901,21 +929,23 @@ function goCheckout() {
 
   document.addEventListener('mouseout', function (e) {
     if (!exitArmed) return;
-    // relatedTarget null + leaving toward top chrome
-    if (e.relatedTarget == null && e.clientY <= 0) {
-      goToOffer('mouse');
-    }
+    if (e.relatedTarget == null && e.clientY <= 0) goToOffer('mouse');
   });
 
-  // Mobile: pull-down at top of page (attempt to leave)
-  var touchY = 0;
+  // Mobile: puxar para baixo JÁ estando no topo (um dedo só), no máximo 1x por sessão.
+  // Rolar para cima até o topo num gesto só não dispara (o toque precisa começar com a página no topo).
+  var touchY = 0, startAtTop = false;
   document.addEventListener('touchstart', function (e) {
-    if (e.touches && e.touches[0]) touchY = e.touches[0].clientY;
+    startAtTop = !!(e.touches && e.touches.length === 1 && window.scrollY <= 0);
+    if (startAtTop) touchY = e.touches[0].clientY;
   }, { passive: true });
   document.addEventListener('touchmove', function (e) {
-    if (!exitArmed || !e.touches || !e.touches[0]) return;
+    if (!exitArmed || !startAtTop || !e.touches || e.touches.length !== 1) return;
+    if (slGet('sl_soft_shown') === '1') return;
     var dy = e.touches[0].clientY - touchY;
-    if (dy > 120 && window.scrollY < 10) {
+    if (dy > 120 && window.scrollY <= 0) {
+      startAtTop = false;
+      slSet('sl_soft_shown', '1');
       goToOffer('pull');
     }
   }, { passive: true });
@@ -923,7 +953,7 @@ function goCheckout() {
   // Tab close / refresh: browser only allows a confirm dialog (cannot force redirect)
   window.addEventListener('beforeunload', function (e) {
     if (window.__slLeavingForCheckout) return;
-    if (sessionStorage.getItem(FLAG) === '1') return;
+    if (slGet(FLAG) === '1') return;
     e.preventDefault();
     e.returnValue = '';
     return '';
