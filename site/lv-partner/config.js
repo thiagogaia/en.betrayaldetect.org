@@ -99,7 +99,7 @@ window.LV_CONFIG = LV_merge({
   },
   offer: {
     // BATIMENTO 4 — a esperança (hero): a promessa é verdade + paz, não features, não preço.
-    kicker: 'Your plan is ready',
+    kicker: 'Your clarity plan is ready',
     headline: 'Stop guessing. <em>Find out what’s real</em> — and get your peace back.',
     sub: 'Step-by-step videos: how to read the signs that actually mean something (and tell them apart from fear), what the science of deception really shows about someone hiding the truth, and the App Kit that brings real transparency to your relationship — so you find out without ever spying a phone.',
     cta: 'Get the truth — and my peace — $27',
