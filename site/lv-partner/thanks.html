@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Love Vision – You’re in</title>
+<link rel="icon" href="/favicon/favicon-192x192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/lv-shared/css/lv.css?v=20">
+<script>
+  // Página de obrigado do lv-partner (produto Monetizze 363001). Mesmo funil/variante da sessão de compra.
+  window.LV_CONFIG = { funnel: 'lv-partner', variant: (function () { try { return sessionStorage.getItem('lv_partner_v') || 'unknown'; } catch (e) { return 'unknown'; } })(), offer: {} };
+</script>
+<script src="/lv-shared/js/core.js?v=20"></script>
+<style>
+  .lv-ty ol{padding-left:22px;margin:8px 0 0}.lv-ty li{padding:8px 0;line-height:1.5}
+  .lv-ty .lv-guarantee{margin-top:18px}
+</style>
+</head>
+<body>
+<header class="lv-top"><span class="heart">♥</span> Love Vision</header>
+<main class="lv-ty">
+  <section class="lv-hero">
+    <p class="lv-kicker">Payment confirmed</p>
+    <h1>You’re in. <em>Your plan is on its way.</em></h1>
+    <p class="lv-sub">Thank you for trusting us. Here’s how to get started in the next few minutes.</p>
+  </section>
+  <section class="lv-card">
+    <h2>What to do now</h2>
+    <ol>
+      <li><strong>Check your email.</strong> Your login to the members area arrives within a few minutes, sent to the email you used at checkout. If you don’t see it, look in <strong>Spam</strong> or <strong>Promotions</strong>.</li>
+      <li><strong>Log in and open “Start Here”.</strong> It shows you what to watch first, so you can start getting answers today.</li>
+      <li><strong>Can’t find the email?</strong> Write to <a href="mailto:contacto@love-vision.site">contacto@love-vision.site</a> with the email you used to buy. A real person will help you.</li>
+    </ol>
+    <div class="lv-guarantee"><strong>30-day money-back guarantee</strong><p>If Love Vision isn’t for you, email us within 30 days for a full refund. No questions asked.</p></div>
+  </section>
+  <footer class="lv-footer"><p class="lv-legal-links"><a href="/lv-legal/terms.html">Terms</a> · <a href="/lv-legal/privacy.html">Privacy</a> · <a href="/lv-legal/refund.html">Refund policy</a> · <a href="mailto:contacto@love-vision.site">contacto@love-vision.site</a></p><p>Love Vision is offered by LoveVision LDA. The charge is processed by Centerpag.</p></footer>
+</main>
+<script>
+  // Compra no GA: só 1x por sessão e só para quem chegou do checkout (evita contar visita direta/robô).
+  (function () {
+    var cameFromCheckout = /centerpag|monetizze/i.test(document.referrer || '');
+    var inFunnel = false; try { inFunnel = !!sessionStorage.getItem('lv_partner_v'); } catch (e) {}
+    var sent = false; try { sent = !!sessionStorage.getItem('lv_purchase_sent'); } catch (e) {}
+    if (sent || !(cameFromCheckout || inFunnel)) { LV.track('lv_view', { lv_page: 'thanks', lv_counted: 'no' }); return; }
+    var qs = new URLSearchParams(location.search);
+    var tid = qs.get('transacao') || qs.get('codigo') || qs.get('venda') || ('lvp-' + Date.now());
+    LV.track('purchase', { transaction_id: tid, value: 27, currency: 'USD',
+      items: [{ item_id: '363001', item_name: 'Love Vision Clarity', price: 27, quantity: 1 }] });
+    LV.track('lv_view', { lv_page: 'thanks', lv_counted: 'yes' });
+    try { sessionStorage.setItem('lv_purchase_sent', '1'); } catch (e) {}
+  })();
+</script>
+</body>
+</html>

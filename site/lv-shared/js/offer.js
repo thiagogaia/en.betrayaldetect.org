@@ -205,6 +205,24 @@
     } else showStk();
   }
 
+  // Rastreio: até onde a pessoa chega na oferta. Cada seção dispara lv_section_view uma vez,
+  // quando o topo dela entra nos 60% de cima da tela (funciona mesmo em seção mais alta que a tela).
+  if (w.IntersectionObserver) {
+    var SECS = [['.lv-unmask', 'unmask'], ['.lv-report', 'report'], ['.lv-bridge', 'bridge'], ['.lv-hero', 'hero'],
+                ['.lv-plan', 'plan'], ['.lv-kit', 'app_kit'], ['.lv-why', 'why'], ['.lv-notdo', 'not_do'],
+                ['.lv-pricebox', 'pricebox'], ['.lv-footer', 'footer']];
+    var secSeen = {};
+    var secObs = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        var n = e.target.getAttribute('data-lv-sec');
+        if (!secSeen[n]) { secSeen[n] = 1; LV.track('lv_section_view', { lv_section: n }); }
+        secObs.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -40% 0px', threshold: 0 });
+    SECS.forEach(function (p) { var el = root.querySelector(p[0]); if (el) { el.setAttribute('data-lv-sec', p[1]); secObs.observe(el); } });
+  }
+
   root.querySelectorAll('[data-cta]').forEach(function (b) {
     b.onclick = function () {
       b.setAttribute('data-loading', '');
@@ -219,7 +237,7 @@
     var t = setInterval(function () {
       pct += 7; if (pct > 98) pct = 98;
       bar.style.width = pct + '%'; line.textContent = lines[Math.min(3, Math.floor(pct / 25))] + ' ' + pct + '%';
-      if (pct >= 98) { clearInterval(t); box.classList.add('is-busted'); line.textContent = o.unmask.busted;
+      if (pct >= 98) { clearInterval(t); box.classList.add('is-busted'); line.textContent = o.unmask.busted; LV.track('lv_unmask_done');
         var sec = d.getElementById('lv-unmask'); if (sec) setTimeout(function () { sec.classList.add('is-revealed'); }, 700); }
     }, 140);
     var form = d.getElementById('lv-look-form'); if (!form) return;
