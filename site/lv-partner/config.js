@@ -99,7 +99,7 @@ window.LV_CONFIG = LV_merge({
   },
   offer: {
     // BATIMENTO 4 — a esperança (hero): a promessa é verdade + paz, não features, não preço.
-    kicker: 'Your clarity plan is ready',
+    kicker: 'Your plan is ready',
     headline: 'Stop guessing. <em>Find out what’s real</em> — and get your peace back.',
     sub: 'Step-by-step videos: how to read the signs that actually mean something (and tell them apart from fear), what the science of deception really shows about someone hiding the truth, and the App Kit that brings real transparency to your relationship — so you find out without ever spying a phone.',
     cta: 'Get the truth — and my peace — $27',
@@ -237,7 +237,7 @@ window.LV_CONFIG = LV_merge({
       note: 'Most are free and already on the phone. All from the official App Store and Google Play — and every one is set up openly, both of you knowing. The names and setup are revealed inside, each with its own lesson.'
     },
     // BATIMENTO 6 — a oferta. Preço visível aqui (nunca no topo), garantia, e a FAQ.
-    priceboxTitle: 'Get your clarity today',
+    priceboxTitle: 'Get your answers today',
     priceboxItems: ['Instant access to every video lesson', 'The App Kit for iPhone & Android', 'Printable scripts, checklists & the Transparency Pact'],
     guarantee: 'Watch the lessons. If you don’t walk away calmer and clearer than any spy site ever left you, email contacto@love-vision.site within 30 days for a full refund. No questions, no hoops.',
     faq: [
