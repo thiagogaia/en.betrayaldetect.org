@@ -31,7 +31,17 @@
     props.lv_funnel = (w.LV_CONFIG && w.LV_CONFIG.funnel) || 'lv';
     props.lv_variant = (w.LV_CONFIG && w.LV_CONFIG.variant) || 'a';
     try { w.gtag('event', name, props); } catch (e) {}
-    try { w.clarity('event', name); } catch (e) {}
+    try {
+      // Clarity: marca a sessão com funil/variante (filtrar gravações por A/B) e nomeia o evento com a
+      // pergunta/seção, para filtrar sessões que chegaram até cada etapa do quiz e da oferta.
+      if (!track._tagged && w.LV_CONFIG) {
+        w.clarity('set', 'lv_funnel', props.lv_funnel); w.clarity('set', 'lv_variant', props.lv_variant);
+        track._tagged = true;
+      }
+      w.clarity('event', name);
+      if (props.q) w.clarity('event', name + '_' + props.q);
+      if (props.lv_section) w.clarity('event', name + '_' + props.lv_section);
+    } catch (e) {}
   }
 
   // ---- Repasse de parâmetros ---------------------------------------------
